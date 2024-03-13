@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
 

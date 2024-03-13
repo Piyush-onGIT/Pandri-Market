@@ -48,6 +48,7 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   rules: {
     "turbo/no-undeclared-env-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     indent: ["error", 2],
     quotes: ["error", "double"],
     semi: ["error", "always"],
