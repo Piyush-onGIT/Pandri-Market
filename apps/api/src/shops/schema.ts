@@ -1,42 +1,53 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
-const shopsSchema = new Schema(
+interface IShop extends Document {
+  shopName: string;
+  shopAddress: string;
+  shopPhoto?: string;
+  isPhysicalShop: boolean;
+  categorySold: string[];
+  gstNo?: string;
+  brands: string[];
+  owner: Types.ObjectId;
+}
+
+const shopsSchema: Schema<IShop> = new Schema(
   {
     shopName: {
-      type: "string",
+      type: String,
       required: true,
       trim: true,
     },
-    shopAdress: {
-      type: "string",
+    shopAddress: {
+      type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     shopPhoto: {
-      type: "string",
+      type: String,
+      required: false,
     },
     isPhysicalShop: {
-      type: "boolean",
-      required: true,
+      type: Boolean,
+      required: false,
     },
-    catagorySold: {
-      type: "string",
-      required: true,
+    categorySold: {
+      type: [String],
+      required: false,
     },
     gstNo: {
-      type: "string",
+      type: String,
     },
     brands: {
-      type: "string",
-      required: true,
+      type: [String],
+      required: false,
     },
     owner: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
   },
   { timestamps: true }
 );
 
-export const Shop = mongoose.model("Shop", shopsSchema);
+export const Shop = mongoose.model<IShop>("Shop", shopsSchema);

@@ -32,5 +32,7 @@ export const NotOK_ResponseMessage: { [key: string]: string } = {
   "Not Found": "The requested resource was not found.",
   "Internal Server Error": "Internal server error. Please try again later.",
   "Something went wrong": "Something unexpected happened. Please try again.",
+
+  // Validation Error Messages
+  "Not String": "Invalid value, expected a string",
 };
-// Validation Error Messages
