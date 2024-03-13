@@ -1,11 +1,14 @@
 import express, { Express } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
+import "reflect-metadata";
+import shopRoutes from "./shops/routes";
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(shopRoutes);
 
 const port = 5000;
 
