@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
 
@@ -8,10 +8,6 @@ const app: Express = express();
 app.use(express.json());
 
 const port = 5000;
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
 
 db()
   .then(() => {
