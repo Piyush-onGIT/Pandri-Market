@@ -1,18 +1,17 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
-import authroutes from "./authentication/routes";
+import "reflect-metadata";
+import shopRoutes from "./shops/routes";
+import authRoutes from "./authentication/routes";
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(shopRoutes);
 
 const port = 5000;
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
 
 db()
   .then(() => {
@@ -25,4 +24,4 @@ db()
   })
   .catch((err) => console.log(err));
 
-app.use(authroutes);
+app.use(authRoutes);
