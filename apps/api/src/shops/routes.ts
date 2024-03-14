@@ -5,8 +5,8 @@ import { verifyUser } from "../authentication/middleware";
 
 const router = Router();
 
-router.use(verifyUser);
+// router.use(verifyUser);
 
-router.route("/shopRegistration").post(shopRegistration);
+router.route("/shopRegistration").post(verifyUser, shopRegistration);
 
 export default router;

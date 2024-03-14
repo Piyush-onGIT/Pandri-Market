@@ -4,6 +4,8 @@ import * as dotenv from "dotenv";
 import "reflect-metadata";
 import shopRoutes from "./shops/routes";
 import errorHandler from "./http/errorHandler";
+import authRoutes from "./authentication/routes";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -13,7 +15,9 @@ export interface CustomRequest extends Request {
 
 const app: Express = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(shopRoutes);
+app.use(authRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {

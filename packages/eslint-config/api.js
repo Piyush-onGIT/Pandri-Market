@@ -15,7 +15,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  plugins: ["only-warn"],
+  plugins: ["only-warn", "import"],
   settings: {
     "import/resolver": {
       typescript: {
