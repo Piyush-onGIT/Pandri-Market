@@ -1,36 +1,16 @@
 import { Request, Response } from "express";
 import { Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
-import { plainToClass } from "class-transformer";
-import { ShopDTO } from "./dto/shop.dto";
-import { validateOrReject } from "class-validator";
+import { ShopDto } from "./dto/shop.dto";
+import { validateDto } from "./services/validateDto";
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
-    const shopDto = plainToClass(ShopDTO, req.body, {
-      excludeExtraneousValues: true,
+    const shopDto = await validateDto(ShopDto, req.body);
+
+    await Shop.create({
+      ...shopDto,
     });
-
-    try {
-      await validateOrReject(shopDto);
-    } catch (err: any) {
-      const constraintErrors = err[0].constraints;
-      const error = constraintErrors[Object.keys(constraintErrors)[0]];
-      return errorHandler(res, err, error, 405);
-    }
-
-    // validateOrReject(shopDto).catch((err) => {
-    //   const constraintErrors = err[0].constraints;
-    //   const error = constraintErrors[Object.keys(constraintErrors)[0]];
-    //   // return errorHandler(res, err, error, 405);
-    //   throw new Error(error);
-    // });
-    // console.log(shopDto);
-    // console.log(x);
-
-    // await Shop.create({
-    //   ...shopDto,
-    // });
 
     //  const createdShop = await Shop.findById(shop._id);
     //  if (!createdShop) {
@@ -42,7 +22,7 @@ const shopRegistration = async (req: Request, res: Response) => {
       statusCode: 200,
     });
   } catch (error: any) {
-    return errorHandler(res, error, "Something went wrong", 500);
+    return errorHandler(res, error);
   }
 };
 
