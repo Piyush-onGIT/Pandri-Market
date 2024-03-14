@@ -8,12 +8,12 @@ module.exports = {
     "eslint:recommended",
     "prettier",
     "eslint-config-turbo",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
   ],
   env: {
     node: true,
     browser: true,
-    es2021: true
+    es2021: true,
   },
   plugins: ["only-warn"],
   settings: {
@@ -27,43 +27,30 @@ module.exports = {
     // Ignore dotfiles
     ".*.js",
     "node_modules/",
-    "dist/"
+    "dist/",
   ],
   overrides: [
     {
-      "env": {
-        "node": true
+      env: {
+        node: true,
       },
-      files: [
-        "*.js?(x)",
-        "*.ts?(x)",
-        ".eslintrc.{js,cjs}"
-      ],
-      "parserOptions": {
-        "sourceType": "script"
-      }
-    }
+      files: ["*.js?(x)", "*.ts?(x)", ".eslintrc.{js,cjs}"],
+      parserOptions: {
+        sourceType: "script",
+      },
+    },
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
-  plugins: [
-    "@typescript-eslint"
-  ],
+  plugins: ["@typescript-eslint"],
   rules: {
-    "indent": [
-      "error",
-      2
-    ],
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
-  }
+    "turbo/no-undeclared-env-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    indent: ["error", 2],
+    quotes: ["error", "double"],
+    semi: ["error", "always"],
+  },
 };

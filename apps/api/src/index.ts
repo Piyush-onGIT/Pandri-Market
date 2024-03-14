@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
+import authroutes from "./authentication/routes";
 
 dotenv.config();
 
@@ -23,3 +24,5 @@ db()
     });
   })
   .catch((err) => console.log(err));
+
+app.use(authroutes);
