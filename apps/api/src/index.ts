@@ -15,7 +15,8 @@ const app: Express = express();
 app.use(express.json());
 app.use(shopRoutes);
 
-app.use((err: any, _: any, res: Response, next: NextFunction) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: any, _: any, res: Response, __: NextFunction) => {
   return errorHandler(res, err);
 });
 

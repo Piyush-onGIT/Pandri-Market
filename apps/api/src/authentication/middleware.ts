@@ -1,4 +1,4 @@
-import { NextFunction, Request } from "express";
+import { NextFunction } from "express";
 import ApiError from "../http/ApiError";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
