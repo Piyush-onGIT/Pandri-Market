@@ -7,10 +7,13 @@ import {
   IsString,
   Validate,
 } from "class-validator";
-import mongoose from "mongoose";
 
-export class ShopDTO {
-  @IsString({ message: "Not String" })
+import { validateOrReject } from "class-validator";
+import mongoose from "mongoose";
+import errorHandler from "../../http/errorHandler";
+
+export class ShopDto {
+  @IsString()
   @Expose()
   shopName!: string;
 
