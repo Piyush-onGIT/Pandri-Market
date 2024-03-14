@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
 import { ShopDto } from "./dto/shop.dto";
-import { validateDto } from "./services/validateDto";
+import { validateDto } from "../services/validateDto";
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
