@@ -3,6 +3,7 @@ import db from "./db/conn";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
 import shopRoutes from "./shops/routes";
+import authRoutes from "./authentication/routes";
 
 dotenv.config();
 
@@ -22,3 +23,5 @@ db()
     });
   })
   .catch((err) => console.log(err));
+
+app.use(authRoutes);
