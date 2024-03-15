@@ -24,6 +24,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  credit: {
+    default: 300,
+    type: Number,
+    required: true,
+  },
 });
 const UserModel = mongoose.model("User", UserSchema);
 export { UserModel };
