@@ -1,14 +1,28 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
 import shopRoutes from "./shops/routes";
+import errorHandler from "./http/errorHandler";
+import authRoutes from "./authentication/routes";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
+export interface CustomRequest extends Request {
+  user: any;
+}
+
 const app: Express = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(shopRoutes);
+app.use(authRoutes);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: any, _: any, res: Response, __: NextFunction) => {
+  return errorHandler(res, err);
+});
 
 const port = 5000;
 

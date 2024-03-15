@@ -1,6 +1,6 @@
 import { ClassConstructor, plainToClass } from "class-transformer";
 import { validateOrReject } from "class-validator";
-import ApiError from "../../http/ApiError";
+import ApiError from "../http/ApiError";
 
 const validateDto = async (dto: ClassConstructor<any>, body: any) => {
   const shopDto = plainToClass(dto, body, {
