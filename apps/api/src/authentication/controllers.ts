@@ -7,15 +7,37 @@ import { validateDto } from "../services/validateDto";
 import errorHandler from "../http/errorHandler";
 import ApiError from "../http/ApiError";
 import { UserLoginDto } from "./dto/userLogin.dto";
+const bcrypt = require("bcrypt");
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
+async function hashPassword(password: string) {
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+  } catch (error) {
+    throw new Error("Error hashing password");
+  }
+}
+async function verifyPassword(plainPassword: string, hashedPassword: string) {
+  try {
+    const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+    return isMatch;
+  } catch (error) {
+    throw new Error("Error verifying password");
+  }
+}
 const signup = async (req: any, res: Response) => {
   try {
     const userDto = await validateDto(UserRegisterDto, req.body);
+    const hashedPassword = await hashPassword(userDto.password);
+    userDto.password = hashedPassword;
     await UserModel.create({
       ...userDto,
     });
+    userDto.credit = 300;
+    console.log(userDto);
     return res.status(200).json({
       message: "Account created successfully",
     });
@@ -27,21 +49,21 @@ const login = async (req: any, res: Response) => {
   try {
     const body = await validateDto(UserLoginDto, req.body);
     const user = await UserModel.findOne({ phoneNo: body.phoneNo });
-    if (
-      user &&
-      user.phoneNo == body.phoneNo &&
-      user.password == body.password
-    ) {
+    const password = body.password;
+    const hashedPassword = user?.password;
+    let match: boolean = false;
+    if (hashedPassword) {
+      match = await verifyPassword(password, hashedPassword);
+    }
+
+    if (user && match) {
       const payload = {
         phoneNo: user.phoneNo,
       };
       const token = jwt.sign(payload, SC);
       res.cookie("token", token);
       res.json({ message: "Logged in", token: token });
-    } else if (user && user.phoneNo != body.phoneNo) {
-      const error = new ApiError(405, "Wrong phoneNo");
-      return errorHandler(res, error);
-    } else if (user && user.password !== body.password) {
+    } else if (user && !match) {
       const error = new ApiError(401, "Wrong password");
       return errorHandler(res, error);
     } else {
