@@ -1,11 +1,11 @@
-import { NextFunction } from "express";
+import { Request, NextFunction } from "express";
 import ApiError from "../http/ApiError";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export const verifyUser = (req: any, _: any, next: NextFunction) => {
+export const verifyUser = (req: Request, _: any, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
 
@@ -13,7 +13,7 @@ export const verifyUser = (req: any, _: any, next: NextFunction) => {
       next(new ApiError(401, "Token missing"));
     }
 
-    const user = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+    const user: any = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
     req.user = user;
     next();
   } catch (error: any) {
