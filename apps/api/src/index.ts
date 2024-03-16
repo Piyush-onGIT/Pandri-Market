@@ -6,6 +6,7 @@ import shopRoutes from "./shops/routes";
 import singleRoutes from "./uploads/routes";
 import errorHandler from "./http/errorHandler";
 import authRoutes from "./authentication/routes";
+import verifyPhoneNoRoutes  from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(shopRoutes);
 app.use(authRoutes);
 app.use(singleRoutes);
+app.use(verifyPhoneNoRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {
