@@ -9,14 +9,14 @@ import multer from "multer";
 
 // const s3Client = new S3Client({
 //   credentials: {
-//     accessKeyId: "AKIAVRUVQRD4FY3HIDP7",
-//     secretAccessKey: "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",
+//     accessKeyId: `${process.env.AWS_ACCESS_KEY}`,
+//     secretAccessKey: `${process.env.AWS_SECRET_KEY}`,
 //   },
 // });
 
 // async function getObjectURL(key: any) {
 //   const command = new GetObjectCommand({
-//     Bucket: "pandri-market-bucket",
+// Bucket: `${process.env.AWS_BUCKET_NAME}`,
 //     Key: key,
 //   });
 
@@ -38,7 +38,7 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: function (req: any, file: any, cb: any) {
-    cb(null, "../api/src/uploads/temp");
+    cb(null, "../api/src/uploads/tempImg");
   },
 
   filename: function (req: any, file: any, cb: any) {

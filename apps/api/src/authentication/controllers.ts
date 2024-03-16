@@ -7,7 +7,7 @@ import { validateDto } from "../services/validateDto";
 import errorHandler from "../http/errorHandler";
 import ApiError from "../http/ApiError";
 import { UserLoginDto } from "./dto/userLogin.dto";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
