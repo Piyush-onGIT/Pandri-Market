@@ -21,7 +21,6 @@ export class ShopDto {
   @Expose()
   shopAddress!: string;
 
-  @IsOptional()
   @IsBoolean()
   @Expose()
   isPhysicalShop!: boolean;
@@ -41,7 +40,6 @@ export class ShopDto {
   @Expose()
   categorySold!: string[];
 
-  @IsOptional()
   @Expose()
   owner!: mongoose.Types.ObjectId;
 }

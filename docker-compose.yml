@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  whatsapp: 
+    image: devlikeapro/whatsapp-http-api
+    ports:
+      - "5001:3000"
+    container_name: whatsapp
+    restart: always
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+
+  
