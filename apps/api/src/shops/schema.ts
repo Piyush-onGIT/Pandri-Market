@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
-
 interface IShop extends Document {
   shopName: string;
   shopAddress: string;
@@ -29,7 +28,7 @@ const shopsSchema: Schema<IShop> = new Schema(
     },
     isPhysicalShop: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     categorySold: {
       type: [String],
@@ -45,6 +44,7 @@ const shopsSchema: Schema<IShop> = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
   },
   { timestamps: true }

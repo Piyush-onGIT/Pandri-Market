@@ -45,6 +45,7 @@ const signup = async (req: any, res: Response) => {
     return errorHandler(res, error);
   }
 };
+
 const login = async (req: any, res: Response) => {
   try {
     const body = await validateDto(UserLoginDto, req.body);
@@ -58,7 +59,7 @@ const login = async (req: any, res: Response) => {
 
     if (user && match) {
       const payload = {
-        phoneNo: user.phoneNo,
+        id: user._id,
       };
       const token = jwt.sign(payload, SC);
       res.cookie("token", token);
