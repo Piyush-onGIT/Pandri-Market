@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(shopRoutes);
 app.use(authRoutes);
-app.use(singleRoutes);
+app.use("/upload", singleRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {

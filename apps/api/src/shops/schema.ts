@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
-
 interface IShop extends Document {
   shopName: string;
   shopAddress: string;

@@ -45,6 +45,7 @@ const signup = async (req: any, res: Response) => {
     return errorHandler(res, error);
   }
 };
+
 const login = async (req: any, res: Response) => {
   try {
     const body = await validateDto(UserLoginDto, req.body);
