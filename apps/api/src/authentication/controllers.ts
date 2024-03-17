@@ -59,7 +59,7 @@ const login = async (req: any, res: Response) => {
 
     if (user && match) {
       const payload = {
-        phoneNo: user.phoneNo,
+        id: user._id,
       };
       const token = jwt.sign(payload, SC);
       res.cookie("token", token);
