@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
-import { ShopDto } from "./dto/shop.dto";
+import { ShopDto, ShopUpdate } from "./dto/shop.dto";
 import { validateDto } from "../services/validateDto";
 import { UserModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
@@ -81,10 +81,37 @@ const deleteShop = async (req: Request, res: Response) => {
     }
     res.status(200).json({
       message: "Shop has been deleted successfully",
+      statusCode: 200,
     });
   } catch (error: any) {
     return errorHandler(res, error);
   }
 };
 
-export { shopRegistration, getMyShops, deleteShop };
+const updateShop = async (req: Request, res: Response) => {
+  try {
+    const shopUpdate = await validateDto(ShopUpdate, req.body);
+    const updatedShop = await Shop.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: { ...shopUpdate },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedShop) {
+      throw new ApiError(400, "Unable to update shop try again..");
+    }
+
+    res.status(200).json({
+      message: "Shop updated successfully",
+      updateShop,
+    });
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+export { shopRegistration, getMyShops, deleteShop, updateShop };
