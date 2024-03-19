@@ -1,14 +1,17 @@
 import { Router } from "express";
-
-import { shopRegistration, getMyShops, deleteShop } from "./controllers";
+import {
+  shopRegistration,
+  getMyShops,
+  deleteMyShop,
+  updateMyShop,
+} from "./controllers";
 import { verifyUser } from "../authentication/middleware";
 
 const router = Router();
 
-// router.use(verifyUser);
-
 router.route("/shopRegistration").post(verifyUser, shopRegistration);
-router.route("/getShops").get(verifyUser, getMyShops);
-router.route("/deleteShop/:id").delete(verifyUser, deleteShop);
+router.route("/getMyShops").get(verifyUser, getMyShops);
+router.route("/deleteMyShop/:id").delete(verifyUser, deleteMyShop);
+router.route("/updateMyShop/:id").patch(verifyUser, updateMyShop);
 
 export default router;
