@@ -44,10 +44,10 @@ const uploadToS3 = async (file: any) => {
  */
 const uploadSingle = async (req: Request, res: Response) => {
   try {
-    const imgUrls = await uploadToS3(req.file);
+    const imgUrl = await uploadToS3(req.file);
     res.status(200).json({
       message: "Image uploaded successfully",
-      imgUrls: imgUrls,
+      imgUrl: imgUrl,
     });
   } catch (error: any) {
     throw new ApiError(500, error);
