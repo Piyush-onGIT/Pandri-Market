@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import Signup from '../../components/Signup';
+import Head from "next/head";
+import Signup from "../../components/Signup";
 
 const SignupPage = () => {
   return (
@@ -12,7 +12,7 @@ const SignupPage = () => {
         <Signup />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;
