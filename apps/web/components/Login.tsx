@@ -1,17 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
+import useStore from "../store/useStore";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const phoneNo = useStore((state: any) => state.phoneNo);
+  const password = useStore((state: any) => state.password);
+  const setPhoneNo = useStore((state: any) => state.setPhoneNo);
+  const setPassword = useStore((state: any) => state.setPassword);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    console.log("Email:", email);
+    console.log("Phone No:", phoneNo);
     console.log("Password:", password);
   };
 
@@ -30,17 +33,17 @@ const Login = () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
+            htmlFor="phoneNo"
           >
-            Email
+            Phone Number
           </label>
           <input
             className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
-            id="email"
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="phoneNo"
+            type="number"
+            placeholder="Enter your number"
+            value={(phoneNo === 0) ? "" : phoneNo}
+            onChange={(e) => setPhoneNo(e.target.value)}
           />
         </div>
         <div className="mb-6">
@@ -82,7 +85,10 @@ const Login = () => {
         <div>
           <div>
             Don't have an Account?{" "}
-            <Link href="/pages/Signup" className="text-[#f9683c] font-semibold underline hover:no-underline">
+            <Link
+              href="/Signup"
+              className="text-[#f9683c] font-semibold underline hover:no-underline"
+            >
               Register as Shop Owner
             </Link>
           </div>

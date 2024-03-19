@@ -1,6 +1,6 @@
 import React from "react";
-import Head from 'next/head';
-import LoginPage from '../../components/Login';
+import Head from "next/head";
+import LoginPage from "../../components/Login";
 
 const Login = () => {
   return (

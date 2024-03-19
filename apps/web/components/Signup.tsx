@@ -1,24 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
+import useStore from "../store/useStore";
 
 const Login = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const name = useStore((state: any) => state.name);
+  const phoneNo = useStore((state: any) => state.phoneNo);
+  const email = useStore((state: any) => state.email);
+  const password = useStore((state: any) => state.password);
+  const address = useStore((state: any) => state.address);
+  const setName = useStore((state: any) => state.setName);
+  const setEmail = useStore((state: any) => state.setEmail);
+  const setPhoneNo = useStore((state: any) => state.setPhoneNo);
+  const setPassword = useStore((state: any) => state.setPassword);
+  const setAddress = useStore((state: any) => state.setAddress);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
     console.log("Name:", name);
     console.log("Email:", email);
+    console.log("Address:", address);
+    console.log("Phone Number:", phoneNo);
     console.log("Password:", password);
   };
 
   return (
-    <div className="w-[20rem] sm:w-[26rem] mx-auto">
+    <div className="w-[20rem] sm:w-[26rem] mx-auto scale-90">
       <form
         className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit}
@@ -64,9 +74,41 @@ const Login = () => {
         <div className="mb-6">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="address"
+          >
+            <div>Address</div>
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
+            id="address"
+            type="address"
+            placeholder="Write your address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="phoneno"
+          >
+            <div>Phone Number</div>
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
+            id="phoneNo"
+            type="number"
+            placeholder="Enter your number"
+            value={phoneNo === 0 ? "" : phoneNo}
+            onChange={(e) => setPhoneNo(e.target.value)}
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
           >
-            <div>Password</div>
+            <div>Set Password</div>
           </label>
           <input
             className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
@@ -95,7 +137,10 @@ const Login = () => {
         <div>
           <div>
             Already have an account?{" "}
-            <Link href="/pages/Login" className="text-[#f9683c] font-semibold underline hover:no-underline">
+            <Link
+              href="/Login"
+              className="text-[#f9683c] font-semibold underline hover:no-underline"
+            >
               Login
             </Link>
           </div>

@@ -9,7 +9,7 @@ import Arrow from "../../assets/images/arrow.png";
 import { CiFacebook } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
 import { CiTwitter } from "react-icons/ci";
-import "../../globals.css";
+import "../globals.css";
 
 const HomePage = () => {
   return (
