@@ -6,6 +6,17 @@ import { validateDto } from "../services/validateDto";
 import { UserModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
 import mongoose from "mongoose";
+import { Get, Route } from "tsoa";
+
+@Route("ping")
+export default class ShopController {
+  @Get("/")
+  public async getMessage() {
+    return {
+      message: "hello",
+    };
+  }
+}
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
