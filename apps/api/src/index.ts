@@ -8,7 +8,7 @@ import errorHandler from "./http/errorHandler";
 import authRoutes from "./authentication/routes";
 import verifyPhoneNoRoutes from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
+import morgan from "morgan";
 
 dotenv.config();
 
@@ -16,8 +16,9 @@ const app: Express = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
+app.use(morgan("tiny"));
 
-app.use(shopRoutes);
+app.use("/shop", shopRoutes);
 app.use(authRoutes);
 app.use("/upload", uploadroutes);
 app.use(verifyPhoneNoRoutes);
@@ -28,16 +29,6 @@ app.use((err: any, _: any, res: Response, __: NextFunction) => {
 
   return errorHandler(res, err);
 });
-
-app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(undefined, {
-    swaggerOptions: {
-      url: "/swagger.json",
-    },
-  })
-);
 
 const port = 5000;
 
