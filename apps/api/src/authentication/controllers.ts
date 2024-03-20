@@ -69,12 +69,40 @@ const login = async (req: any, res: Response) => {
       const error = new ApiError(401, "Wrong password");
       return errorHandler(res, error);
     } else {
-      const error = new ApiError(404, "signup to continue");
+      const error = new ApiError(404, "Signup to continue");
       return errorHandler(res, error);
     }
   } catch (error: any) {
     return errorHandler(res, error);
   }
+};
+const logout = async (req: any, res: Response) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out" });
+};
+
+const myProfile = async (req: any, res: Response) => {
+  const userId = req.user.id;
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    throw new ApiError(400, "User not found");
+  }
+  res.json({
+    message: "UserInformation successfully shared",
+    information: user,
+  });
+};
+const updateProfile = async (req: any, res: Response) => {
+  const userId = req.user.id;
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  await UserModel.updateOne({ _id: userId }, req.body);
+  await user.save();
+  res.json({
+    message: "UserInformation successfully updated",
+  });
 };
 
 const deleteUser = async (req: Request, res: Response) => {
@@ -97,5 +125,4 @@ const deleteUser = async (req: Request, res: Response) => {
     return errorHandler(res, error);
   }
 };
-
-export { signup, login, deleteUser };
+export { myProfile, updateProfile, logout, signup, login, deleteUser };

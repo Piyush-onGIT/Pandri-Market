@@ -28,6 +28,11 @@ const UserSchema = new Schema({
     default: 300,
     type: Number,
   },
+  isPhoneVerified: {
+    default: false,
+    type: Boolean,
+    required: true,
+  },
 });
 const UserModel = mongoose.model("User", UserSchema);
 export { UserModel };
