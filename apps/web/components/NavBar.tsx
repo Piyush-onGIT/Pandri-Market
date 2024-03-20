@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
@@ -58,20 +58,22 @@ const NavBar = () => {
             <CgProfile size="1.5rem" />
           </div>
         </div>
-        <div className={`absolute ${menu ? "block" : "hidden"} right-4 top-12 z-10 bg-white rounded-lg p-4 flex flex-col gap-4 sm:hidden navbar-menu`}>
+        <div
+          className={`absolute ${menu ? "flex" : "hidden"} right-4 top-12 z-10 bg-white rounded-lg p-4 flex-col gap-2 sm:hidden navbar-menu`}
+        >
           <div>
-            <div className="flex gap-2">
-              <IoSearchSharp size="1.5rem" /> <div>Search</div>
+            <div className="flex items-center gap-2">
+              <IoSearchSharp size="1.3rem" /> <div>Search</div>
             </div>
           </div>
           <div>
-            <div className="flex gap-2">
-              <MdOutlineShoppingCart size="1.5rem" /> <div>Add to Cart</div>
+            <div className="flex items-center gap-2">
+              <MdOutlineShoppingCart size="1.3rem" /> <div>Add to Cart</div>
             </div>
           </div>
           <div>
-            <div className="flex gap-2">
-              <CgProfile size="1.5rem" /> <div>Profile</div>
+            <div className="flex items-center gap-2">
+              <CgProfile size="1.3rem" /> <div>Profile</div>
             </div>
           </div>
         </div>

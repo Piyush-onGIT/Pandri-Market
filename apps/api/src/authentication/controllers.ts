@@ -9,7 +9,6 @@ import ApiError from "../http/ApiError";
 import { UserLoginDto } from "./dto/userLogin.dto";
 import bcrypt from "bcrypt";
 import { Shop } from "../shops/schema";
-import mongoose from "mongoose";
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
