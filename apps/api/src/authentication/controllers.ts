@@ -1,13 +1,14 @@
 import { UserModel } from "./schema";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { UserRegisterDto } from "./dto/userRegister.dto";
 import { validateDto } from "../services/validateDto";
 import errorHandler from "../http/errorHandler";
 import ApiError from "../http/ApiError";
 import { UserLoginDto } from "./dto/userLogin.dto";
 import bcrypt from "bcrypt";
+import { Shop } from "../shops/schema";
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
@@ -103,4 +104,25 @@ const updateProfile = async (req: any, res: Response) => {
     message: "UserInformation successfully updated",
   });
 };
-export { signup, login, myProfile, updateProfile, logout };
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const deleteShops = await Shop.deleteMany({ owner: req.user.id });
+    if (!deleteShops) {
+      throw new ApiError(400, "Unable to delelte User's shop");
+    }
+    const noOfShops = deleteShops.deletedCount;
+
+    const deleteUser = await UserModel.deleteOne({ _id: req.user.id });
+    if (!deleteUser) {
+      throw new ApiError(400, "Unable to delete User");
+    }
+
+    res.status(200).json({
+      message: `User has been deleted, ${noOfShops} shops has been deleted`,
+    });
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+export { myProfile, updateProfile, logout, signup, login, deleteUser };
