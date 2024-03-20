@@ -6,7 +6,7 @@ import shopRoutes from "./shops/routes";
 import uploadroutes from "./uploads/routes";
 import errorHandler from "./http/errorHandler";
 import authRoutes from "./authentication/routes";
-import verifyPhoneNoRoutes from "./authentication/verification/routes";
+// import verifyPhoneNoRoutes from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 
@@ -21,7 +21,7 @@ app.use(morgan("tiny"));
 app.use("/shop", shopRoutes);
 app.use(authRoutes);
 app.use("/upload", uploadroutes);
-app.use(verifyPhoneNoRoutes);
+// app.use(verifyPhoneNoRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {
