@@ -27,7 +27,6 @@ const UserSchema = new Schema({
   credit: {
     default: 300,
     type: Number,
-    required: true,
   },
   isPhoneVerified: {
     default: false,

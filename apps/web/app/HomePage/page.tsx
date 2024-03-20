@@ -9,7 +9,7 @@ import Arrow from "../../assets/images/arrow.png";
 import { CiFacebook } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
 import { CiTwitter } from "react-icons/ci";
-import "../../globals.css";
+import "../globals.css";
 
 const HomePage = () => {
   return (
@@ -30,8 +30,8 @@ const HomePage = () => {
           <CiTwitter className="scale-125 lg:scale-150" />
         </div>
       </div>
-      <div className="mx-8"> 
-        <div className="relative mb-6 sm:mb-12">
+      <div className="mx-3 xs:mx-8">
+        <div className="relative mb-4 sm:mb-6">
           <div className="block sm:grid grid-cols-3 grid-rows-2 lg:flex justify-around items-center mt-6 sm:mt-10 text-[2rem] sm:text-[2.8rem] md:text-5xl lg:text-6xl xl:text-7xl leading-normal font-bold text-center font-custom">
             <div className="hidden sm:block rounded-2xl overflow-hidden scale-75 lg:scale-100">
               <Image src={SampleI1} alt="sample-1" width={200} />
@@ -46,9 +46,9 @@ const HomePage = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <div className="grid grid-cols-2 gap-y-8 justify-items-center sm:flex sm:mt-16 sm:justify-around w-[100vw]">
+          <div className="grid grid-cols-2 gap-y-8 justify-items-center sm:flex sm:mt-10 lg:mt-16 sm:justify-around w-[100vw]">
             <div className="self-center col-span-2 grid grid-cols-6 sm:flex flex-col gap-6 md:gap-12 relative">
-              <div className="col-span-4 flex flex-col gap-6 md:gap-12">
+              <div className="col-span-6 sm:col-span-4 flex flex-col gap-6 md:gap-8">
                 <div className="flex flex-col gap-2 absolute -right-2 -top-12">
                   <div className="text-[0.8rem] font-semibold">Up To</div>
                   <div className="text-[#f9683c] text-2xl font-semibold">
@@ -59,12 +59,12 @@ const HomePage = () => {
                     <Image className="" src={Arrow} alt="arrow" width={200} />
                   </div>
                 </div>
-                <div className="flex flex-col gap-5 font-black">
+                <div className=" flex flex-col gap-5 font-black">
                   <div>Men</div>
                   <div className="text-[#f9683c]">Women</div>
                   <div>Kids</div>
                   <div className="text-[0.8rem] font-semibold">See More</div>
-                  <button className="bg-[#f9683c] p-3 text-white rounded-lg w-[55%]">
+                  <button className="bg-[#f9683c] p-3 text-white rounded-lg w-[40%] sm:w-[55%]">
                     Shop Now &rarr;
                   </button>
                 </div>
@@ -79,7 +79,7 @@ const HomePage = () => {
                   <div>Beautiful</div>
                 </div>
               </div>
-              <div className="lg:hidden self-center col-span-2">
+              <div className="lg:hidden self-center w-[100vw] xs:w-[100%] col-span-6 xs:col-span-3 sm:col-span-2">
                 <div>
                   <div className="flex gap-1 items-center mt-4">
                     <div>
@@ -112,7 +112,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[325px] row-start-1 col-span-2">
+            <div className="w-[320px] row-start-1 col-span-2">
               <Image src={SampleI3} alt="sample-3" />
             </div>
             <div className="self-center hidden lg:block">

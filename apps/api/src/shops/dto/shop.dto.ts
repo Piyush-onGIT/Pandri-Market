@@ -21,7 +21,6 @@ export class ShopDto {
   @Expose()
   shopAddress!: string;
 
-  @IsOptional()
   @IsBoolean()
   @Expose()
   isPhysicalShop!: boolean;
@@ -41,7 +40,38 @@ export class ShopDto {
   @Expose()
   categorySold!: string[];
 
-  @IsOptional()
   @Expose()
   owner!: mongoose.Types.ObjectId;
+}
+
+export class ShopUpdate {
+  @IsOptional()
+  @IsString()
+  @Expose()
+  shopName!: string;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  shopAddress!: string;
+
+  @IsOptional()
+  @IsString()
+  @Expose()
+  shopPhoto!: string;
+
+  @IsOptional()
+  @IsBoolean()
+  @Expose()
+  isPhysicalShop!: boolean;
+
+  @IsOptional()
+  @IsArray()
+  @Expose()
+  categorySold!: string[];
+
+  @IsOptional()
+  @IsArray()
+  @Expose()
+  brands!: string[];
 }

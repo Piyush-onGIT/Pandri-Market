@@ -3,24 +3,24 @@ import db from "./db/conn";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
 import shopRoutes from "./shops/routes";
-import singleRoutes from "./uploads/routes";
+import uploadroutes from "./uploads/routes";
 import errorHandler from "./http/errorHandler";
 import authRoutes from "./authentication/routes";
-import verifyPhoneNoRoutes  from "./authentication/verification/routes";
+import verifyPhoneNoRoutes from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 dotenv.config();
-
-// export interface CustomRequest extends Request {
-//   user: any;
-// }
 
 const app: Express = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(shopRoutes);
+app.use(express.static("public"));
+app.use(morgan("tiny"));
+
+app.use("/shop", shopRoutes);
 app.use(authRoutes);
-app.use(singleRoutes);
+app.use("/upload", uploadroutes);
 app.use(verifyPhoneNoRoutes);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
