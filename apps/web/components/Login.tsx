@@ -18,6 +18,8 @@ const Login = () => {
     console.log("Password:", password);
   };
 
+ 
+
   return (
     <div className="w-[20rem] sm:w-[26rem] mx-auto">
       <form
@@ -42,7 +44,7 @@ const Login = () => {
             id="phoneNo"
             type="number"
             placeholder="Enter your number"
-            value={(phoneNo === 0) ? "" : phoneNo}
+            value={phoneNo === 0 ? "" : phoneNo}
             onChange={(e) => setPhoneNo(e.target.value)}
           />
         </div>
@@ -86,7 +88,11 @@ const Login = () => {
           <div>
             Don't have an Account?{" "}
             <Link
-              href="/Signup"
+              onClick={() => {
+                setPassword("");
+                setPhoneNo(null);
+              }}
+              href="/signup"
               className="text-[#f9683c] font-semibold underline hover:no-underline"
             >
               Register as Shop Owner

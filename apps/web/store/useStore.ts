@@ -6,14 +6,9 @@ type Store = {
   address: string;
   phoneNo: number;
   password: string;
-  // setName: (newName: string) => void;
-  // setEmail: (newEmail: string) => void;
-  // setAddress: (newAddress: string) => void;
-  // setPassword: (newPassword: string) => void;
-  // setPhoneNo: (newPhoneNo: number) => void;
 };
 
-const useStore = create<Store>((set) => ({
+const useUserStore = create<Store>((set) => ({
   name: "",
   phoneNo: 0,
   email: "",
@@ -36,4 +31,5 @@ const useStore = create<Store>((set) => ({
   },
 }));
 
-export default useStore;
+export default useUserStore;
+

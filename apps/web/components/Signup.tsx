@@ -5,7 +5,7 @@ import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
 import useStore from "../store/useStore";
 
-const Login = () => {
+const Signup = () => {
   const name = useStore((state: any) => state.name);
   const phoneNo = useStore((state: any) => state.phoneNo);
   const email = useStore((state: any) => state.email);
@@ -138,7 +138,11 @@ const Login = () => {
           <div>
             Already have an account?{" "}
             <Link
-              href="/Login"
+              onClick={() => {
+                setPassword("");
+                setPhoneNo(null);
+              }}
+              href="/login"
               className="text-[#f9683c] font-semibold underline hover:no-underline"
             >
               Login
@@ -150,4 +154,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
