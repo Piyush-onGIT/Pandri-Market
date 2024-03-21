@@ -1,13 +1,13 @@
-import HomePage from "./HomePage/page";
+import { Toaster } from "react-hot-toast";
+import HomePage from "./homePage/page";
 
 export default function Page(): JSX.Element {
   return (
-<<<<<<< HEAD
-    <main className="bg-[#f9683c]">
-=======
-    <main className="bg-[#e0d9d0]">
->>>>>>> d93ff639a5b01390bf56520559cce9511361b130
-      <HomePage />
-    </main>
+    <>
+      <Toaster />
+      <main className="bg-[#e0d9d0]">
+        <HomePage />
+      </main>
+    </>
   );
 }
