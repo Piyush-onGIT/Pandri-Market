@@ -18,7 +18,7 @@ const shopRegistration = async (req: Request, res: Response) => {
         "This shop name has already been taken for this user please take another name"
       );
     }
-    const userget = await UserModel.findOne({ id: req.user._id });
+    const userget = await UserModel.findOne({ _id: req.user.id });
     console.log(userget);
 
     if (!userget) {

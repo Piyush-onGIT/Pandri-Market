@@ -24,6 +24,8 @@
     #a853ba 180deg,
     #e92a67 360deg
   );
+
+  --orange: #f9683c;
 }
 
 * {
@@ -129,5 +131,3 @@ a {
   font-family: fashion;
   src: url("../assets/fonts//BemirsDemoVersionRegular-L360Z.ttf");
 }
-
-

@@ -12,7 +12,6 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { CiTwitter } from "react-icons/ci";
 import "../globals.css";
 import toast from "react-hot-toast";
-import { Input } from "postcss";
 
 const HomePage = () => {
   return (

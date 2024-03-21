@@ -3,6 +3,7 @@ import axios from "axios";
 import errorHandler from "../../http/errorHandler";
 import ApiError from "../../http/ApiError";
 import { Redis } from "ioredis";
+import { UserModel } from "../schema";
 
 const redis = new Redis();
 function generateRandomNumber(): number {
@@ -38,9 +39,10 @@ const verifyOtp = async (req: any, res: Response) => {
   const otp = req.body.otp;
   const phoneNo = req.body.phoneNo;
   const storedOtp = await redis.get(phoneNo);
-  console.log(phoneNo);
-  console.log(storedOtp);
   if (storedOtp === otp) {
+    const user = await UserModel.findOne({ phoneNo: phoneNo });
+    await UserModel.updateOne({ phoneNo: phoneNo }, { isPhoneVerified: true });
+    await user?.save();
     res.json({ message: "PhoneNo Verified" });
   } else {
     res.json({ message: "OTP invalid" });
