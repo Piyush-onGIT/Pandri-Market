@@ -3,28 +3,15 @@ import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
-import useStore from "../store/useStore";
+import useSellerStore from "../store/useStore";
 
 const Signup = () => {
-  const name = useStore((state: any) => state.name);
-  const phoneNo = useStore((state: any) => state.phoneNo);
-  const email = useStore((state: any) => state.email);
-  const password = useStore((state: any) => state.password);
-  const address = useStore((state: any) => state.address);
-  const setName = useStore((state: any) => state.setName);
-  const setEmail = useStore((state: any) => state.setEmail);
-  const setPhoneNo = useStore((state: any) => state.setPhoneNo);
-  const setPassword = useStore((state: any) => state.setPassword);
-  const setAddress = useStore((state: any) => state.setAddress);
+  const {signup, signupSellerData, setSignupSellerData } = useSellerStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Address:", address);
-    console.log("Phone Number:", phoneNo);
-    console.log("Password:", password);
+    console.log(signupSellerData);
+    signup(signupSellerData);
   };
 
   return (
@@ -51,8 +38,10 @@ const Signup = () => {
             id="name"
             type="text"
             placeholder="John Doe"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={signupSellerData.name}
+            onChange={(e) =>
+              setSignupSellerData({ ...signupSellerData, name: e.target.value })
+            }
           />
         </div>
         <div className="mb-6">
@@ -67,8 +56,13 @@ const Signup = () => {
             id="email"
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={signupSellerData.email}
+            onChange={(e) =>
+              setSignupSellerData({
+                ...signupSellerData,
+                email: e.target.value,
+              })
+            }
           />
         </div>
         <div className="mb-6">
@@ -83,8 +77,13 @@ const Signup = () => {
             id="address"
             type="address"
             placeholder="Write your address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            value={signupSellerData.address}
+            onChange={(e) =>
+              setSignupSellerData({
+                ...signupSellerData,
+                address: e.target.value,
+              })
+            }
           />
         </div>
         <div className="mb-6">
@@ -99,8 +98,13 @@ const Signup = () => {
             id="phoneNo"
             type="number"
             placeholder="Enter your number"
-            value={phoneNo === 0 ? "" : phoneNo}
-            onChange={(e) => setPhoneNo(e.target.value)}
+            value={signupSellerData.phoneNo}
+            onChange={(e) =>
+              setSignupSellerData({
+                ...signupSellerData,
+                phoneNo: e.target.value,
+              })
+            }
           />
         </div>
         <div className="mb-6">
@@ -115,8 +119,13 @@ const Signup = () => {
             id="password"
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={signupSellerData.password}
+            onChange={(e) =>
+              setSignupSellerData({
+                ...signupSellerData,
+                password: e.target.value,
+              })
+            }
           />
         </div>
         <div className="flex items-center justify-between mb-8">
@@ -138,10 +147,6 @@ const Signup = () => {
           <div>
             Already have an account?{" "}
             <Link
-              onClick={() => {
-                setPassword("");
-                setPhoneNo(null);
-              }}
               href="/login"
               className="text-[#f9683c] font-semibold underline hover:no-underline"
             >
