@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Shop } from "./schema";
+import { PhotoModel, Shop, VideoModel } from "./schema";
 import errorHandler from "../http/errorHandler";
-import { ShopDto, ShopUpdate } from "./dto/shop.dto";
+import { ShopDto, ShopUpdate, PhotoDto, VideoDto } from "./dto/shop.dto";
 import { validateDto } from "../services/validateDto";
 import { UserModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
@@ -110,4 +110,59 @@ const updateMyShop = async (req: Request, res: Response) => {
   }
 };
 
-export { shopRegistration, getMyShops, deleteMyShop, updateMyShop };
+const photoPosts = async (req: any, res: Response) => {
+  try {
+    const photodetails = await validateDto(PhotoDto, req.body);
+    const userid = req.user.id;
+    const user = await UserModel.findById(userid);
+    if (user && user.credit >= 50) {
+      await PhotoModel.create({
+        ...photodetails,
+      });
+      user.credit = user.credit - 50;
+      await user.save();
+      return res.status(200).json({
+        message: "Photo posted successfully",
+      });
+    } else {
+      return res.status(200).json({
+        message: "You dont have enough credits",
+      });
+    }
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+const videoPosts = async (req: any, res: Response) => {
+  try {
+    const videodetails = await validateDto(VideoDto, req.body);
+    const userid = req.user.id;
+    const user = await UserModel.findById(userid);
+    if (user && user.credit >= 70) {
+      await VideoModel.create({
+        ...videodetails,
+      });
+      user.credit = user.credit - 70;
+      await user.save();
+      return res.status(200).json({
+        message: "video posted successfully",
+      });
+    } else {
+      return res.status(200).json({
+        message: "You dont have enough credits",
+      });
+    }
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+export {
+  shopRegistration,
+  getMyShops,
+  deleteMyShop,
+  updateMyShop,
+  photoPosts,
+  videoPosts,
+};
