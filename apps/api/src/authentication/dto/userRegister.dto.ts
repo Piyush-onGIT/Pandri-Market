@@ -19,6 +19,7 @@ export class UserRegisterDto {
   @Expose()
   phoneNo!: string;
 
+  @IsOptional()
   @IsString()
   @Expose()
   fullName!: string;

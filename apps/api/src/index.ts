@@ -13,7 +13,21 @@ import cors from "cors";
 
 dotenv.config();
 
+export const cookieOptions: { [key: string]: string | boolean } = {
+  path: "/",
+  httpOnly: true,
+  secure: true,
+  domain: "localhost",
+  sameSite: "None",
+};
+
+const corsOptions: { [key: string]: string | boolean | string[] } = {
+  origin: ["http://localhost:3000", "http://localhost:3001"],
+  credentials: true,
+};
+
 const app: Express = express();
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
@@ -31,25 +45,7 @@ app.use((err: any, _: any, res: Response, __: NextFunction) => {
   return errorHandler(res, err);
 });
 
-export const cookieOptions: { [key: string]: string | boolean } = {
-  path: "/",
-  httpOnly: true,
-  secure: true,
-  domain: "localhost",
-  sameSite: "None",
-};
 
-const corsOptions: { [key: string]: string | boolean | string[] } = {
-  origin: [
-    "http://127.0.0.1:5000",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5001",
-    "*",
-  ],
-  Credential: true,
-};
-
-app.use(cors(corsOptions));
 
 
 const port = 5000;
