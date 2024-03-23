@@ -49,5 +49,50 @@ const shopsSchema: Schema<IShop> = new Schema(
   },
   { timestamps: true }
 );
-
 export const Shop = mongoose.model<IShop>("Shop", shopsSchema);
+
+const postedPhotoSchema = new Schema({
+  shop: {
+    type: Schema.Types.ObjectId,
+    ref: Shop,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  likes: {
+    type: Number,
+    required: false,
+  },
+  comments: {
+    type: String,
+  },
+  tags: {
+    type: String,
+  },
+});
+
+const postedVideoSchema = new Schema({
+  shop: {
+    type: Schema.Types.ObjectId,
+    ref: Shop,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  likes: {
+    type: Number,
+    required: false,
+  },
+  comments: {
+    type: String,
+  },
+  tags: {
+    type: String,
+  },
+});
+
+const PhotoModel = mongoose.model("photomodel", postedPhotoSchema);
+const VideoModel = mongoose.model("videomodel", postedVideoSchema);
+export { PhotoModel, VideoModel };

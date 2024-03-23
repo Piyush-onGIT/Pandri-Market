@@ -1,4 +1,5 @@
 import { Expose } from "class-transformer";
+import { Schema } from "mongoose";
 import {
   IsArray,
   IsBoolean,
@@ -6,6 +7,7 @@ import {
   IsOptional,
   IsString,
   Validate,
+  IsNumber,
 } from "class-validator";
 
 import { validateOrReject } from "class-validator";
@@ -74,4 +76,48 @@ export class ShopUpdate {
   @IsArray()
   @Expose()
   brands!: string[];
+}
+
+export class PhotoDto {
+  @IsString()
+  @Expose()
+  shop!: Schema.Types.ObjectId;
+
+  @IsString()
+  @Expose()
+  url!: string;
+
+  @IsNumber()
+  @Expose()
+  likes!: Number;
+
+  @IsString()
+  @Expose()
+  tags!: string;
+
+  @IsString()
+  @Expose()
+  comments!: string;
+}
+
+export class VideoDto {
+  @IsString()
+  @Expose()
+  shop!: Schema.Types.ObjectId;
+
+  @IsString()
+  @Expose()
+  url!: string;
+
+  @IsNumber()
+  @Expose()
+  likes!: Number;
+
+  @IsString()
+  @Expose()
+  tags!: string;
+
+  @IsString()
+  @Expose()
+  comments!: string;
 }
