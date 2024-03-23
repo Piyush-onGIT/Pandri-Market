@@ -40,13 +40,8 @@ app.use("/upload", uploadroutes);
 // app.use(verifyPhoneNoRoutes);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {
-  console.log("error is: ", err);
-
   return errorHandler(res, err);
 });
-
-
-
 
 const port = 5000;
 
