@@ -5,6 +5,7 @@ import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 import useSellerStore from "../store/useStore";
+import { fieldCheck } from "../utils/checks";
 
 const Login = () => {
   const { login, loginSellerData, setLoginSellerData } = useSellerStore();
@@ -12,24 +13,8 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log( loginSellerData);
-
-    // emptyFieldCheck(loginSellerData);
-
-    login(loginSellerData);
-    // if (loginSellerData.phoneNo == "" || loginSellerData.phoneNo.length < 13) {
-    //   toast.error("Phone number should not be empty!");
-    //   return;
-    // }
-    // if (loginSellerData.password == "") {
-    //   toast.error("Phone number should not be empty!");
-    //   return;
-    // }
-
-    // const logging = toast.loading("Logging in...");
-    // setTimeout(() => {
-    //   toast.remove(logging);
-    //   toast.success("Logged in");
-    // }, 1000);
+    const checkPass = fieldCheck(loginSellerData);
+    if(checkPass) login(loginSellerData);
   };
 
   return (
