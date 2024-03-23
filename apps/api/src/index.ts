@@ -9,6 +9,7 @@ import authRoutes from "./authentication/routes";
 // import verifyPhoneNoRoutes from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import cors from "cors";
 
 dotenv.config();
 
@@ -21,14 +22,35 @@ app.use(morgan("tiny"));
 app.use("/shop", shopRoutes);
 app.use(authRoutes);
 app.use("/upload", uploadroutes);
-// app.use(verifyPhoneNoRoutes);
 
+// app.use(verifyPhoneNoRoutes);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, _: any, res: Response, __: NextFunction) => {
   console.log("error is: ", err);
 
   return errorHandler(res, err);
 });
+
+export const cookieOptions: { [key: string]: string | boolean } = {
+  path: "/",
+  httpOnly: true,
+  secure: true,
+  domain: "localhost",
+  sameSite: "None",
+};
+
+const corsOptions: { [key: string]: string | boolean | string[] } = {
+  origin: [
+    "http://127.0.0.1:5000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5001",
+    "*",
+  ],
+  Credential: true,
+};
+
+app.use(cors(corsOptions));
+
 
 const port = 5000;
 

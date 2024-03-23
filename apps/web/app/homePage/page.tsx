@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import NavBar from "../../components/NavBar";
 import Image from "next/image";
@@ -10,6 +11,7 @@ import { CiFacebook } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
 import { CiTwitter } from "react-icons/ci";
 import "../globals.css";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
   return (
@@ -64,7 +66,17 @@ const HomePage = () => {
                   <div className="text-[#f9683c]">Women</div>
                   <div>Kids</div>
                   <div className="text-[0.8rem] font-semibold">See More</div>
-                  <button className="bg-[#f9683c] p-3 text-white rounded-lg w-[40%] sm:w-[55%]">
+                  <button
+                    onClick={() => {
+                      toast.custom(
+                        <div className="bg-[#f9683c] text-[white] p-4 m-4 rounded-md">
+                          <div className="">Input values please</div>
+                          <input className="ronded-md ho" type="text" placeholder="enter password" />
+                        </div>
+                      );
+                    }}
+                    className="bg-[#f9683c] p-3 text-white rounded-lg w-[40%] sm:w-[55%]"
+                  >
                     Shop Now &rarr;
                   </button>
                 </div>

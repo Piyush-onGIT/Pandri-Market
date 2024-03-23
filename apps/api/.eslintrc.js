@@ -6,5 +6,5 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  ignorePatterns: ["**/dto/"],
+  ignorePatterns: ["**/dto/", "**/web/store/**"],
 };

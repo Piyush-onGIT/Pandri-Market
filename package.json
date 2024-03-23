@@ -24,6 +24,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "react-hot-toast": "^2.4.1"
   }
 }

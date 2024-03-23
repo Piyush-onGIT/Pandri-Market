@@ -6,5 +6,5 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  ignorePatterns: ["tsconfig.json"],
+  ignorePatterns: ["tsconfig.json", "**/web/store/**"],
 };
