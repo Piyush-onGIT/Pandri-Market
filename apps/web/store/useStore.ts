@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import api from "../utils/axios";
+import toast from "react-hot-toast";
+import { setItem, removeItem, getItem } from "../utils/localStorage";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -14,72 +16,118 @@ type SignupSellerData = {
   password: string;
 };
 
-
 type AuthStore = {
   myData: SignupSellerData;
-  // loading: boolean;
-  // isSellerFetched: boolean;
-  // isAuthenticated: boolean;
-  // isLoggedOut: boolean;
-  // token: string | null;
   signupSellerData: SignupSellerData;
   loginSellerData: LoginSellerData;
-  // setIsLoggedOut: (isLoggedOut: boolean) => void;
-
-  //@ts-ignore
   setLoginSellerData: (SellerData: LoginSellerData) => void;
   setSignupSellerData: (SellerData: SignupSellerData) => void;
   signup: (body: SignupSellerData) => void;
   login: (body: LoginSellerData) => void;
-  // logout: (router: AppRouterInstance) => void;
-  // getMyData: () => void;
-  // updateMyData: (updatedData: SignupSellerData) => void;
 };
 
-const useSellerStore = create<AuthStore>((set) => ({
-  myData: {
-    name: "",
-    phoneNo: "",
-    email: "",
-    address: "",
-    password: "",
-  },
+const useSellerStore = create<AuthStore>((set) => {
+  let loader: string | null = null; // Declare loader variable outside
 
-  signupSellerData: {
-    name: "",
-    phoneNo: "",
-    email: "",
-    address: "",
-    password: "",
-  },
+  return {
+    myData: {
+      name: "",
+      phoneNo: "",
+      email: "",
+      address: "",
+      password: "",
+    },
 
-  loginSellerData: {
-    phoneNo: "",
-    password: "",
-  },
+    signupSellerData: {
+      name: "",
+      phoneNo: "",
+      email: "",
+      address: "",
+      password: "",
+    },
 
-  setLoginSellerData: (sellerData: LoginSellerData) =>
-    set({
-      loginSellerData: sellerData,
-    }),
+    loginSellerData: {
+      phoneNo: "",
+      password: "",
+    },
 
-  setSignupSellerData: (sellerData: SignupSellerData) =>
-    set({
-      signupSellerData: sellerData,
-    }),
+    setLoginSellerData: (sellerData: LoginSellerData) =>
+      set({
+        loginSellerData: sellerData,
+      }),
 
-  login: async (userData: LoginSellerData) => {
-    const res = await api.post("/login", userData);
-    console.log(res);
-  },
+    setSignupSellerData: (sellerData: SignupSellerData) =>
+      set({
+        signupSellerData: sellerData,
+      }),
 
-  signup: async (userData: SignupSellerData) => {
-    const res = await api.post("/signup", userData);
-    console.log(res.data);
-  },
-}));
+    login: async (userData: LoginSellerData) => {
+      loader = toast.loading("Logging in...");
+      try {
+        const res = await api.post("/login", userData, {
+          withCredentials: true,
+        });
+        // setItem({ key: "token", data: res.data.token });
+        toast.remove(loader);
+        toast.success(res.data.message);
+      } catch (error: any) {
+        // Error handling
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          const errorMessage = Array.isArray(error.response.data.message)
+            ? error.response.data.message.join(", ")
+            : error.response.data.message;
+          toast.error(errorMessage);
+        } else {
+          toast.error("An error occurred during login.");
+        }
+        if (loader) {
+          toast.remove(loader);
+        }
+      }
+    },
+
+    signup: async (userData: SignupSellerData) => {
+      loader = toast.loading("Signing up...");
+      try {
+        const res = await api.post("/signup", userData, {
+          withCredentials: true,
+        });
+        // setItem({ key: "token", data: res.data.token });
+        toast.success(res.data.message);
+        // console.log(res);
+        // console.log(res["data"]);
+        // console.log(res.data.message);
+
+        toast.remove(loader);
+      } catch (error: any) {
+        // Error handling
+        console.log(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          const errorMessage = Array.isArray(error.response.data.message)
+            ? error.response.data.message.join(", ")
+            : error.response.data.message;
+          toast.error(errorMessage);
+        } else {
+          toast.error("An error occurred during signup.");
+        }
+        if (loader) {
+          toast.remove(loader);
+        }
+      }
+    },
+  };
+});
 
 export default useSellerStore;
+
 
 // const useAuthStore = create<AuthStore>(set => ({
 //   token: null,

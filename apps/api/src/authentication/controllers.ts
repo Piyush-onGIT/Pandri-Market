@@ -9,6 +9,7 @@ import ApiError from "../http/ApiError";
 import { UserLoginDto } from "./dto/userLogin.dto";
 import bcrypt from "bcrypt";
 import { Shop } from "../shops/schema";
+import { cookieOptions } from "../index";
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
@@ -63,7 +64,7 @@ const login = async (req: any, res: Response) => {
       };
       const token = jwt.sign(payload, SC);
       res.cookie("token", token);
-      res.json({ message: "Logged in", token: token });
+      res.json({ message: "Logged in", token: token,cookieOptions });
     } else if (user && !match) {
       const error = new ApiError(401, "Wrong password");
       return errorHandler(res, error);
