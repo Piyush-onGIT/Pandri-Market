@@ -78,29 +78,8 @@ export class ShopUpdate {
   brands!: string[];
 }
 
-export class PhotoDto {
-  @IsString()
-  @Expose()
-  shop!: Schema.Types.ObjectId;
-
-  @IsString()
-  @Expose()
-  url!: string;
-
-  @IsNumber()
-  @Expose()
-  likes!: Number;
-
-  @IsString()
-  @Expose()
-  tags!: string;
-
-  @IsString()
-  @Expose()
-  comments!: string;
-}
-
-export class VideoDto {
+export class postForShop {
+  @IsOptional()
   @IsString()
   @Expose()
   shop!: Schema.Types.ObjectId;
