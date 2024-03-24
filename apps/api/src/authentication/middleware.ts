@@ -45,4 +45,4 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction)=>{
     return next(new ApiError(401, "Unauthorized", error));
   }
 
-}
+};
