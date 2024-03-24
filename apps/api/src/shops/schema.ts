@@ -51,25 +51,28 @@ const shopsSchema: Schema<IShop> = new Schema(
 );
 export const Shop = mongoose.model<IShop>("Shop", shopsSchema);
 
-const postedShopSchema = new Schema({
-  shop: {
-    type: Schema.Types.ObjectId,
-    ref: Shop,
+const postedShopSchema = new Schema(
+  {
+    shop: {
+      type: Schema.Types.ObjectId,
+      ref: Shop,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    likes: {
+      type: Number,
+      required: false,
+    },
+    comments: {
+      type: String,
+    },
+    tags: {
+      type: String,
+    },
   },
-  url: {
-    type: String,
-    required: true,
-  },
-  likes: {
-    type: Number,
-    required: false,
-  },
-  comments: {
-    type: String,
-  },
-  tags: {
-    type: String,
-  },
-});
+  { timestamps: true }
+);
 
 export const ShopPostModel = mongoose.model("Post", postedShopSchema);

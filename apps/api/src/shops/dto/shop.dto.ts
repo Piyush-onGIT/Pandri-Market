@@ -79,7 +79,7 @@ export class ShopUpdate {
 }
 
 export class postForShop {
-  @IsOptional()
+  @IsOptional() //untill isMy shop is not made
   @IsString()
   @Expose()
   shop!: Schema.Types.ObjectId;
@@ -88,15 +88,7 @@ export class postForShop {
   @Expose()
   url!: string;
 
-  @IsNumber()
-  @Expose()
-  likes!: Number;
-
   @IsString()
   @Expose()
   tags!: string;
-
-  @IsString()
-  @Expose()
-  comments!: string;
 }
