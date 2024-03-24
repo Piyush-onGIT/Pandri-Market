@@ -22,27 +22,30 @@ export const verifyUser = (req: Request, _: any, next: NextFunction) => {
   }
 };
 
-export const isMyShop = async (req: Request, _: any, next: NextFunction)=>{
-  try{  
+export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
+  try {
     const token = req.cookies?.token;
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
+    const shopId = req.body.shop;
+    const shop = await Shop.findById(shopId);
+    if (!shop) {
     const shopId=req.params.id;
     const shop=await Shop.findById(shopId);
     if(!shop){
       next(new ApiError(401, "No such shop exists"));
     }
-   
-    const ownerid=req.user.id;
-    if(ownerid==shop?.owner){
+
+    const ownerid = req.user.id;
+    if (ownerid == shop?.owner) {
       next();
-    }
-    else{
+    } else {
       return next(new ApiError(401, "Unauthorized"));
     }
-  }catch (error: any) {
+  } catch (error: any) {
     return next(new ApiError(401, "Unauthorized", error));
   }
+};
 
 };

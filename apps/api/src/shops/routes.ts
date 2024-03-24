@@ -6,7 +6,7 @@ import {
   updateMyShop,
   posts,
 } from "./controllers";
-import { isMyShop, verifyUser } from "../authentication/middleware";
+import { verifyUser } from "../authentication/middleware";
 
 const router = Router();
 
