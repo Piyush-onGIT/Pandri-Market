@@ -4,8 +4,7 @@ import {
   getMyShops,
   deleteMyShop,
   updateMyShop,
-  photoPosts,
-  videoPosts,
+  posts,
 } from "./controllers";
 import { isMyShop, verifyUser } from "../authentication/middleware";
 
@@ -15,6 +14,6 @@ router.route("/shopRegistration").post(verifyUser, shopRegistration);
 router.route("/getMyShops").get(verifyUser, getMyShops);
 router.route("/deleteMyShop/:id").delete(verifyUser, deleteMyShop);
 router.route("/updateMyShop/:id").patch(verifyUser, updateMyShop);
-router.post("/photoPosts", verifyUser, isMyShop, photoPosts);
-router.post("/videoPosts", verifyUser, isMyShop, videoPosts);
+router.post("/posts/:id", verifyUser, isMyShop, posts);
+
 export default router;

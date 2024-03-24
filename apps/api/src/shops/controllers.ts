@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { PhotoModel, Shop, VideoModel } from "./schema";
+import { ShopPostModel, Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
-import { ShopDto, ShopUpdate, PhotoDto, VideoDto } from "./dto/shop.dto";
+import { ShopDto, ShopUpdate, postForShop } from "./dto/shop.dto";
 import { validateDto } from "../services/validateDto";
 import { UserModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
 import mongoose from "mongoose";
+import categorizeURL from "../utils/photOrVideo";
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
@@ -109,23 +110,39 @@ const updateMyShop = async (req: Request, res: Response) => {
   }
 };
 
-const photoPosts = async (req: any, res: Response) => {
+const posts = async (req: any, res: Response) => {
   try {
-    const photodetails = await validateDto(PhotoDto, req.body);
+    const postDetails = await validateDto(postForShop, req.body);
+    const postUrl = categorizeURL(postDetails.url);
+    if (postUrl === "Unknown") {
+      throw new ApiError(
+        400,
+        "Incorrect file type. Pleae use valid image/video"
+      );
+    }
+    let reduction: number = 0;
+    if (postUrl === "Photo") reduction = 50;
+    else reduction = 70;
+
     const userid = req.user.id;
     const user = await UserModel.findById(userid);
-    if (user && user.credit >= 50) {
-      await PhotoModel.create({
-        ...photodetails,
+    if (user && user.credit >= reduction) {
+      const postCreated = await ShopPostModel.create({
+        ...postDetails,
       });
-      user.credit = user.credit - 50;
+
+      if (!postCreated) {
+        throw new ApiError(500, "Unable to post please try again");
+      }
+
+      user.credit = user.credit - reduction;
       await user.save();
       return res.status(200).json({
-        message: "Photo posted successfully",
+        message: "Successfully posted!",
       });
     } else {
       return res.status(200).json({
-        message: "You dont have enough credits",
+        message: "You dont have enough credits!",
       });
     }
   } catch (error: any) {
@@ -133,35 +150,4 @@ const photoPosts = async (req: any, res: Response) => {
   }
 };
 
-const videoPosts = async (req: any, res: Response) => {
-  try {
-    const videodetails = await validateDto(VideoDto, req.body);
-    const userid = req.user.id;
-    const user = await UserModel.findById(userid);
-    if (user && user.credit >= 70) {
-      await VideoModel.create({
-        ...videodetails,
-      });
-      user.credit = user.credit - 70;
-      await user.save();
-      return res.status(200).json({
-        message: "video posted successfully",
-      });
-    } else {
-      return res.status(200).json({
-        message: "You dont have enough credits",
-      });
-    }
-  } catch (error: any) {
-    return errorHandler(res, error);
-  }
-};
-
-export {
-  shopRegistration,
-  getMyShops,
-  deleteMyShop,
-  updateMyShop,
-  photoPosts,
-  videoPosts,
-};
+export { shopRegistration, getMyShops, deleteMyShop, updateMyShop, posts };

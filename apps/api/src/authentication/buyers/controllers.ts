@@ -1,15 +1,16 @@
-import { UserModel } from "./schema";
+import { Buyer } from "./schema";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { Request, Response } from "express";
-import { UserRegisterDto } from "./dto/userRegister.dto";
-import { validateDto } from "../services/validateDto";
-import errorHandler from "../http/errorHandler";
-import ApiError from "../http/ApiError";
-import { UserLoginDto } from "./dto/userLogin.dto";
+import { BuyerSignupDto, BuyerLoginDto } from "./dto/buyer.dto";
+import { validateDto } from "../../services/validateDto";
+import errorHandler from "../../http/errorHandler";
+import ApiError from "../../http/ApiError";
+
 import bcrypt from "bcrypt";
-import { Shop } from "../shops/schema";
-import { cookieOptions } from "../index";
+
+import { cookieOptions } from "../..";
+
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
@@ -30,15 +31,15 @@ async function verifyPassword(plainPassword: string, hashedPassword: string) {
     throw new Error("Error verifying password");
   }
 }
-const signup = async (req: any, res: Response) => {
+const buyersignup = async (req: any, res: Response) => {
   try {
-    const userDto = await validateDto(UserRegisterDto, req.body);
-    const hashedPassword = await hashPassword(userDto.password);
-    userDto.password = hashedPassword;
-    await UserModel.create({
-      ...userDto,
+    const buyerDto = await validateDto(BuyerSignupDto, req.body);
+    const hashedPassword = await hashPassword(buyerDto.password);
+    buyerDto.password = hashedPassword;
+    await Buyer.create({
+      ...buyerDto,
     });
-    userDto.credit = 300;
+
     return res.status(200).json({
       message: "Account created successfully",
     });
@@ -47,10 +48,10 @@ const signup = async (req: any, res: Response) => {
   }
 };
 
-const login = async (req: any, res: Response) => {
+const buyerlogin = async (req: any, res: Response) => {
   try {
-    const body = await validateDto(UserLoginDto, req.body);
-    const user = await UserModel.findOne({ phoneNo: body.phoneNo });
+    const body = await validateDto(BuyerLoginDto, req.body);
+    const user = await Buyer.findOne({ phoneNo: body.phoneNo });
     const password = body.password;
     const hashedPassword = user?.password;
     let match: boolean = false;
@@ -76,14 +77,14 @@ const login = async (req: any, res: Response) => {
     return errorHandler(res, error);
   }
 };
-const logout = async (req: any, res: Response) => {
+const buyerlogout = async (req: any, res: Response) => {
   res.clearCookie("token");
   res.json({ message: "Logged out" });
 };
 
-const myProfile = async (req: any, res: Response) => {
+const buyerProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await UserModel.findById(userId);
+  const user = await Buyer.findById(userId);
   if (!user) {
     throw new ApiError(400, "User not found");
   }
@@ -92,37 +93,38 @@ const myProfile = async (req: any, res: Response) => {
     information: user,
   });
 };
-const updateProfile = async (req: any, res: Response) => {
+const buyerupdateProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await UserModel.findById(userId);
+  const user = await Buyer.findById(userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  await UserModel.updateOne({ _id: userId }, req.body);
+  await Buyer.updateOne({ _id: userId }, req.body);
   await user.save();
   res.json({
     message: "UserInformation successfully updated",
   });
 };
 
-const deleteUser = async (req: Request, res: Response) => {
+const buyerdeleteUser = async (req: Request, res: Response) => {
   try {
-    const deleteShops = await Shop.deleteMany({ owner: req.user.id });
-    if (!deleteShops) {
-      throw new ApiError(400, "Unable to delelte User's shop");
-    }
-    const noOfShops = deleteShops.deletedCount;
-
-    const deleteUser = await UserModel.deleteOne({ _id: req.user.id });
+    const deleteUser = await Buyer.deleteOne({ _id: req.user.id });
     if (!deleteUser) {
       throw new ApiError(400, "Unable to delete User");
     }
 
     res.status(200).json({
-      message: `User has been deleted, ${noOfShops} shops has been deleted`,
+      message: "User has been deleted successfully !",
     });
   } catch (error: any) {
     return errorHandler(res, error);
   }
 };
-export { myProfile, updateProfile, logout, signup, login, deleteUser };
+export {
+  buyerProfile,
+  buyerupdateProfile,
+  buyerlogout,
+  buyersignup,
+  buyerlogin,
+  buyerdeleteUser,
+};
