@@ -20,7 +20,7 @@ async function hashPassword(password: string) {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     return hashedPassword;
   } catch (error) {
-    throw new Error("Error hashing password");
+    throw new ApiError(400, "Error hashing password");
   }
 }
 async function verifyPassword(plainPassword: string, hashedPassword: string) {
@@ -28,10 +28,10 @@ async function verifyPassword(plainPassword: string, hashedPassword: string) {
     const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
     return isMatch;
   } catch (error) {
-    throw new Error("Error verifying password");
+    throw new ApiError(400, "Error verifying password");
   }
 }
-const buyersignup = async (req: any, res: Response) => {
+const signup = async (req: any, res: Response) => {
   try {
     const buyerDto = await validateDto(BuyerSignupDto, req.body);
     const hashedPassword = await hashPassword(buyerDto.password);
@@ -48,7 +48,7 @@ const buyersignup = async (req: any, res: Response) => {
   }
 };
 
-const buyerlogin = async (req: any, res: Response) => {
+const login = async (req: any, res: Response) => {
   try {
     const body = await validateDto(BuyerLoginDto, req.body);
     const user = await Buyer.findOne({ phoneNo: body.phoneNo });
@@ -64,8 +64,8 @@ const buyerlogin = async (req: any, res: Response) => {
         id: user._id,
       };
       const token = jwt.sign(payload, SC);
-      res.cookie("token", token);
-      res.json({ message: "Logged in", token: token, cookieOptions });
+      res.cookie("token", token, cookieOptions);
+      res.json({ message: "Logged in", token: token });
     } else if (user && !match) {
       const error = new ApiError(401, "Wrong password");
       return errorHandler(res, error);
@@ -77,12 +77,12 @@ const buyerlogin = async (req: any, res: Response) => {
     return errorHandler(res, error);
   }
 };
-const buyerlogout = async (req: any, res: Response) => {
+const logout = async (req: any, res: Response) => {
   res.clearCookie("token");
   res.json({ message: "Logged out" });
 };
 
-const buyerProfile = async (req: any, res: Response) => {
+const myProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
   const user = await Buyer.findById(userId);
   if (!user) {
@@ -93,7 +93,7 @@ const buyerProfile = async (req: any, res: Response) => {
     information: user,
   });
 };
-const buyerupdateProfile = async (req: any, res: Response) => {
+const updateProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
   const user = await Buyer.findById(userId);
   if (!user) {
@@ -106,7 +106,7 @@ const buyerupdateProfile = async (req: any, res: Response) => {
   });
 };
 
-const buyerdeleteUser = async (req: Request, res: Response) => {
+const deleteUser = async (req: Request, res: Response) => {
   try {
     const deleteUser = await Buyer.deleteOne({ _id: req.user.id });
     if (!deleteUser) {
@@ -120,11 +120,4 @@ const buyerdeleteUser = async (req: Request, res: Response) => {
     return errorHandler(res, error);
   }
 };
-export {
-  buyerProfile,
-  buyerupdateProfile,
-  buyerlogout,
-  buyersignup,
-  buyerlogin,
-  buyerdeleteUser,
-};
+export { myProfile, updateProfile, logout, signup, login, deleteUser };

@@ -9,7 +9,7 @@ export class BuyerLoginDto {
 
   @IsString()
   @Expose()
-  phone!: string;
+  phoneNo!: string;
 }
 
 export class BuyerSignupDto {
@@ -19,7 +19,7 @@ export class BuyerSignupDto {
 
   @IsString()
   @Expose()
-  phone!: string;
+  phoneNo!: string;
 
   @IsOptional()
   @IsString()
