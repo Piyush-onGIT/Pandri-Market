@@ -110,4 +110,9 @@ const updateMyShop = async (req: Request, res: Response) => {
   }
 };
 
+// const postForShop = async (req: Request, res: Response) => {
+//   const shopId = req.params.id;
+//   const postItem =
+// };
+
 export { shopRegistration, getMyShops, deleteMyShop, updateMyShop };
