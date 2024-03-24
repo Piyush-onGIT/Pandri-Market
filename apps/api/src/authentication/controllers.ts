@@ -39,7 +39,6 @@ const signup = async (req: any, res: Response) => {
       ...userDto,
     });
     userDto.credit = 300;
-    console.log(userDto);
     return res.status(200).json({
       message: "Account created successfully",
     });

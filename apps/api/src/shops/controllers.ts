@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { Shop } from "./schema";
+import { ShopPostModel, Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
-import { ShopDto, ShopUpdate } from "./dto/shop.dto";
+import { ShopDto, ShopUpdate, postForShop } from "./dto/shop.dto";
 import { validateDto } from "../services/validateDto";
 import { UserModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
 import mongoose from "mongoose";
+import categorizeURL from "../utils/photOrVideo";
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
@@ -110,9 +111,44 @@ const updateMyShop = async (req: Request, res: Response) => {
   }
 };
 
-// const postForShop = async (req: Request, res: Response) => {
-//   const shopId = req.params.id;
-//   const postItem =
-// };
+const posts = async (req: any, res: Response) => {
+  try {
+    const postDetails = await validateDto(postForShop, req.body);
+    const postUrl = categorizeURL(postDetails.url);
+    if (postUrl === "Unknown") {
+      throw new ApiError(
+        400,
+        "Incorrect file type. Pleae use valid image/video"
+      );
+    }
+    let reduction: number = 0;
+    if (postUrl === "Photo") reduction = 50;
+    else reduction = 70;
 
-export { shopRegistration, getMyShops, deleteMyShop, updateMyShop };
+    const userid = req.user.id;
+    const user = await UserModel.findById(userid);
+    if (user && user.credit >= reduction) {
+      const postCreated = await ShopPostModel.create({
+        ...postDetails,
+      });
+
+      if (!postCreated) {
+        throw new ApiError(500, "Unable to post please try again");
+      }
+
+      user.credit = user.credit - reduction;
+      await user.save();
+      return res.status(200).json({
+        message: "Successfully posted!",
+      });
+    } else {
+      return res.status(200).json({
+        message: "You dont have enough credits!",
+      });
+    }
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+export { shopRegistration, getMyShops, deleteMyShop, updateMyShop, posts };
