@@ -113,6 +113,8 @@ const updateMyShop = async (req: Request, res: Response) => {
 const posts = async (req: any, res: Response) => {
   try {
     const postDetails = await validateDto(postForShop, req.body);
+    postDetails.shop = req.params.id;
+
     const postUrl = categorizeURL(postDetails.url);
     if (postUrl === "Unknown") {
       throw new ApiError(

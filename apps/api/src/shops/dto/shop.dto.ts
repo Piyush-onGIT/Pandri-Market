@@ -79,24 +79,11 @@ export class ShopUpdate {
 }
 
 export class postForShop {
-  @IsOptional()
-  @IsString()
-  @Expose()
-  shop!: Schema.Types.ObjectId;
-
   @IsString()
   @Expose()
   url!: string;
 
-  @IsNumber()
-  @Expose()
-  likes!: Number;
-
   @IsString()
   @Expose()
   tags!: string;
-
-  @IsString()
-  @Expose()
-  comments!: string;
 }
