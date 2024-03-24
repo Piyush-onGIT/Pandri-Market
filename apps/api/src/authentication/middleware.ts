@@ -9,7 +9,6 @@ dotenv.config();
 export const verifyUser = (req: Request, _: any, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
-    console.log(req.cookies);
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
