@@ -79,11 +79,6 @@ export class ShopUpdate {
 }
 
 export class postForShop {
-  @IsOptional() //untill isMy shop is not made
-  @IsString()
-  @Expose()
-  shop!: Schema.Types.ObjectId;
-
   @IsString()
   @Expose()
   url!: string;
