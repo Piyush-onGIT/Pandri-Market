@@ -37,7 +37,7 @@ app.use(morgan("tiny"));
 app.use("/shop", shopRoutes);
 app.use(authRoutes);
 app.use("/upload", uploadroutes);
-app.use(buyerAuthRoutes);
+app.use("/buyer", buyerAuthRoutes);
 
 // app.use(verifyPhoneNoRoutes);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

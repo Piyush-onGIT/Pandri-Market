@@ -63,8 +63,8 @@ const login = async (req: any, res: Response) => {
         id: user._id,
       };
       const token = jwt.sign(payload, SC);
-      res.cookie("token", token);
-      res.json({ message: "Logged in", token: token, cookieOptions });
+      res.cookie("token", token, cookieOptions);
+      res.json({ message: "Logged in", token: token });
     } else if (user && !match) {
       const error = new ApiError(401, "Wrong password");
       return errorHandler(res, error);

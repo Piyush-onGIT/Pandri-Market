@@ -7,7 +7,7 @@ const BuyerSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    phone: {
+    phoneNo: {
       type: String,
       required: true,
     },
