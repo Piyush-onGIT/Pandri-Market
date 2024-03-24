@@ -1,4 +1,4 @@
-import { UserModel } from "./schema";
+import { SellerModel } from "./schema";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { Request, Response } from "express";
@@ -35,7 +35,7 @@ const signup = async (req: any, res: Response) => {
     const userDto = await validateDto(UserRegisterDto, req.body);
     const hashedPassword = await hashPassword(userDto.password);
     userDto.password = hashedPassword;
-    await UserModel.create({
+    await SellerModel.create({
       ...userDto,
     });
     userDto.credit = 300;
@@ -50,7 +50,7 @@ const signup = async (req: any, res: Response) => {
 const login = async (req: any, res: Response) => {
   try {
     const body = await validateDto(UserLoginDto, req.body);
-    const user = await UserModel.findOne({ phoneNo: body.phoneNo });
+    const user = await SellerModel.findOne({ phoneNo: body.phoneNo });
     const password = body.password;
     const hashedPassword = user?.password;
     let match: boolean = false;
@@ -83,7 +83,7 @@ const logout = async (req: any, res: Response) => {
 
 const myProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await UserModel.findById(userId);
+  const user = await SellerModel.findById(userId);
   if (!user) {
     throw new ApiError(400, "User not found");
   }
@@ -94,11 +94,11 @@ const myProfile = async (req: any, res: Response) => {
 };
 const updateProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await UserModel.findById(userId);
+  const user = await SellerModel.findById(userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  await UserModel.updateOne({ _id: userId }, req.body);
+  await SellerModel.updateOne({ _id: userId }, req.body);
   await user.save();
   res.json({
     message: "UserInformation successfully updated",
@@ -113,7 +113,7 @@ const deleteUser = async (req: Request, res: Response) => {
     }
     const noOfShops = deleteShops.deletedCount;
 
-    const deleteUser = await UserModel.deleteOne({ _id: req.user.id });
+    const deleteUser = await SellerModel.deleteOne({ _id: req.user.id });
     if (!deleteUser) {
       throw new ApiError(400, "Unable to delete User");
     }

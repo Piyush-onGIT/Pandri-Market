@@ -34,5 +34,5 @@ const UserSchema = new Schema({
     required: true,
   },
 });
-const UserModel = mongoose.model("User", UserSchema);
-export { UserModel };
+const SellerModel = mongoose.model("Seller", UserSchema);
+export { SellerModel };
