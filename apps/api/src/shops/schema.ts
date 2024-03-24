@@ -55,6 +55,7 @@ const postedShopSchema = new Schema({
   shop: {
     type: Schema.Types.ObjectId,
     ref: Shop,
+    required: true,
   },
   url: {
     type: String,

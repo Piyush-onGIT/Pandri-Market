@@ -3,7 +3,7 @@ import { ShopPostModel, Shop } from "./schema";
 import errorHandler from "../http/errorHandler";
 import { ShopDto, ShopUpdate, postForShop } from "./dto/shop.dto";
 import { validateDto } from "../services/validateDto";
-import { UserModel } from "../authentication/schema";
+import { SellerModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
 import mongoose from "mongoose";
 import categorizeURL from "../utils/photOrVideo";
@@ -19,8 +19,7 @@ const shopRegistration = async (req: Request, res: Response) => {
         "This shop name has already been taken for this user please take another name"
       );
     }
-    const userget = await UserModel.findOne({ _id: req.user.id });
-    console.log(userget);
+    const userget = await SellerModel.findOne({ _id: req.user.id });
 
     if (!userget) {
       throw new ApiError(
@@ -114,6 +113,8 @@ const updateMyShop = async (req: Request, res: Response) => {
 const posts = async (req: any, res: Response) => {
   try {
     const postDetails = await validateDto(postForShop, req.body);
+    postDetails.shop = req.params.id;
+
     const postUrl = categorizeURL(postDetails.url);
     if (postUrl === "Unknown") {
       throw new ApiError(
@@ -126,7 +127,7 @@ const posts = async (req: any, res: Response) => {
     else reduction = 70;
 
     const userid = req.user.id;
-    const user = await UserModel.findById(userid);
+    const user = await SellerModel.findById(userid);
     if (user && user.credit >= reduction) {
       const postCreated = await ShopPostModel.create({
         ...postDetails,

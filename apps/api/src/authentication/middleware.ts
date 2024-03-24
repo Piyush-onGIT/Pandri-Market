@@ -9,7 +9,7 @@ dotenv.config();
 export const verifyUser = (req: Request, _: any, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
-
+    console.log(req.cookies);
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
@@ -28,7 +28,7 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
-    const shopId = req.body.shop;
+    const shopId = req.params.id;
     const shop = await Shop.findById(shopId);
     if (!shop) {
       const shopId = req.params.id;
@@ -36,13 +36,14 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
       if (!shop) {
         next(new ApiError(401, "No such shop exists"));
       }
+      next(new ApiError(401, "No such shop exists"));
+    }
 
-      const ownerid = req.user.id;
-      if (ownerid == shop?.owner) {
-        next();
-      } else {
-        return next(new ApiError(401, "Unauthorized"));
-      }
+    const ownerid = req.user.id;
+    if (ownerid == shop?.owner) {
+      next();
+    } else {
+      return next(new ApiError(401, "Unauthorized"));
     }
   } catch (error: any) {
     return next(new ApiError(401, "Unauthorized", error));

@@ -3,7 +3,7 @@ import { Likes, Comments } from "./schema";
 import { CommentDto } from "./dto/comment.dto";
 import { validateDto } from "../services/validateDto";
 import { ShopPostModel } from "../shops/schema";
-const likepost = async (req: Request, res: Response) => {
+const likePost = async (req: Request, res: Response) => {
   try {
     req.body.postId = req.params.id;
     req.body.likedBy = req.user.id;
@@ -18,7 +18,7 @@ const likepost = async (req: Request, res: Response) => {
   }
 };
 
-const commentpost = async (req: Request, res: Response) => {
+const commentPost = async (req: Request, res: Response) => {
   try {
     const commentDto = await validateDto(CommentDto, req.body);
     commentDto.postId = req.params.id;
@@ -35,4 +35,4 @@ const commentpost = async (req: Request, res: Response) => {
   }
 };
 
-export { likepost, commentpost };
+export { likePost, commentPost };

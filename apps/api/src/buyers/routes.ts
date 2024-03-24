@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyUser } from "../authentication/middleware";
-import { likepost,commentpost } from "./controllers";
+import { likePost, commentPost } from "./controllers";
 const router = Router();
-router.get("/likes/:id",verifyUser, likepost);
-router.post("/comments/:id",verifyUser, commentpost);
+router.get("/likes/:id", verifyUser, likePost);
+router.post("/comments/:id", verifyUser, commentPost);
