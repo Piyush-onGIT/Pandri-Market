@@ -28,7 +28,7 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction)=>{
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
-    const shopId=req.body.shop;
+    const shopId=req.params.id;
     const shop=await Shop.findById(shopId);
     if(!shop){
       next(new ApiError(401, "No such shop exists"));
@@ -45,4 +45,4 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction)=>{
     return next(new ApiError(401, "Unauthorized", error));
   }
 
-}
+};
