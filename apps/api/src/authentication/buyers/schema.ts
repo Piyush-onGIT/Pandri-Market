@@ -1,4 +1,4 @@
-import mongoose, { trusted } from "mongoose";
+import mongoose from "mongoose";
 
 const BuyerSchema = new mongoose.Schema(
   {
@@ -7,7 +7,7 @@ const BuyerSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    phone: {
+    phoneNo: {
       type: String,
       required: true,
     },

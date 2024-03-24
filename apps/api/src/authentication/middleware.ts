@@ -31,21 +31,20 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
     const shopId = req.body.shop;
     const shop = await Shop.findById(shopId);
     if (!shop) {
-    const shopId=req.params.id;
-    const shop=await Shop.findById(shopId);
-    if(!shop){
-      next(new ApiError(401, "No such shop exists"));
-    }
+      const shopId = req.params.id;
+      const shop = await Shop.findById(shopId);
+      if (!shop) {
+        next(new ApiError(401, "No such shop exists"));
+      }
 
-    const ownerid = req.user.id;
-    if (ownerid == shop?.owner) {
-      next();
-    } else {
-      return next(new ApiError(401, "Unauthorized"));
+      const ownerid = req.user.id;
+      if (ownerid == shop?.owner) {
+        next();
+      } else {
+        return next(new ApiError(401, "Unauthorized"));
+      }
     }
   } catch (error: any) {
     return next(new ApiError(401, "Unauthorized", error));
   }
-};
-
 };
