@@ -63,9 +63,11 @@ const postedShopSchema = new Schema({
   likes: {
     type: Number,
     required: false,
+    default:0,
   },
   comments: {
-    type: String,
+    type: Number,
+    default:0,
   },
   tags: {
     type: String,
