@@ -20,7 +20,6 @@ const shopRegistration = async (req: Request, res: Response) => {
       );
     }
     const userget = await UserModel.findOne({ _id: req.user.id });
-    console.log(userget);
 
     if (!userget) {
       throw new ApiError(

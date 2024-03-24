@@ -28,7 +28,7 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
     if (!token) {
       next(new ApiError(401, "Token missing"));
     }
-    const shopId = req.body.shop;
+    const shopId = req.params.id;
     const shop = await Shop.findById(shopId);
     if (!shop) {
       const shopId = req.params.id;
@@ -36,6 +36,8 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
       if (!shop) {
         next(new ApiError(401, "No such shop exists"));
       }
+      next(new ApiError(401, "No such shop exists"));
+    }
 
       const ownerid = req.user.id;
       if (ownerid == shop?.owner) {
