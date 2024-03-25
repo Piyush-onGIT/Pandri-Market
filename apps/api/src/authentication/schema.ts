@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const UserSchema = new Schema({
+const sellerSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -14,7 +14,6 @@ const UserSchema = new Schema({
   },
   fullName: {
     type: String,
-    // required: false,
   },
   address: {
     type: String,
@@ -34,5 +33,6 @@ const UserSchema = new Schema({
     required: true,
   },
 });
-const SellerModel = mongoose.model("Seller", UserSchema);
+
+const SellerModel = mongoose.model("Seller", sellerSchema);
 export { SellerModel };

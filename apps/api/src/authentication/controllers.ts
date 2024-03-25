@@ -10,7 +10,9 @@ import { UserLoginDto } from "./dto/userLogin.dto";
 import bcrypt from "bcrypt";
 import { Shop } from "../shops/schema";
 import { cookieOptions } from "../index";
+
 dotenv.config();
+
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
 async function hashPassword(password: string) {
@@ -22,6 +24,7 @@ async function hashPassword(password: string) {
     throw new Error("Error hashing password");
   }
 }
+
 async function verifyPassword(plainPassword: string, hashedPassword: string) {
   try {
     const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
@@ -30,6 +33,7 @@ async function verifyPassword(plainPassword: string, hashedPassword: string) {
     throw new Error("Error verifying password");
   }
 }
+
 const signup = async (req: any, res: Response) => {
   try {
     const userDto = await validateDto(UserRegisterDto, req.body);
@@ -76,6 +80,7 @@ const login = async (req: any, res: Response) => {
     return errorHandler(res, error);
   }
 };
+
 const logout = async (req: any, res: Response) => {
   res.clearCookie("token");
   res.json({ message: "Logged out" });
@@ -92,6 +97,7 @@ const myProfile = async (req: any, res: Response) => {
     information: user,
   });
 };
+
 const updateProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
   const user = await SellerModel.findById(userId);
@@ -125,4 +131,5 @@ const deleteUser = async (req: Request, res: Response) => {
     return errorHandler(res, error);
   }
 };
+
 export { myProfile, updateProfile, logout, signup, login, deleteUser };

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const BuyerSchema = new mongoose.Schema(
+const buyerSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -26,4 +26,4 @@ const BuyerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Buyer = mongoose.model("Buyer", BuyerSchema);
+export const Buyer = mongoose.model("Buyer", buyerSchema);
