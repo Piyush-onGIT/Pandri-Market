@@ -6,9 +6,7 @@ import { BuyerSignupDto, BuyerLoginDto } from "./dto/buyer.dto";
 import { validateDto } from "../../services/validateDto";
 import errorHandler from "../../http/errorHandler";
 import ApiError from "../../http/ApiError";
-
 import bcrypt from "bcrypt";
-
 import { cookieOptions } from "../..";
 
 dotenv.config();

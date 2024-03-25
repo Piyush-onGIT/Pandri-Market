@@ -7,6 +7,7 @@ import { SellerModel } from "../authentication/schema";
 import ApiError from "../http/ApiError";
 import mongoose from "mongoose";
 import categorizeURL from "../utils/photOrVideo";
+import { Comments, Likes } from "../buyers/schema";
 
 const shopRegistration = async (req: Request, res: Response) => {
   try {
@@ -110,7 +111,7 @@ const updateMyShop = async (req: Request, res: Response) => {
   }
 };
 
-const posts = async (req: any, res: Response) => {
+const posts = async (req: Request, res: Response) => {
   try {
     const postDetails = await validateDto(postForShop, req.body);
     postDetails.shop = req.params.id;
@@ -152,4 +153,98 @@ const posts = async (req: any, res: Response) => {
   }
 };
 
-export { shopRegistration, getMyShops, deleteMyShop, updateMyShop, posts };
+const getAllPosts = async (req: Request, res: Response) => {
+  try {
+    const shopId = req.params.id;
+    const isShopExists = await Likes.findOne({ _id: shopId });
+    if (!isShopExists) {
+      throw new ApiError(404, "No likes found!");
+    }
+
+    const allPosts = await ShopPostModel.aggregate([
+      {
+        $match: {
+          shop: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      { $limit: 50 }, //initial limit is 50 later on increased or decreased or we can remove this condition
+    ]);
+    if (!allPosts || allPosts.length === 0) {
+      throw new ApiError(400, "No posts found");
+    }
+
+    res.status(200).json({
+      message: "The list of all the data is as follows",
+      allPosts,
+    });
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+const getPostDetails = (req: Request, res: Response) => {
+  try {
+    const postId = req.params.id;
+    const likeCountAndUser = Comments.aggregate([
+      {
+        $match: {
+          post: new mongoose.Types.ObjectId(postId),
+        },
+      },
+      {
+        $unwind: "$likedBy",
+      },
+      {
+        $group: {
+          _id: null,
+          likedBy: { $push: "$likedBy" },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    if (!likeCountAndUser) {
+      throw new ApiError(400, "Unable to get likes for this user");
+    }
+    const commentsDetailsWithCount = Shop.aggregate([
+      {
+        $match: {
+          post: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $project: {
+          comment: 1,
+          commentedBy: 1,
+        },
+      },
+    ]);
+
+    if (!commentsDetailsWithCount) {
+      throw new ApiError(400, "Unable to get comments for this user");
+    }
+
+    res.status(200).json({
+      message: "Likes and comment obtained successfully",
+      userLikes: likeCountAndUser,
+      userComments: commentsDetailsWithCount,
+    });
+  } catch (error: any) {
+    return errorHandler(res, error);
+  }
+};
+
+export {
+  shopRegistration,
+  getMyShops,
+  deleteMyShop,
+  updateMyShop,
+  posts,
+  getAllPosts,
+  getPostDetails,
+};
