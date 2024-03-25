@@ -138,8 +138,14 @@ const posts = async (req: Request, res: Response) => {
         throw new ApiError(500, "Unable to post please try again");
       }
 
-      user.credit = user.credit - reduction;
-      await user.save();
+      const updateCredit = await SellerModel.updateOne(
+        { _id: user._id },
+        { $inc: { credit: -reduction } }
+      );
+      if (!updateCredit) {
+        throw new ApiError(400, "Unable to reduce credits");
+      }
+
       return res.status(200).json({
         message: "Successfully posted!",
       });
