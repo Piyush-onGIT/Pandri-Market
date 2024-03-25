@@ -64,11 +64,11 @@ const postedShopSchema = new Schema({
   likes: {
     type: Number,
     required: false,
-    default:0,
+    default: 0,
   },
   comments: {
     type: Number,
-    default:0,
+    default: 0,
   },
   tags: {
     type: String,
