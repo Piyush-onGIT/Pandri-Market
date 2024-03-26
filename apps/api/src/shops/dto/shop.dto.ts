@@ -1,4 +1,5 @@
 import { Expose } from "class-transformer";
+import { Schema } from "mongoose";
 import {
   IsArray,
   IsBoolean,
@@ -6,6 +7,7 @@ import {
   IsOptional,
   IsString,
   Validate,
+  IsNumber,
 } from "class-validator";
 
 import { validateOrReject } from "class-validator";
@@ -74,4 +76,14 @@ export class ShopUpdate {
   @IsArray()
   @Expose()
   brands!: string[];
+}
+
+export class postForShop {
+  @IsString()
+  @Expose()
+  url!: string;
+
+  @IsString()
+  @Expose()
+  tags!: string;
 }

@@ -32,7 +32,7 @@ const Dashboard = () => {
     },
   ]);
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index:any) => {
     const updatedBtn = btn.map((item, i) => {
       if (i === index) {
         return {

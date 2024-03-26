@@ -1,15 +1,14 @@
-import { SellerModel } from "./schema";
+import { Buyer } from "./schema";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { Request, Response } from "express";
-import { UserRegisterDto } from "./dto/userRegister.dto";
-import { validateDto } from "../services/validateDto";
-import errorHandler from "../http/errorHandler";
-import ApiError from "../http/ApiError";
-import { UserLoginDto } from "./dto/userLogin.dto";
+import { BuyerSignupDto, BuyerLoginDto } from "./dto/buyer.dto";
+import { validateDto } from "../../services/validateDto";
+import errorHandler from "../../http/errorHandler";
+import ApiError from "../../http/ApiError";
 import bcrypt from "bcrypt";
-import { Shop } from "../shops/schema";
-import { cookieOptions } from "../index";
+import { cookieOptions } from "../..";
+
 dotenv.config();
 const SC = `${process.env.JWT_SECRET_KEY}`;
 
@@ -19,7 +18,7 @@ async function hashPassword(password: string) {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     return hashedPassword;
   } catch (error) {
-    throw new Error("Error hashing password");
+    throw new ApiError(400, "Error hashing password");
   }
 }
 async function verifyPassword(plainPassword: string, hashedPassword: string) {
@@ -27,18 +26,18 @@ async function verifyPassword(plainPassword: string, hashedPassword: string) {
     const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
     return isMatch;
   } catch (error) {
-    throw new Error("Error verifying password");
+    throw new ApiError(400, "Error verifying password");
   }
 }
 const signup = async (req: any, res: Response) => {
   try {
-    const userDto = await validateDto(UserRegisterDto, req.body);
-    const hashedPassword = await hashPassword(userDto.password);
-    userDto.password = hashedPassword;
-    await SellerModel.create({
-      ...userDto,
+    const buyerDto = await validateDto(BuyerSignupDto, req.body);
+    const hashedPassword = await hashPassword(buyerDto.password);
+    buyerDto.password = hashedPassword;
+    await Buyer.create({
+      ...buyerDto,
     });
-    userDto.credit = 300;
+
     return res.status(200).json({
       message: "Account created successfully",
     });
@@ -49,8 +48,8 @@ const signup = async (req: any, res: Response) => {
 
 const login = async (req: any, res: Response) => {
   try {
-    const body = await validateDto(UserLoginDto, req.body);
-    const user = await SellerModel.findOne({ phoneNo: body.phoneNo });
+    const body = await validateDto(BuyerLoginDto, req.body);
+    const user = await Buyer.findOne({ phoneNo: body.phoneNo });
     const password = body.password;
     const hashedPassword = user?.password;
     let match: boolean = false;
@@ -83,7 +82,7 @@ const logout = async (req: any, res: Response) => {
 
 const myProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await SellerModel.findById(userId);
+  const user = await Buyer.findById(userId);
   if (!user) {
     throw new ApiError(400, "User not found");
   }
@@ -94,11 +93,11 @@ const myProfile = async (req: any, res: Response) => {
 };
 const updateProfile = async (req: any, res: Response) => {
   const userId = req.user.id;
-  const user = await SellerModel.findById(userId);
+  const user = await Buyer.findById(userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  await SellerModel.updateOne({ _id: userId }, req.body);
+  await Buyer.updateOne({ _id: userId }, req.body);
   await user.save();
   res.json({
     message: "UserInformation successfully updated",
@@ -107,19 +106,13 @@ const updateProfile = async (req: any, res: Response) => {
 
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    const deleteShops = await Shop.deleteMany({ owner: req.user.id });
-    if (!deleteShops) {
-      throw new ApiError(400, "Unable to delelte User's shop");
-    }
-    const noOfShops = deleteShops.deletedCount;
-
-    const deleteUser = await SellerModel.deleteOne({ _id: req.user.id });
+    const deleteUser = await Buyer.deleteOne({ _id: req.user.id });
     if (!deleteUser) {
       throw new ApiError(400, "Unable to delete User");
     }
 
     res.status(200).json({
-      message: `User has been deleted, ${noOfShops} shops has been deleted`,
+      message: "User has been deleted successfully !",
     });
   } catch (error: any) {
     return errorHandler(res, error);
