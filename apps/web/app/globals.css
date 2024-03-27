@@ -131,3 +131,18 @@ a {
   font-family: fashion;
   src: url("../assets/fonts//BemirsDemoVersionRegular-L360Z.ttf");
 }
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.bg-image {
+  background-image: url('../assets/images/ProfilePic.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

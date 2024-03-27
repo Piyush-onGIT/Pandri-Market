@@ -89,7 +89,7 @@ const page = () => {
                         <input
                           className="border-2 outline-none rounded-md p-2"
                           type="text"
-                          placeholder="Write your address..."
+                          placeholder="Write any landmark..."
                         />
                       </div>
                     </div>
@@ -101,7 +101,7 @@ const page = () => {
                         <input
                           className="border-2 outline-none rounded-md p-2"
                           type="number"
-                          placeholder="Write your address..."
+                          placeholder="Write the code..."
                         />
                       </div>
                     </div>
@@ -113,7 +113,7 @@ const page = () => {
                         <input
                           className="border-2 outline-none rounded-md p-2"
                           type="text"
-                          placeholder="Write your address..."
+                          placeholder="city"
                         />
                       </div>
                     </div>
@@ -123,7 +123,7 @@ const page = () => {
               <div className="w-full bg-white px-8 pt-8 rounded-3xl">
                 <div className="mb-8">
                   <div className="mb-4 px-4">
-                    <div className="font-semibold text-lg">My xPay account</div>
+                    <div className="font-semibold text-lg">Registered numbers</div>
                   </div>
                   <div className="relative">
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
@@ -132,7 +132,7 @@ const page = () => {
                 <div className="flex justify-between items-center px-4 mb-8">
                   <div className="flex flex-col gap-1 text-sm text-[#555555]">
                     <div>Phone Number</div>
-                    <div>5447 3238 2329 2323</div>
+                    <div>+91 7651830854</div>
                   </div>
                   <div className="px-6 py-1 bg-gradient-to-br from-yellow-400 to-pink-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
                     Verify
