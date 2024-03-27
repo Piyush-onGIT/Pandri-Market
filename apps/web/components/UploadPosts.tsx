@@ -8,13 +8,13 @@ import { fieldCheck } from "../utils/checks";
 import Dropdown from "./Dropdown";
 
 const UploadPosts = () => {
-  const {signup, signupSellerData, setSignupSellerData } = useSellerStore();
+  const {upload, uploadPostsData, setUploadPostsData } = useSellerStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(signupSellerData);
-    const checkPass = fieldCheck(signupSellerData);
-    if (checkPass) signup(signupSellerData);
+    console.log(uploadPostsData);
+    const checkPass = fieldCheck(uploadPostsData);
+    if (checkPass) upload(uploadPostsData);
   };
 
   return (
@@ -43,11 +43,11 @@ const UploadPosts = () => {
               id="name"
               type="text"
               placeholder="Product Description"
-              value={signupSellerData.name}
+              value={uploadPostsData.description}
               onChange={(e) =>
-                setSignupSellerData({
-                  ...signupSellerData,
-                  name: e.target.value,
+                setUploadPostsData({
+                  ...uploadPostsData,
+                  description: e.target.value,
                 })
               }
             />
@@ -65,11 +65,11 @@ const UploadPosts = () => {
               type="file"
               placeholder="Product Images"
               accept="image/*"
-              value={signupSellerData.address}
+              value={uploadPostsData.image}
               onChange={(e) =>
-                setSignupSellerData({
-                  ...signupSellerData,
-                  address: e.target.value,
+                setUploadPostsData({
+                  ...uploadPostsData,
+                  image: e.target.value,
                 })
               }
             />
@@ -86,11 +86,11 @@ const UploadPosts = () => {
               id="tags"
               type="string"
               placeholder="Tag Shops or Add Product Tags"
-              value={signupSellerData.phoneNo}
+              value={uploadPostsData.tags}
               onChange={(e) =>
-                setSignupSellerData({
-                  ...signupSellerData,
-                  phoneNo: e.target.value,
+                setUploadPostsData({
+                  ...uploadPostsData,
+                  tags: e.target.value,
                 })
               }
             />
@@ -107,11 +107,11 @@ const UploadPosts = () => {
               id="location"
               type="string"
               placeholder="Product Name"
-              value={signupSellerData.phoneNo}
+              value={uploadPostsData.title}
               onChange={(e) =>
-                setSignupSellerData({
-                  ...signupSellerData,
-                  phoneNo: e.target.value,
+                setUploadPostsData({
+                  ...uploadPostsData,
+                  title: e.target.value,
                 })
               }
             />

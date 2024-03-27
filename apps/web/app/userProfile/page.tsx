@@ -16,7 +16,7 @@ const page = () => {
             <NavBar />
           </div>
           <div className="h-[88vh] w-11/12 flex justify-evenly items-center rounded-3xl py-12 bg-slate-200">
-            <div className="grid grid-rows-2 xl:gap-y-8 2xl:gap-y-16 h-full w-[40%] bg-white rounded-3xl overflow-hidden ">
+            <div className="grid grid-rows-2 xl:gap-y-8 2xl:gap-y-16 h-[100%] w-[40%] bg-white rounded-3xl  overflow-hidden">
               <div className="mb-4 h-full">
                 <Image
                   className="w-full"
@@ -25,9 +25,9 @@ const page = () => {
                 />
               </div>
               <div className="px-8 text-[#333333]">
-                <div className="text-xl font-bold mb-8">My Profile</div>
-                <div className="mb-[3rem]">
-                  <div className="mb-4 flex w-full justify-between">
+                <div className="text-xl font-bold mb-6">My Profile</div>
+                <div className="mb-[1.5rem]">
+                  <div className="mb-2 flex w-full justify-between">
                     <div>Pranjal Naman</div>
                     <div>+91 7607138454</div>
                   </div>
@@ -35,8 +35,8 @@ const page = () => {
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
                 </div>
-                <div className="mb-[3rem]">
-                  <div className="mb-4">pranjalofficial11@gmail.com</div>
+                <div className="mb-[1.5rem]">
+                  <div className="mb-2">pranjalofficial11@gmail.com</div>
                   <div className="relative">
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
