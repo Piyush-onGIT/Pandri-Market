@@ -2,12 +2,12 @@
 import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
-import Link from "next/link";
 import useSellerStore from "../store/useStore";
 import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
+import Dropdown from "./Dropdown";
 
-const Signup = () => {
+const UploadPosts = () => {
   const {signup, signupSellerData, setSignupSellerData } = useSellerStore();
 
   const handleSubmit = (e: any) => {
@@ -29,20 +29,20 @@ const Signup = () => {
             <Image src={Logo} alt="logo" width={100} />
           </div>
           <div className="text-center mb-4 text-lg italic text-[#333333]">
-            Register new account
+            Post Your Product
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="name"
             >
-              Name
+             ✏️ Description
             </label>
             <input
               className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
               id="name"
               type="text"
-              placeholder="John Doe"
+              placeholder="Product Description"
               value={signupSellerData.name}
               onChange={(e) =>
                 setSignupSellerData({
@@ -55,36 +55,16 @@ const Signup = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              <div>Email</div>
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={signupSellerData.email}
-              onChange={(e) =>
-                setSignupSellerData({
-                  ...signupSellerData,
-                  email: e.target.value,
-                })
-              }
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="address"
             >
-              <div>Address</div>
+              <div>🥋 Image</div>
             </label>
             <input
               className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
               id="address"
-              type="address"
-              placeholder="Write your address"
+              type="file"
+              placeholder="Product Images"
+              accept="image/*"
               value={signupSellerData.address}
               onChange={(e) =>
                 setSignupSellerData({
@@ -99,13 +79,13 @@ const Signup = () => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="phoneno"
             >
-              <div>Phone Number</div>
+              <div># Tags</div>
             </label>
             <input
               className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
-              id="phoneNo"
-              type="number"
-              placeholder="Enter your number"
+              id="tags"
+              type="string"
+              placeholder="Tag Shops or Add Product Tags"
               value={signupSellerData.phoneNo}
               onChange={(e) =>
                 setSignupSellerData({
@@ -118,49 +98,34 @@ const Signup = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
+              htmlFor="phoneno"
             >
-              <div>Set Password</div>
+              <div>📍 Title</div>
             </label>
             <input
               className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
-              id="password"
-              type="password"
-              placeholder="Password"
-              value={signupSellerData.password}
+              id="location"
+              type="string"
+              placeholder="Product Name"
+              value={signupSellerData.phoneNo}
               onChange={(e) =>
                 setSignupSellerData({
                   ...signupSellerData,
-                  password: e.target.value,
+                  phoneNo: e.target.value,
                 })
               }
             />
+          </div>
+          <div className="mb-6">
+              <Dropdown />
           </div>
           <div className="flex items-center justify-between mb-8">
             <button
               className="w-[100%] bg-[#e96841] hover:bg-[#f9683c] text-sm text-white font-semibold py-2 px-3 rounded focus:outline-none"
               type="submit"
             >
-              Register
+              Post
             </button>
-          </div>
-
-          <div className="flex justify-between items-center mb-4">
-            <div className="w-[44%] h-[1px] bg-[#333333]"></div>
-            <div>Or</div>
-            <div className="w-[44%] h-[1px] bg-[#333333]"></div>
-          </div>
-
-          <div>
-            <div>
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="text-[#f9683c] font-semibold underline hover:no-underline"
-              >
-                Login
-              </Link>
-            </div>
           </div>
         </form>
       </div>
@@ -168,4 +133,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default UploadPosts;
