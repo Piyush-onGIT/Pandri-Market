@@ -33,35 +33,35 @@ const HomePage = () => {
         </div>
       </div>
       <div className="mx-3 xs:mx-8">
-        <div className="relative mb-4 sm:mb-6">
-          <div className="block sm:grid grid-cols-3 grid-rows-2 lg:flex justify-around items-center mt-6 sm:mt-10 text-[2rem] sm:text-[2.8rem] md:text-5xl lg:text-6xl xl:text-7xl leading-normal font-bold text-center font-custom">
-            <div className="hidden sm:block rounded-2xl overflow-hidden scale-75 lg:scale-100">
-              <Image src={SampleI1} alt="sample-1" width={200} />
+        <div className="relative mb-2 sm:mb-3">
+          <div className="block sm:grid grid-cols-3 grid-rows-2 lg:flex justify-around items-center mt-6 lg:mt-2 sm:mt-10 text-[2rem] sm:text-[2.8rem] md:text-5xl lg:text-6xl xl:text-7xl leading-normal font-bold text-center font-custom">
+            <div className="hidden sm:block rounded-2xl overflow-hidden scale-75 lg:scale-80">
+              <Image src={SampleI1} alt="sample-1" width={190} />
             </div>
             <div className="text-center sm:text-left md:text-center row-start-1 col-start-1 col-span-2 row-span-2">
-              <div className="md:mb-3 xl:mb-4">Elevate Your Shop</div>
-              <div className="md:leading-[4.8rem]">Elevate Your Business</div>
+              <div className="md:mb-3 xl:mb-4 lg:text-[52px]">Elevate Your Shop</div>
+              <div className="md:leading-[2.4rem] lg:text-[52px]">Elevate Your Business</div>
             </div>
-            <div className="hidden sm:block col-start-3 rounded-2xl overflow-hidden scale-75 lg:scale-100">
-              <Image src={SampleI2} alt="sample-2" width={200} />
+            <div className="hidden sm:block col-start-3 rounded-2xl overflow-hidden scale-75 lg:scale-80">
+              <Image src={SampleI2} alt="sample-2" width={190} />
             </div>
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <div className="grid grid-cols-2 gap-y-8 justify-items-center sm:flex sm:mt-10 lg:mt-16 sm:justify-around w-[100vw]">
+          <div className="grid grid-cols-2 gap-y-8 justify-items-center sm:flex sm:mt-10 lg:mt-6 sm:justify-around w-[100vw]">
             <div className="self-center col-span-2 grid grid-cols-6 sm:flex flex-col gap-6 md:gap-12 relative">
               <div className="col-span-6 sm:col-span-4 flex flex-col gap-6 md:gap-8">
-                <div className="flex flex-col gap-2 absolute -right-2 -top-12">
+                <div className="flex flex-col gap-2 absolute -right-2 -top-10">
                   <div className="text-[0.8rem] font-semibold">Up To</div>
                   <div className="text-[#f9683c] text-2xl font-semibold">
                     35%
                   </div>
                   <div className="text-2xl font-semibold">OFF</div>
-                  <div className="absolute -left-[50%] -translate-x-[25%] -bottom-20">
-                    <Image className="" src={Arrow} alt="arrow" width={200} />
+                  <div className="absolute -left-[60%] -translate-x-[25%] -bottom-20">
+                    <Image className="" src={Arrow} alt="arrow" width={80} />
                   </div>
                 </div>
-                <div className=" flex flex-col gap-5 font-black">
+                <div className=" flex flex-col gap-2 font-black">
                   <div>Men</div>
                   <div className="text-[#f9683c]">Women</div>
                   <div>Kids</div>
@@ -124,7 +124,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[320px] row-start-1 col-span-2">
+            <div className="w-[300px] row-start-1 col-span-2">
               <Image src={SampleI3} alt="sample-3" />
             </div>
             <div className="self-center hidden lg:block">

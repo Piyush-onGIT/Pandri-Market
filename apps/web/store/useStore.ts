@@ -8,6 +8,13 @@ type LoginSellerData = {
   password: string;
 };
 
+type UploadPostsData = {
+  description: string;
+  image: string;
+  tags: string;
+  title: string;
+};
+
 type SignupSellerData = {
   name: string;
   phoneNo: string;
@@ -20,10 +27,13 @@ type AuthStore = {
   myData: SignupSellerData;
   signupSellerData: SignupSellerData;
   loginSellerData: LoginSellerData;
+  uploadPostsData: UploadPostsData;
   setLoginSellerData: (SellerData: LoginSellerData) => void;
   setSignupSellerData: (SellerData: SignupSellerData) => void;
+  setUploadPostsData: (SellerData: UploadPostsData) => void;
   signup: (body: SignupSellerData) => void;
   login: (body: LoginSellerData) => void;
+  upload: (body: UploadPostsData) => void;
 };
 
 const useSellerStore = create<AuthStore>((set) => {
@@ -51,6 +61,13 @@ const useSellerStore = create<AuthStore>((set) => {
       password: "",
     },
 
+    uploadPostsData: {
+      description: "",
+      image: "",
+      tags: "",
+      title: "",
+    },
+
     setLoginSellerData: (sellerData: LoginSellerData) =>
       set({
         loginSellerData: sellerData,
@@ -61,8 +78,42 @@ const useSellerStore = create<AuthStore>((set) => {
         signupSellerData: sellerData,
       }),
 
+    setUploadPostsData: (sellerData: UploadPostsData) =>
+      set({
+        uploadPostsData: sellerData,
+      }),
+
     login: async (userData: LoginSellerData) => {
       loader = toast.loading("Logging in...");
+      try {
+        const res = await api.post("/login", userData, {
+          withCredentials: true,
+        });
+        // setItem({ key: "token", data: res.data.token });
+        toast.remove(loader);
+        toast.success(res.data.message);
+      } catch (error: any) {
+        // Error handling
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          const errorMessage = Array.isArray(error.response.data.message)
+            ? error.response.data.message.join(", ")
+            : error.response.data.message;
+          toast.error(errorMessage);
+        } else {
+          toast.error("An error occurred during login.");
+        }
+        if (loader) {
+          toast.remove(loader);
+        }
+      }
+    },
+
+    upload: async (userData: UploadPostsData) => {
+      loader = toast.loading("Uploading in...");
       try {
         const res = await api.post("/login", userData, {
           withCredentials: true,
