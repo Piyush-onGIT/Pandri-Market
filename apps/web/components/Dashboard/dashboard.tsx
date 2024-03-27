@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-[16rem] h-screen bg-white">
+      <div className="w-[16rem] h-full sticky top-0 lg:h-screen bg-white hidden sm:block">
         <div className="self-center mb-4 w-full flex justify-center items-center py-2">
           <Image src={Logo} alt="logo" width={100} height={100} />
         </div>
@@ -69,7 +69,7 @@ const Dashboard = () => {
               <div
                 className={`hover:cursor-pointer ${
                   val.isClicked == true
-                    ? "bg-gradient-to-b from-yellow-400 to-pink-600 inline-block text-transparent bg-clip-text font-semibold"
+                    ? "bg-gradient-to-b from-yellow-400 to-pink-600 text-transparent bg-clip-text font-semibold md:block"
                     : ""
                 }`}
               >
