@@ -27,7 +27,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center ml-0 mr-2 sm:mx-6 p-2 border-b-2 border-dashed border-[#6e6a66]">
+      <div className="flex justify-between items-center ml-0 mr-2 sm:mx-6 p-1.5 border-b-2 border-dashed border-[#6e6a66]">
         <div>
           <Image
             className="scale-75 sm:scale-90 md:scale-100"
