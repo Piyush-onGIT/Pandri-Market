@@ -86,4 +86,16 @@ export class postForShop {
   @IsString()
   @Expose()
   tags!: string;
+
+  @IsArray()
+  @Expose()
+  Catagory!: string[];
+
+  @IsString()
+  @Expose()
+  title!: string;
+
+  @IsString()
+  @Expose()
+  description!: string;
 }
