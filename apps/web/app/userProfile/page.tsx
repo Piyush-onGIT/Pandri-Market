@@ -8,54 +8,56 @@ const page = () => {
   return (
     <>
       <div className="flex">
-        <div>
+        <div className="h-full ">
           <Dashboard />
         </div>
         <div className="w-full h-full flex flex-col">
           <div>
             <NavBar />
           </div>
-          <div className="h-[88vh] w-11/12 flex justify-evenly items-center rounded-3xl py-12 bg-slate-200">
-            <div className="grid grid-rows-2 xl:gap-y-8 2xl:gap-y-16 h-full w-[40%] bg-white rounded-3xl overflow-hidden ">
-              <div className="mb-4 h-full">
+          <div className=" mb-4 overflow-auto lg:mb-0 h-full lg:h-[88vh] w-auto sm:w-11/12 gap-8 flex flex-wrap justify-evenly items-center rounded-3xl mx-4 sm:mx-0  px-8 py-8 xl:py-12 bg-slate-200">
+            <div className="grid xl:grid-rows-2 items-center grid-cols-1 md:grid-cols-10 xl:grid-cols-1 xl:gap-y-8 w-full 2xl:gap-y-16 xl:h-full xl:w-[40%] bg-white rounded-3xl overflow-hidden ">
+              <div className="2xl:mb-4 h-full col-span-4 bg-image">
                 <Image
-                  className="w-full"
+                  className="w-full md:hidden"
                   src={ProfilePic}
                   alt="profile-photo"
                 />
               </div>
-              <div className="px-8 text-[#333333]">
-                <div className="text-xl font-bold mb-8">My Profile</div>
-                <div className="mb-[3rem]">
-                  <div className="mb-4 flex w-full justify-between">
-                    <div>Pranjal Naman</div>
-                    <div>+91 7607138454</div>
-                  </div>
-                  <div className="relative">
-                    <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
-                  </div>
-                </div>
-                <div className="mb-[3rem]">
-                  <div className="mb-4">pranjalofficial11@gmail.com</div>
-                  <div className="relative">
-                    <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex gap-1 text-sm text-[#555555]">
-                    <div className="text-[#211f1f] text-md font-semibold">
-                      Credits:
+              <div className="flex items-center md:col-span-6 py-2 lg:py-4 px-6 xl:px-8 h-full text-[#333333]">
+                <div className="grid grid-cols-1 gap-y-4 h-full w-full">
+                  <div className="text-xl font-bold">My Profile</div>
+                  <div>
+                    <div className="mb-4 gap-2  flex flex-wrap w-full justify-between">
+                      <div>Pranjal Naman</div>
+                      <div>+91 7607138454</div>
                     </div>
-                    <div className="text-orange-500 font-semibold">300</div>
+                    <div className="relative">
+                      <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
+                    </div>
                   </div>
-                  <div className="px-4 py-1 bg-gradient-to-br from-cyan-400 to-green-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
-                    Buy Credits
+                  <div>
+                    <div className="mb-4">pranjalofficial11@gmail.com</div>
+                    <div className="relative">
+                      <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap justify-between items-center">
+                    <div className="flex gap-1 text-sm text-[#555555]">
+                      <div className="text-[#211f1f] text-md font-semibold">
+                        Credits:
+                      </div>
+                      <div className="text-orange-500 font-semibold">300</div>
+                    </div>
+                    <div className="px-3 lg:px-4 py-1 bg-gradient-to-br from-cyan-400 to-green-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
+                      Buy Credits
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="h-full w-[45%] grid grid-row-6 justify-items-center items-between gap-12">
-              <div className="w-full bg-white p-8 rounded-3xl row-span-4">
+            <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center xl:items-between gap-8 xl:gap-12">
+              <div className="w-full col-span-2 lg:col-span-1 bg-white p-4 xl:p-8 rounded-3xl xl:row-span-4">
                 <div className="mb-8">
                   <div className="flex justify-between items-center px-4 mb-4">
                     <div className="font-semibold text-lg">Address</div>
@@ -67,51 +69,51 @@ const page = () => {
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
                 </div>
-                <div className="flex justify-between items-center px-4">
+                <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-0">
                   <div className="flex flex-col gap-1 text-sm text-[#555555] w-full">
-                    <div className="flex items-center w-full justify-between">
-                      <div className="text-[#211f1f] font-semibold m-2 py-2">
+                    <div className="flex items-center w-full lg:justify-between">
+                      <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         Permanent Address
                       </div>
-                      <div className="m-2">
+                      <div className="m-2 w-full">
                         <input
-                          className="border-2 outline-none rounded-md p-2"
+                          className="border-2 text-xs md:text-sm outline-none rounded-md p-2 w-full"
                           type="text"
                           placeholder="Write your address..."
                         />
                       </div>
                     </div>
                     <div className="flex items-center w-full justify-between">
-                      <div className="text-[#211f1f] font-semibold m-2 py-2">
+                      <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         Landmark
                       </div>
-                      <div className="m-2">
+                      <div className="m-2 w-full">
                         <input
-                          className="border-2 outline-none rounded-md p-2"
+                          className="border-2 text-xs md:text-sm outline-none rounded-md p-2 w-full"
                           type="text"
                           placeholder="Write any landmark..."
                         />
                       </div>
                     </div>
                     <div className="flex items-center w-full justify-between">
-                      <div className="text-[#211f1f] font-semibold m-2 py-2">
+                      <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         ZIP/Postal Code
                       </div>
-                      <div className="m-2">
+                      <div className="m-2 w-full">
                         <input
-                          className="border-2 outline-none rounded-md p-2"
+                          className="border-2 text-xs md:text-sm outline-none w-full rounded-md p-2"
                           type="number"
                           placeholder="Write the code..."
                         />
                       </div>
                     </div>
                     <div className="flex items-center w-full justify-between">
-                      <div className="text-[#211f1f] font-semibold m-2 py-2">
+                      <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         City
                       </div>
-                      <div className="m-2">
+                      <div className="m-2 w-full">
                         <input
-                          className="border-2 outline-none rounded-md p-2"
+                          className="border-2  outline-none w-full rounded-md p-2"
                           type="text"
                           placeholder="city"
                         />
@@ -119,11 +121,34 @@ const page = () => {
                     </div>
                   </div>
                 </div>
+                <div className="lg:hidden block">
+                  <div className="mb-8">
+                    <div className="mb-4 px-4">
+                      <div className="font-semibold text-lg">
+                        Registered numbers
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center px-2 mb-8">
+                    <div className="flex flex-col gap-1 text-sm text-[#555555]">
+                      <div>Phone Number</div>
+                      <div>+91 7651830854</div>
+                    </div>
+                    <div className="px-6 py-1 bg-gradient-to-br from-yellow-400 to-pink-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
+                      Verify
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="w-full bg-white px-8 pt-8 rounded-3xl">
+              <div className="w-full bg-white p-4 xl:px-8 xl:pt-8 rounded-3xl hidden lg:block">
                 <div className="mb-8">
                   <div className="mb-4 px-4">
-                    <div className="font-semibold text-lg">Registered numbers</div>
+                    <div className="font-semibold text-lg">
+                      Registered numbers
+                    </div>
                   </div>
                   <div className="relative">
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
