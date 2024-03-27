@@ -137,7 +137,6 @@ const posts = async (req: Request, res: Response) => {
       if (!postCreated) {
         throw new ApiError(500, "Unable to post please try again");
       }
-
       user.credit = user.credit - reduction;
       await user.save();
       return res.status(200).json({
