@@ -3,7 +3,7 @@ import ApiError from "../http/ApiError";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { Shop } from "../shops/schema";
-
+import { ShopPostModel } from "../shops/schema";
 dotenv.config();
 
 export const verifyUser = (req: Request, _: any, next: NextFunction) => {
@@ -40,6 +40,23 @@ export const isMyShop = async (req: Request, _: any, next: NextFunction) => {
 
     const ownerid = req.user.id;
     if (ownerid == shop?.owner) {
+      next();
+    } else {
+      return next(new ApiError(401, "Unauthorized"));
+    }
+  } catch (error: any) {
+    return next(new ApiError(401, "Unauthorized", error));
+  }
+};
+
+export const isMyPost = async (req: Request, _: any, next: NextFunction) => {
+  try {
+    const postId = req.params.id;
+    const post = await ShopPostModel.findById(postId);
+    const shopId = post?.shop;
+    const shop = await Shop.findById(shopId);
+    const owner = shop?.owner;
+    if (owner == req.user.id) {
       next();
     } else {
       return next(new ApiError(401, "Unauthorized"));
