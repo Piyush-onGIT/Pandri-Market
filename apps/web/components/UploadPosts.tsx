@@ -2,19 +2,19 @@
 import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
-import useSellerStore from "../store/useStore";
+import {useShopStore}  from "../store/useStore"
 import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
 import Dropdown from "./Dropdown";
 
 const UploadPosts = () => {
-  const {upload, uploadPostsData, setUploadPostsData } = useSellerStore();
+  const { post, uploadPostsData, setUploadPostsData } = useShopStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(uploadPostsData);
     const checkPass = fieldCheck(uploadPostsData);
-    if (checkPass) upload(uploadPostsData);
+    if (checkPass) post(uploadPostsData);
   };
 
   return (
@@ -34,9 +34,9 @@ const UploadPosts = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
+              htmlFor="description"
             >
-             ✏️ Description
+              ✏️ Description
             </label>
             <input
               className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
@@ -55,7 +55,7 @@ const UploadPosts = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="address"
+              htmlFor="location"
             >
               <div>🥋 Image</div>
             </label>
@@ -77,7 +77,7 @@ const UploadPosts = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="phoneno"
+              htmlFor="tags"
             >
               <div># Tags</div>
             </label>
@@ -98,7 +98,7 @@ const UploadPosts = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="phoneno"
+              htmlFor="title"
             >
               <div>📍 Title</div>
             </label>
@@ -117,7 +117,7 @@ const UploadPosts = () => {
             />
           </div>
           <div className="mb-6">
-              <Dropdown />
+            <Dropdown />
           </div>
           <div className="flex items-center justify-between mb-8">
             <button

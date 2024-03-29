@@ -13,6 +13,15 @@ type UploadPostsData = {
   image: string;
   tags: string;
   title: string;
+  category: string;
+};
+
+type SellerData = {
+  name: string;
+  phoneNo: string;
+  address: string;
+  email: string;
+  credit: string;
 };
 
 type SignupSellerData = {
@@ -24,28 +33,33 @@ type SignupSellerData = {
 };
 
 type AuthStore = {
-  myData: SignupSellerData;
+  sellerProfile: SellerData;
   signupSellerData: SignupSellerData;
   loginSellerData: LoginSellerData;
-  uploadPostsData: UploadPostsData;
-  setLoginSellerData: (SellerData: LoginSellerData) => void;
-  setSignupSellerData: (SellerData: SignupSellerData) => void;
-  setUploadPostsData: (SellerData: UploadPostsData) => void;
+  setLoginSellerData: (SellerLoginInfo: LoginSellerData) => void;
+  setSignupSellerData: (SellerSignupInfo: SignupSellerData) => void;
+  setSellerProfileData: (SellerProfileInfo: SellerData) => void;
   signup: (body: SignupSellerData) => void;
   login: (body: LoginSellerData) => void;
-  upload: (body: UploadPostsData) => void;
+  profile: (body: SellerData) => void;
+};
+
+type ShopStore = {
+  uploadPostsData: UploadPostsData;
+  setUploadPostsData: (SellerData: UploadPostsData) => void;
+  post: (body: UploadPostsData) => void;
 };
 
 const useSellerStore = create<AuthStore>((set) => {
   let loader: string | null = null; // Declare loader variable outside
 
   return {
-    myData: {
+    sellerProfile: {
       name: "",
       phoneNo: "",
       email: "",
       address: "",
-      password: "",
+      credit: "",
     },
 
     signupSellerData: {
@@ -61,13 +75,6 @@ const useSellerStore = create<AuthStore>((set) => {
       password: "",
     },
 
-    uploadPostsData: {
-      description: "",
-      image: "",
-      tags: "",
-      title: "",
-    },
-
     setLoginSellerData: (sellerData: LoginSellerData) =>
       set({
         loginSellerData: sellerData,
@@ -78,42 +85,12 @@ const useSellerStore = create<AuthStore>((set) => {
         signupSellerData: sellerData,
       }),
 
-    setUploadPostsData: (sellerData: UploadPostsData) =>
-      set({
-        uploadPostsData: sellerData,
-      }),
+    setSellerProfileData: (SellerInfo: SellerData) => set({
+      sellerProfile: SellerInfo,
+    }),
 
     login: async (userData: LoginSellerData) => {
       loader = toast.loading("Logging in...");
-      try {
-        const res = await api.post("/login", userData, {
-          withCredentials: true,
-        });
-        // setItem({ key: "token", data: res.data.token });
-        toast.remove(loader);
-        toast.success(res.data.message);
-      } catch (error: any) {
-        // Error handling
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          const errorMessage = Array.isArray(error.response.data.message)
-            ? error.response.data.message.join(", ")
-            : error.response.data.message;
-          toast.error(errorMessage);
-        } else {
-          toast.error("An error occurred during login.");
-        }
-        if (loader) {
-          toast.remove(loader);
-        }
-      }
-    },
-
-    upload: async (userData: UploadPostsData) => {
-      loader = toast.loading("Uploading in...");
       try {
         const res = await api.post("/login", userData, {
           withCredentials: true,
@@ -174,10 +151,66 @@ const useSellerStore = create<AuthStore>((set) => {
         }
       }
     },
+
+    profile: async (userData: SellerData) => {
+      try {
+        const res = await api.get("/myProfile");
+      } catch (error: any) {
+        
+      }
+    },
   };
 });
 
-export default useSellerStore;
+const useShopStore = create<ShopStore>((set) => {
+  let loader: string | null = null; // Declare loader variable outside
+
+  return {
+    uploadPostsData: {
+      description: "",
+      image: "",
+      tags: "",
+      title: "",
+      category: "",
+    },
+
+    setUploadPostsData: (sellerData: UploadPostsData) =>
+      set({
+        uploadPostsData: sellerData,
+      }),
+
+    post: async (userData: UploadPostsData) => {
+      loader = toast.loading("Uploading in...");
+      try {
+        const res = await api.post("/post/:id", userData, {
+          withCredentials: true,
+        });
+        // setItem({ key: "token", data: res.data.token });
+        toast.remove(loader);
+        toast.success(res.data.message);
+      } catch (error: any) {
+        // Error handling
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          const errorMessage = Array.isArray(error.response.data.message)
+            ? error.response.data.message.join(", ")
+            : error.response.data.message;
+          toast.error(errorMessage);
+        } else {
+          toast.error("An error occurred while posting.");
+        }
+        if (loader) {
+          toast.remove(loader);
+        }
+      }
+    },
+  };
+});
+
+export { useSellerStore, useShopStore };
 
 
 // const useAuthStore = create<AuthStore>(set => ({
