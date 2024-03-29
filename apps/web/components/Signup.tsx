@@ -3,12 +3,12 @@ import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
-import {useSellerStore} from "../store/useStore";
+import { useSellerStore } from "../store/useStore";
 import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
 
 const Signup = () => {
-  const {signup, signupSellerData, setSignupSellerData } = useSellerStore();
+  const { signup, signupSellerData, setSignupSellerData } = useSellerStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -43,11 +43,11 @@ const Signup = () => {
               id="name"
               type="text"
               placeholder="John Doe"
-              value={signupSellerData.name}
+              value={signupSellerData.fullName}
               onChange={(e) =>
                 setSignupSellerData({
                   ...signupSellerData,
-                  name: e.target.value,
+                  fullName: e.target.value,
                 })
               }
             />
