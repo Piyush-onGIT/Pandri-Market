@@ -57,7 +57,7 @@ const postedShopSchema = new Schema({
     ref: Shop,
     required: true,
   },
-  catagory: {
+  category: {
     type: [String],
     required: true,
   },

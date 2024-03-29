@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
-import {useShopStore}  from "../store/useStore"
+import { useShopStore } from "../store/useStore";
 import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
 import Dropdown from "./Dropdown";

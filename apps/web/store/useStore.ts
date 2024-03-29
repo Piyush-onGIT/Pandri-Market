@@ -2,6 +2,7 @@ import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
 import { setItem, removeItem, getItem } from "../utils/localStorage";
+const shopId = "6606778ec5050a988c04f5f8";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -85,9 +86,10 @@ const useSellerStore = create<AuthStore>((set) => {
         signupSellerData: sellerData,
       }),
 
-    setSellerProfileData: (SellerInfo: SellerData) => set({
-      sellerProfile: SellerInfo,
-    }),
+    setSellerProfileData: (SellerInfo: SellerData) =>
+      set({
+        sellerProfile: SellerInfo,
+      }),
 
     login: async (userData: LoginSellerData) => {
       loader = toast.loading("Logging in...");
@@ -155,9 +157,7 @@ const useSellerStore = create<AuthStore>((set) => {
     profile: async (userData: SellerData) => {
       try {
         const res = await api.get("/myProfile");
-      } catch (error: any) {
-        
-      }
+      } catch (error: any) {}
     },
   };
 });
@@ -182,14 +182,17 @@ const useShopStore = create<ShopStore>((set) => {
     post: async (userData: UploadPostsData) => {
       loader = toast.loading("Uploading in...");
       try {
-        const res = await api.post("/post/:id", userData, {
+        const res = await api.post(`/shop/posts/${shopId}`, userData, {
           withCredentials: true,
         });
+        console.log(shopId);
+
         // setItem({ key: "token", data: res.data.token });
         toast.remove(loader);
         toast.success(res.data.message);
       } catch (error: any) {
         // Error handling
+        toast("Post is not working");
         if (
           error.response &&
           error.response.data &&
@@ -211,7 +214,6 @@ const useShopStore = create<ShopStore>((set) => {
 });
 
 export { useSellerStore, useShopStore };
-
 
 // const useAuthStore = create<AuthStore>(set => ({
 //   token: null,

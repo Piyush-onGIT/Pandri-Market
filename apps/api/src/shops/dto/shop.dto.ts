@@ -79,6 +79,7 @@ export class ShopUpdate {
 }
 
 export class postForShop {
+  @IsOptional()
   @IsString()
   @Expose()
   url!: string;
@@ -89,7 +90,7 @@ export class postForShop {
 
   @IsArray()
   @Expose()
-  Catagory!: string[];
+  category!: string[];
 
   @IsString()
   @Expose()
