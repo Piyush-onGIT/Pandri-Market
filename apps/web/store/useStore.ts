@@ -2,7 +2,7 @@ import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
 import { setItem, removeItem, getItem } from "../utils/localStorage";
-const shopId = "6606778ec5050a988c04f5f8";
+// const shopId = "6606778ec5050a988c04f5f8";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -14,11 +14,12 @@ type UploadPostsData = {
   image: string;
   tags: string;
   title: string;
-  category: string;
+  category: string[];
+  url: string;
 };
 
 type SellerData = {
-  name: string;
+  fullName: string;
   phoneNo: string;
   address: string;
   email: string;
@@ -26,7 +27,7 @@ type SellerData = {
 };
 
 type SignupSellerData = {
-  name: string;
+  fullName: string;
   phoneNo: string;
   email: string;
   address: string;
@@ -48,7 +49,7 @@ type AuthStore = {
 type ShopStore = {
   uploadPostsData: UploadPostsData;
   setUploadPostsData: (SellerData: UploadPostsData) => void;
-  post: (body: UploadPostsData) => void;
+  post: (body: UploadPostsData, id: string) => void;
 };
 
 const useSellerStore = create<AuthStore>((set) => {
@@ -56,7 +57,7 @@ const useSellerStore = create<AuthStore>((set) => {
 
   return {
     sellerProfile: {
-      name: "",
+      fullName: "",
       phoneNo: "",
       email: "",
       address: "",
@@ -64,7 +65,7 @@ const useSellerStore = create<AuthStore>((set) => {
     },
 
     signupSellerData: {
-      name: "",
+      fullName: "",
       phoneNo: "",
       email: "",
       address: "",
@@ -171,7 +172,11 @@ const useShopStore = create<ShopStore>((set) => {
       image: "",
       tags: "",
       title: "",
-      category: "",
+      category: [],
+      url: "",
+    },
+    shopId: {
+      shopId: "",
     },
 
     setUploadPostsData: (sellerData: UploadPostsData) =>
@@ -179,13 +184,13 @@ const useShopStore = create<ShopStore>((set) => {
         uploadPostsData: sellerData,
       }),
 
-    post: async (userData: UploadPostsData) => {
+    post: async (userData: UploadPostsData, id: string) => {
       loader = toast.loading("Uploading in...");
       try {
-        const res = await api.post(`/shop/posts/${shopId}`, userData, {
+        const res = await api.post(`/shop/posts/${id}`, userData, {
           withCredentials: true,
         });
-        console.log(shopId);
+        console.log(id);
 
         // setItem({ key: "token", data: res.data.token });
         toast.remove(loader);

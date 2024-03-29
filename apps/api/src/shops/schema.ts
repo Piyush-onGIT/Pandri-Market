@@ -59,7 +59,7 @@ const postedShopSchema = new Schema({
   },
   category: {
     type: [String],
-    required: true,
+    // required: true,
   },
   title: {
     type: String,

@@ -7,14 +7,15 @@ import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
 import Dropdown from "./Dropdown";
 
-const UploadPosts = () => {
+const UploadPosts = ({ params }: any) => {
   const { post, uploadPostsData, setUploadPostsData } = useShopStore();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(uploadPostsData);
     const checkPass = fieldCheck(uploadPostsData);
-    if (checkPass) post(uploadPostsData);
+    // const imgUrl = up;
+    if (checkPass) post(uploadPostsData, params.id);
   };
 
   return (

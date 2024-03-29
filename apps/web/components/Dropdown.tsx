@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import {useShopStore} from "../store/useStore";
+import { useState, useEffect } from "react";
+import { useShopStore } from "../store/useStore";
 
 type Option = {
   value: string;
   label: string;
 };
-
-
 
 const DynamicDropdown = () => {
   const { uploadPostsData, setUploadPostsData } = useShopStore();
@@ -26,7 +24,7 @@ const DynamicDropdown = () => {
     if (selectedOption) {
       setUploadPostsData({
         ...uploadPostsData,
-        category: selectedOption.label,
+        category: [selectedOption.label],
       });
     }
   };
