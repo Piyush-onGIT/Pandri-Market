@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
@@ -56,7 +57,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center xl:items-between gap-8 xl:gap-12">
+            <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center gap-8 xl:gap-12">
               <div className="w-full col-span-2 lg:col-span-1 bg-white p-4 xl:p-8 rounded-3xl xl:row-span-4">
                 <div className="mb-8">
                   <div className="flex justify-between items-center px-4 mb-4">
@@ -69,7 +70,7 @@ const page = () => {
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
                 </div>
-                <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-0">
+                <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-[2rem]">
                   <div className="flex flex-col gap-1 text-sm text-[#555555] w-full">
                     <div className="flex items-center w-full lg:justify-between">
                       <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
@@ -121,7 +122,7 @@ const page = () => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:hidden block">
+                <div className="block lg:hidden xl:block">
                   <div className="mb-8">
                     <div className="mb-4 px-4">
                       <div className="font-semibold text-lg">
@@ -143,7 +144,7 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full bg-white p-4 xl:px-8 xl:pt-8 rounded-3xl hidden lg:block">
+              <div className="w-full bg-white p-4 xl:px-8 xl:pt-8 rounded-3xl hidden lg:block xl:hidden">
                 <div className="mb-8">
                   <div className="mb-4 px-4">
                     <div className="font-semibold text-lg">

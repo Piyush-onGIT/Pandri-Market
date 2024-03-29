@@ -13,9 +13,8 @@ const keyName: keyTypes = {
   phoneNo: "Phone Number",
   email: "Email",
   address: "Address",
-  password: "Password"
-}
-
+  password: "Password",
+};
 
 const emptyFieldCheck = (obj: any) => {
   for (let key of Object.keys(obj) as (keyof typeof obj)[]) {
