@@ -40,12 +40,12 @@ const useShopStore = create<ShopStore>((set) => {
       try {
     
         const resImg = await api.post("/upload/single", userData.productImage);
-        console.log("img url is: ", resImg.data.imgUrl);
+        // console.log("img url is: ", resImg.data.imgUrl);
         userData.url = resImg.data.imgUrl;
         const res = await api.post(`/shop/posts/${id}`, userData, {
           withCredentials: true,
         });
-        console.log(id);
+      
 
         // setItem({ key: "token", data: res.data.token });
         toast.remove(loader);
