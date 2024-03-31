@@ -6,7 +6,7 @@ import Avatar from '../assets/images/avatar.jpg';
 import { Toaster } from 'react-hot-toast';
 import { fieldCheck } from '../utils/checks';
 import Dropdown from './Dropdown';
-import { useShopStore } from '../store/useStore';
+import useShopStore from '../store/useShopStore';
 
 const UploadPosts = ({ params }: any) => {
   const { post, uploadPostsData, setUploadPostsData } = useShopStore();
@@ -110,11 +110,11 @@ const UploadPosts = ({ params }: any) => {
               type="file"
               placeholder="Product Images"
               accept="image/*"
-              value={uploadPostsData.image}
+              // value={uploadPostsData.image}
               onChange={(e) =>
                 setUploadPostsData({
                   ...uploadPostsData,
-                  image: e.target.value,
+                  // image: e.target.value,
                 })
               }
             />
