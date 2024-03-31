@@ -152,9 +152,15 @@ const useSellerStore = create<AuthStore>((set) => {
       }
     },
 
-    profile: async (userData: SellerData) => {
+    profile: async () => {
       try {
         const res = await api.get("/myProfile");
+        
+        console.log(res.data.information);
+        set({
+          sellerProfile: res.data.information,
+        });
+      
       } catch (error: any) {
         
       }

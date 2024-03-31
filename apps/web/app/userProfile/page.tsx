@@ -1,11 +1,19 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
+import { useSellerStore } from "../../store/useStore";
 import Image from "next/image";
 
 const page = () => {
+  const { profile, sellerProfile, setSellerProfileData } = useSellerStore();
+
+  useEffect(() => {
+    profile(sellerProfile);
+    console.log(sellerProfile);
+  }, []);
+
   return (
     <>
       <div className="flex">
@@ -30,15 +38,15 @@ const page = () => {
                   <div className="text-xl font-bold">My Profile</div>
                   <div>
                     <div className="mb-4 gap-2  flex flex-wrap w-full justify-between">
-                      <div>Pranjal Naman</div>
-                      <div>+91 7607138454</div>
+                      <div>{sellerProfile.name}</div>
+                      <div>+91 {sellerProfile.phoneNo}</div>
                     </div>
                     <div className="relative">
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
                   </div>
                   <div>
-                    <div className="mb-4">pranjalofficial11@gmail.com</div>
+                    <div className="mb-4">{sellerProfile.email}</div>
                     <div className="relative">
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
@@ -48,7 +56,7 @@ const page = () => {
                       <div className="text-[#211f1f] text-md font-semibold">
                         Credits:
                       </div>
-                      <div className="text-orange-500 font-semibold">300</div>
+                      <div className="text-orange-500 font-semibold">{sellerProfile.credit}</div>
                     </div>
                     <div className="px-3 lg:px-4 py-1 bg-gradient-to-br from-cyan-400 to-green-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
                       Buy Credits
@@ -80,7 +88,7 @@ const page = () => {
                         <input
                           className="border-2 text-xs md:text-sm outline-none rounded-md p-2 w-full"
                           type="text"
-                          placeholder="Write your address..."
+                          placeholder={`${sellerProfile.address}`}
                         />
                       </div>
                     </div>
