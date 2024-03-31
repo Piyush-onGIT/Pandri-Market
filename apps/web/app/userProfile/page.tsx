@@ -59,7 +59,7 @@ const page = () => {
             </div>
             <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center gap-8 xl:gap-12">
               <div className="w-full col-span-2 lg:col-span-1 bg-white p-4 xl:p-8 rounded-3xl xl:row-span-4">
-                <div className="mb-8">
+                <div className="mb-6">
                   <div className="flex justify-between items-center px-4 mb-4">
                     <div className="font-semibold text-lg">Address</div>
                     <div className="px-4 py-1 bg-[#a3a3a3] rounded-2xl hover:cursor-pointer">
@@ -123,8 +123,8 @@ const page = () => {
                   </div>
                 </div>
                 <div className="block lg:hidden xl:block">
-                  <div className="mb-8">
-                    <div className="mb-4 px-4">
+                  <div className="mb-4">
+                    <div className="mb-2 px-4">
                       <div className="font-semibold text-lg">
                         Registered numbers
                       </div>
@@ -133,7 +133,7 @@ const page = () => {
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-2 mb-8">
+                  <div className="flex justify-between items-center px-2 mb-0">
                     <div className="flex flex-col gap-1 text-sm text-[#555555]">
                       <div>Phone Number</div>
                       <div>+91 7651830854</div>
