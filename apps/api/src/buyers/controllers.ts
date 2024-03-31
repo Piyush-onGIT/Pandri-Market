@@ -10,7 +10,11 @@ const likePost = async (req: Request, res: Response) => {
     await likes.save();
     const post = await ShopPostModel.findById(req.params.id);
     if (post && post.likes) {
-      post.likes = post.likes + 1;
+      await post.updateOne({
+        $inc: {
+          likes: 1,
+        },
+      });
       await post.save();
     } else if (post) {
       post.likes = 1;
