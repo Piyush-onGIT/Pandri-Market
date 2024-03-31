@@ -3,7 +3,7 @@ import UploadPosts from "../../components/UploadPosts";
 
 const uploadPosts = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#dddddd]">
+    <div className="flex justify-evenly min-h-screen bg-[#dddddd] ">
       <Head>
         <title>UploadPosts</title>
       </Head>

@@ -5,4 +5,7 @@ module.exports = {
     "@repo/tailwind-config",
     "@repo/nextui-config",
   ],
+  images: {
+    domains: ['images.unsplash.com'],
+  },
 };
