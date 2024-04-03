@@ -12,6 +12,7 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { CiTwitter } from "react-icons/ci";
 import "../globals.css";
 import toast from "react-hot-toast";
+import { AnimatedTooltipPreview } from "../../components/tooltip";
 
 const HomePage = () => {
   return (
@@ -39,8 +40,12 @@ const HomePage = () => {
               <Image src={SampleI1} alt="sample-1" width={190} />
             </div>
             <div className="text-center sm:text-left md:text-center row-start-1 col-start-1 col-span-2 row-span-2">
-              <div className="md:mb-3 xl:mb-4 lg:text-[52px]">Elevate Your Shop</div>
-              <div className="md:leading-[2.4rem] lg:text-[52px]">Elevate Your Business</div>
+              <div className="md:mb-3 xl:mb-4 lg:text-[52px]">
+                Elevate Your Shop
+              </div>
+              <div className="md:leading-[2.4rem] lg:text-[52px]">
+                Elevate Your Business
+              </div>
             </div>
             <div className="hidden sm:block col-start-3 rounded-2xl overflow-hidden scale-75 lg:scale-80">
               <Image src={SampleI2} alt="sample-2" width={190} />
@@ -71,7 +76,11 @@ const HomePage = () => {
                       toast.custom(
                         <div className="bg-[#f9683c] text-[white] p-4 m-4 rounded-md">
                           <div className="">Input values please</div>
-                          <input className="ronded-md ho" type="text" placeholder="enter password" />
+                          <input
+                            className="ronded-md ho"
+                            type="text"
+                            placeholder="enter password"
+                          />
                         </div>
                       );
                     }}
@@ -127,36 +136,12 @@ const HomePage = () => {
             <div className="w-[300px] row-start-1 col-span-2">
               <Image src={SampleI3} alt="sample-3" />
             </div>
-            <div className="self-center hidden lg:block">
-              <div className="text-xl font-semibold mb-3 tracking-wider">
+            <div className=" hidden lg:block self-end">
+              <div className="text-xl font-semibold  tracking-wider text-center">
                 PARTICIPANTS
-              </div>
-              <div className="flex gap-1 items-center mt-4">
-                <div>
-                  <Image
-                    className="rounded-full"
-                    src={Customer}
-                    alt="customer"
-                    width={35}
-                  />
+                <div className="mt-6">
+                  <AnimatedTooltipPreview />
                 </div>
-                <div>
-                  <Image
-                    className="rounded-full"
-                    src={Customer}
-                    alt="customer"
-                    width={35}
-                  />
-                </div>
-                <div>
-                  <Image
-                    className="rounded-full"
-                    src={Customer}
-                    alt="customer"
-                    width={35}
-                  />
-                </div>
-                <div className="text-[1rem] font-semibold">10+ More</div>
               </div>
               <div className="w-[100%] h-[1px] bg-[#333333] mt-10"></div>
             </div>

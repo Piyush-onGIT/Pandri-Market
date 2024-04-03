@@ -1,5 +1,5 @@
 "use client";
-import React  from "react";
+import React from "react";
 import Image from "next/image";
 import Logo from "../../../assets/images/Logo.png";
 import useShopStore from "../../../store/useShopStore";
