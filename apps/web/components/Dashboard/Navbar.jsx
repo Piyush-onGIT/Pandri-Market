@@ -2,8 +2,12 @@ import React from "react";
 import Image from "next/image";
 import UserProfile from "../../assets/images/UserProfile.png";
 import { MdArrowDropDown } from "react-icons/md";
+import useSellerStore from "../../store/useSellerStore";
 
 const Navbar = () => {
+  const { sellerProfile } = useSellerStore();
+  const NameFull = sellerProfile.fullName.trim().split(" ");
+
   return (
     <>
       <div className="py-4 px-6 flex justify-between">
@@ -24,7 +28,7 @@ const Navbar = () => {
             />
           </div>
           <div className="flex gap-1 items-center">
-            <div className="font-semibold">Hello Sam!</div>
+            <div className="font-semibold">Hello {NameFull[0]}!</div>
             <div>
               <MdArrowDropDown />
             </div>

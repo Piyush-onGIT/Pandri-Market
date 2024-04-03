@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useShopStore } from "../store/useStore";
+import useShopStore from "../store/useShopStore";
 
 type Option = {
   value: string;

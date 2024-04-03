@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
-import { useSellerStore } from "../store/useStore";
+import useSellerStore from "../store/useSellerStore";
 import { Toaster } from "react-hot-toast";
 import { fieldCheck } from "../utils/checks";
 

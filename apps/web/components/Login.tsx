@@ -4,7 +4,7 @@ import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
-import {useSellerStore} from "../store/useStore";
+import useSellerStore from "../store/useSellerStore";
 import { fieldCheck } from "../utils/checks";
 
 const Login = () => {
