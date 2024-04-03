@@ -79,6 +79,7 @@ export class ShopUpdate {
 }
 
 export class postForShop {
+  @IsOptional()
   @IsString()
   @Expose()
   url!: string;
@@ -86,4 +87,16 @@ export class postForShop {
   @IsString()
   @Expose()
   tags!: string;
+
+  @IsArray()
+  @Expose()
+  category!: string[];
+
+  @IsString()
+  @Expose()
+  title!: string;
+
+  @IsString()
+  @Expose()
+  description!: string;
 }

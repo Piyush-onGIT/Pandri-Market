@@ -1,10 +1,19 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
+import useSellerStore from "../../store/useSellerStore";
 import Image from "next/image";
 
 const page = () => {
+  const { profile, sellerProfile } = useSellerStore();
+
+  useEffect(() => {
+    profile(sellerProfile);
+    console.log(sellerProfile);
+  }, []);
+
   return (
     <>
       <div className="flex">
@@ -29,15 +38,15 @@ const page = () => {
                   <div className="text-xl font-bold">My Profile</div>
                   <div>
                     <div className="mb-4 gap-2  flex flex-wrap w-full justify-between">
-                      <div>Pranjal Naman</div>
-                      <div>+91 7607138454</div>
+                      <div>{sellerProfile.fullName}</div>
+                      <div>+91 {sellerProfile.phoneNo}</div>
                     </div>
                     <div className="relative">
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
                   </div>
                   <div>
-                    <div className="mb-4">pranjalofficial11@gmail.com</div>
+                    <div className="mb-4">{sellerProfile.email}</div>
                     <div className="relative">
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
@@ -47,7 +56,9 @@ const page = () => {
                       <div className="text-[#211f1f] text-md font-semibold">
                         Credits:
                       </div>
-                      <div className="text-orange-500 font-semibold">300</div>
+                      <div className="text-orange-500 font-semibold">
+                        {sellerProfile.credit}
+                      </div>
                     </div>
                     <div className="px-3 lg:px-4 py-1 bg-gradient-to-br from-cyan-400 to-green-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
                       Buy Credits
@@ -56,9 +67,9 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center xl:items-between gap-8 xl:gap-12">
+            <div className="h-auto xl:h-full w-full xl:w-[45%] grid grid-cols-2 xl:grid-cols-1 xl:grid-row-6 xl:justify-items-center gap-8 xl:gap-12">
               <div className="w-full col-span-2 lg:col-span-1 bg-white p-4 xl:p-8 rounded-3xl xl:row-span-4">
-                <div className="mb-8">
+                <div className="mb-6">
                   <div className="flex justify-between items-center px-4 mb-4">
                     <div className="font-semibold text-lg">Address</div>
                     <div className="px-4 py-1 bg-[#a3a3a3] rounded-2xl hover:cursor-pointer">
@@ -69,7 +80,7 @@ const page = () => {
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
                 </div>
-                <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-0">
+                <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-[2rem]">
                   <div className="flex flex-col gap-1 text-sm text-[#555555] w-full">
                     <div className="flex items-center w-full lg:justify-between">
                       <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
@@ -79,7 +90,7 @@ const page = () => {
                         <input
                           className="border-2 text-xs md:text-sm outline-none rounded-md p-2 w-full"
                           type="text"
-                          placeholder="Write your address..."
+                          placeholder={`${sellerProfile.address}`}
                         />
                       </div>
                     </div>
@@ -121,9 +132,9 @@ const page = () => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:hidden block">
-                  <div className="mb-8">
-                    <div className="mb-4 px-4">
+                <div className="block lg:hidden xl:block">
+                  <div className="mb-4">
+                    <div className="mb-2 px-4">
                       <div className="font-semibold text-lg">
                         Registered numbers
                       </div>
@@ -132,10 +143,10 @@ const page = () => {
                       <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center px-2 mb-8">
+                  <div className="flex justify-between items-center px-2 mb-0">
                     <div className="flex flex-col gap-1 text-sm text-[#555555]">
                       <div>Phone Number</div>
-                      <div>+91 7651830854</div>
+                      <div>{`+91 ${sellerProfile.phoneNo}`}</div>
                     </div>
                     <div className="px-6 py-1 bg-gradient-to-br from-yellow-400 to-pink-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
                       Verify
@@ -143,7 +154,7 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full bg-white p-4 xl:px-8 xl:pt-8 rounded-3xl hidden lg:block">
+              <div className="w-full bg-white p-4 xl:px-8 xl:pt-8 rounded-3xl hidden lg:block xl:hidden">
                 <div className="mb-8">
                   <div className="mb-4 px-4">
                     <div className="font-semibold text-lg">
@@ -157,7 +168,7 @@ const page = () => {
                 <div className="flex justify-between items-center px-4 mb-8">
                   <div className="flex flex-col gap-1 text-sm text-[#555555]">
                     <div>Phone Number</div>
-                    <div>+91 7651830854</div>
+                    <div>+91 {sellerProfile.phoneNo}</div>
                   </div>
                   <div className="px-6 py-1 bg-gradient-to-br from-yellow-400 to-pink-600 text-white font-semibold rounded-2xl hover:cursor-pointer">
                     Verify
