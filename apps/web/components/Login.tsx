@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <>
-      <Toaster />
+      <Toaster position="top-left"/>
       <div className="w-[20rem] sm:w-[26rem] mx-auto">
         <form
           className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"

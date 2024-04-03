@@ -77,13 +77,13 @@ const useSellerStore = create<AuthStore>((set) => {
       }),
 
     login: async (userData: LoginSellerData) => {
-      loader = toast.loading("Logging in...");
+      toast.loading("Logging in...");
       try {
         const res = await api.post("/login", userData, {
           withCredentials: true,
         });
         // setItem({ key: "token", data: res.data.token });
-        toast.remove(loader);
+        toast.dismiss();
         toast.success(res.data.message);
       } catch (error: any) {
         // Error handling
@@ -100,13 +100,13 @@ const useSellerStore = create<AuthStore>((set) => {
           toast.error("An error occurred during login.");
         }
         if (loader) {
-          toast.remove(loader);
+          toast.dismiss();
         }
       }
     },
 
     signup: async (userData: SignupSellerData) => {
-      loader = toast.loading("Signing up...");
+      toast.loading("Signing up...");
       try {
         const res = await api.post("/signup", userData, {
           withCredentials: true,
@@ -117,7 +117,7 @@ const useSellerStore = create<AuthStore>((set) => {
         // console.log(res["data"]);
         // console.log(res.data.message);
 
-        toast.remove(loader);
+        toast.dismiss();
       } catch (error: any) {
         // Error handling
         console.log(error);
@@ -134,9 +134,9 @@ const useSellerStore = create<AuthStore>((set) => {
           toast.error("An error occurred during signup.");
         }
         if (loader) {
-          toast.remove(loader);
+          toast.dismiss(loader);
         }
-      }
+      } 
     },
 
     profile: async () => {
