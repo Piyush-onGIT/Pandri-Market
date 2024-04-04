@@ -76,9 +76,9 @@ const useSellerStore = create<AuthStore>((set) => {
       }),
 
     login: async (userData: LoginSellerData) => {
-      loader = toast.loading("Logging in...");
+      const loader = toast.loading("Logging in...");
       try {
-        const res = await api.post("/login", userData, {
+        const res = await api.post("/auth/seller/login", userData, {
           withCredentials: true,
         });
         // setItem({ key: "token", data: res.data.token });
@@ -105,9 +105,9 @@ const useSellerStore = create<AuthStore>((set) => {
     },
 
     signup: async (userData: SignupSellerData) => {
-      loader = toast.loading("Signing up...");
+      const loader = toast.loading("Signing up...");
       try {
-        const res = await api.post("/signup", userData, {
+        const res = await api.post("/auth/seller/signup", userData, {
           withCredentials: true,
         });
         // setItem({ key: "token", data: res.data.token });
@@ -135,12 +135,12 @@ const useSellerStore = create<AuthStore>((set) => {
         if (loader) {
           toast.remove(loader);
         }
-      }
+      } 
     },
 
     profile: async () => {
       try {
-        const res = await api.get("/myProfile");
+        const res = await api.get("/auth/seller/myProfile");
 
         console.log(res.data.information);
         set({

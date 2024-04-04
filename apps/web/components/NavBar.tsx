@@ -28,7 +28,7 @@ const NavBar = () => {
   return (
     <>
       <div className="flex justify-between items-center ml-0 mr-2 sm:mx-6 p-1.5 border-b-2 border-dashed border-[#6e6a66]">
-        <div>
+        <div className="-translate-x-[21px]">
           <Image
             className="scale-75 sm:scale-90 md:scale-100"
             src={Logo}
@@ -38,11 +38,11 @@ const NavBar = () => {
           />
         </div>
         <div className="flex items-center gap-4 sm:gap-6 md:gap-10 font-semibold">
-          <div>Home</div>
+          {/* <div>Home</div>
           <div>About</div>
           <div>Sale</div>
           <div>Winter</div>
-          <div>Blog</div>
+          <div>Blog</div> */}
           <div onClick={() => setMenu(!menu)} className="sm:hidden">
             <CgMenuRight size="1.4rem" />
           </div>
@@ -59,7 +59,7 @@ const NavBar = () => {
           </div>
         </div>
         <div
-          className={`absolute ${menu ? "flex" : "hidden"} right-4 top-12 z-10 bg-white rounded-lg p-4 flex-col gap-2 sm:hidden navbar-menu`}
+          className={`absolute ${menu ? "flex" : "hidden"} right-4 top-12 z-[501] bg-white rounded-lg p-4 flex-col gap-2 sm:hidden navbar-menu`}
         >
           <div>
             <div className="flex items-center gap-2">
