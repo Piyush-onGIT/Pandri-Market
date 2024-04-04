@@ -146,3 +146,10 @@ a {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.bg-shopReg {
+  background-image: url('../assets/images/ShopRegImg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import Logo from "../assets/images/Logo.png";
-import Avatar from "../assets/images/avatar.jpg";
-import { Toaster } from "react-hot-toast";
-import { fieldCheck } from "../utils/checks";
-import Dropdown from "./Dropdown";
-import useShopStore from "../store/useShopStore";
+import React from 'react';
+import Image from 'next/image';
+import Logo from '../assets/images/Logo.png';
+import Avatar from '../assets/images/avatar.jpg';
+import { Toaster } from 'react-hot-toast';
+import Dropdown from './Dropdown';
+import useShopStore from '../store/useShopStore';
+//Checks to be added
 
 const UploadPosts = ({ params }: any) => {
   const { post, uploadPostsData, setUploadPostsData } = useShopStore();
@@ -14,9 +14,21 @@ const UploadPosts = ({ params }: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(uploadPostsData);
-    const checkPass = fieldCheck(uploadPostsData);
-    // const imgUrl = up;
-    if (checkPass) post(uploadPostsData, params.id);
+
+    post(uploadPostsData, params.id);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("productImage", file);
+      setUploadPostsData({
+        ...uploadPostsData,
+        productImage: formData,
+      });
+      console.log(formData);
+    }
   };
 
   return (
@@ -60,7 +72,7 @@ const UploadPosts = ({ params }: any) => {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="description"
                   >
-                    ✏ Description
+                    ✏️ Description
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
@@ -106,18 +118,13 @@ const UploadPosts = ({ params }: any) => {
                     <div>🥋 Image</div>
                   </label>
                   <input
-                    className=" shadow  appearance-none  rounded  w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c] border-[black] outline-none "
+                    className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:outline-[#f9683c]"
                     id="address"
                     type="file"
                     placeholder="Product Images"
                     accept="image/*"
-                    // value={uploadPostsData.image}
-                    onChange={() =>
-                      setUploadPostsData({
-                        ...uploadPostsData,
-                        // image: e.target.value,
-                      })
-                    }
+                    // value={`${uploadPostsData.image}`}
+                    onChange={handleFileChange}
                   />
                 </div>
 
