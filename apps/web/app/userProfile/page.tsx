@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
@@ -8,7 +8,8 @@ import Image from "next/image";
 
 const page = () => {
   const { profile, sellerProfile } = useSellerStore();
-
+  const [toggle ,setToggle] = useState(false); 
+  const userAddress = sellerProfile.address.slice();
   useEffect(() => {
     profile(sellerProfile);
     console.log(sellerProfile);
@@ -72,17 +73,20 @@ const page = () => {
                 <div className="mb-6">
                   <div className="flex justify-between items-center px-4 mb-4">
                     <div className="font-semibold text-lg">Address</div>
-                    <div className="px-4 py-1 bg-[#a3a3a3] rounded-2xl hover:cursor-pointer">
-                      Edit
-                    </div>
+                    <button
+                      onClick={() => setToggle(!toggle)}
+                      className={`px-4 py-1 ${toggle ? "hover:bg-green-400" : "hover:bg-[#bababa]"} rounded-2xl hover:cursor-pointer ${toggle ? "bg-green-500" : "bg-[#a3a3a3]"} hover:bg-[#bababa] transition-colors`}
+                    >
+                      {toggle ? "Save" : "Edit"}
+                    </button>
                   </div>
                   <div className="relative">
                     <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-[2rem]">
-                  <div className="flex flex-col gap-1 text-sm text-[#555555] w-full">
-                    <div className="flex items-center w-full lg:justify-between">
+                  <div className="flex flex-col gap-1 text-sm text-[hsl(0,0%,33%)] w-full">
+                    <div className="flex items-center w-full lg:justify-between ">
                       <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         Permanent Address
                       </div>
