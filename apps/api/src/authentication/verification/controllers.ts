@@ -6,14 +6,16 @@ import { Redis } from "ioredis";
 import { SellerModel } from "../schema";
 
 const redis = new Redis();
-function generateRandomNumber(): number {
+
+const generateRandomNumber = (): number => {
   let randomNumberStr: string = "";
   for (let i = 0; i < 4; i++) {
     randomNumberStr += Math.floor(Math.random() * 10).toString();
   }
   const randomNumber: number = parseInt(randomNumberStr);
   return randomNumber;
-}
+};
+
 const verifyPhoneNo = async (req: any, res: Response) => {
   const result = await axios.get(
     `http://localhost:5001/api/checkNumberStatus?phone=${req.body.phoneNo}&session=default`
@@ -32,9 +34,9 @@ const verifyPhoneNo = async (req: any, res: Response) => {
     await axios.post("http://localhost:5001/api/sendText", requestingBody);
     redis.set(req.body.phoneNo, otp, "EX", 60);
     res.json({ message: "OTP sent" });
-    // console.log(result);
   }
 };
+
 const verifyOtp = async (req: any, res: Response) => {
   const otp = req.body.otp;
   const phoneNo = req.body.phoneNo;
@@ -51,4 +53,5 @@ const verifyOtp = async (req: any, res: Response) => {
     res.json({ message: "OTP invalid" });
   }
 };
+
 export { verifyPhoneNo, verifyOtp };

@@ -16,7 +16,6 @@ const page = () => {
   }, []);
 
   return (
-
     <>
       <div className="flex">
         <div className="h-full ">
@@ -74,8 +73,11 @@ const page = () => {
                 <div className="mb-6">
                   <div className="flex justify-between items-center px-4 mb-4">
                     <div className="font-semibold text-lg">Address</div>
-                    <button onClick={() => setToggle(!toggle)} className={`px-4 py-1 ${toggle ? "hover:bg-green-400" :"hover:bg-[#bababa]"} rounded-2xl hover:cursor-pointer ${toggle ? "bg-green-500" :"bg-[#a3a3a3]"} hover:bg-[#bababa] transition-colors`}>
-                      {toggle ? "Save" : "Edit"} 
+                    <button
+                      onClick={() => setToggle(!toggle)}
+                      className={`px-4 py-1 ${toggle ? "hover:bg-green-400" : "hover:bg-[#bababa]"} rounded-2xl hover:cursor-pointer ${toggle ? "bg-green-500" : "bg-[#a3a3a3]"} hover:bg-[#bababa] transition-colors`}
+                    >
+                      {toggle ? "Save" : "Edit"}
                     </button>
                   </div>
                   <div className="relative">
@@ -83,19 +85,7 @@ const page = () => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center xl:px-4 mb-8 xl:mb-[2rem]">
-                  <div>
-                    {userAddress[0]}
-                  </div>
-                  <div>
-                    {userAddress[1]}
-                  </div>
-                  <div>
-                    {userAddress[2]}
-                  </div>
-                  <div>
-                    {userAddress[3]}
-                  </div>  
-                  {/* <div className="flex flex-col gap-1 text-sm text-[hsl(0,0%,33%)] w-full">
+                  <div className="flex flex-col gap-1 text-sm text-[hsl(0,0%,33%)] w-full">
                     <div className="flex items-center w-full lg:justify-between ">
                       <div className="text-[#211f1f] w-full font-semibold m-2 py-2">
                         Permanent Address
@@ -144,10 +134,6 @@ const page = () => {
                         />
                       </div>
                     </div>
-                  </div> */}
-                  
-                  <div> 
-
                   </div>
                 </div>
                 <div className="block lg:hidden xl:block">

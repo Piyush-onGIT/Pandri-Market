@@ -28,6 +28,4 @@ export function FloatingNavDemo() {
     </div>
   );
 }
-const DummyContent = () => {
-  return <></>;
-};
+

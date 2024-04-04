@@ -10,7 +10,7 @@ import useShopStore from "../../store/useShopStore";
 import Multiselect from "../../components/ShopRegistration/Multiselect";
 //Checks to be added
 
-const registerShop = ({ params }: any) => {
+const registerShop = () => {
   const { createShop, shopRegistrationData, setShopRegistrationData } = useShopStore();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);

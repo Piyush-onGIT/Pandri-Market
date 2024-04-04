@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import Dropdown from "./Dropdown";
-import useShopStore from "../../store/useShopStore";
 
 const Multiselect = ({ onSelect }: { onSelect: (selectedItems: string[]) => void }) => {
-  const {
-    shopRegistrationData,
-    setShopRegistrationData,
-  } = useShopStore();
 
   // state showing if dropdown is open or closed
   const [dropdown, setDropdown] = useState(false);
   // managing dropdown items (list of dropdown items)
-  
+
   const [items, setItems] = useState<string[]>([
     "john",
     "milos",
