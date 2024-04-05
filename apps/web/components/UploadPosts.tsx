@@ -4,9 +4,9 @@ import Image from "next/image";
 import Logo from "../assets/images/Logo.png";
 import Avatar from "../assets/images/avatar.jpg";
 import { Toaster } from "react-hot-toast";
-import { fieldCheck } from "../utils/checks";
 import Dropdown from "./Dropdown";
 import useShopStore from "../store/useShopStore";
+//Checks to be added
 
 const UploadPosts = ({ params }: any) => {
   const { post, uploadPostsData, setUploadPostsData } = useShopStore();
@@ -14,9 +14,21 @@ const UploadPosts = ({ params }: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(uploadPostsData);
-    const checkPass = fieldCheck(uploadPostsData);
-    // const imgUrl = up;
-    if (checkPass) post(uploadPostsData, params.id);
+
+    post(uploadPostsData, params.id);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("productImage", file);
+      setUploadPostsData({
+        ...uploadPostsData,
+        productImage: formData,
+      });
+      console.log(formData);
+    }
   };
 
   return (
@@ -111,13 +123,8 @@ const UploadPosts = ({ params }: any) => {
                     type="file"
                     placeholder="Product Images"
                     accept="image/*"
-                    // value={uploadPostsData.image}
-                    onChange={() =>
-                      setUploadPostsData({
-                        ...uploadPostsData,
-                        // image: e.target.value,
-                      })
-                    }
+                    // value={`${uploadPostsData.image}`}
+                    onChange={handleFileChange}
                   />
                 </div>
 

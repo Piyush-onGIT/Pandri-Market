@@ -11,5 +11,7 @@ module.exports = {
     "**/useSellerStore.ts",
     "**/useShopStore.ts",
     "useStore",
+    "**/Multiselect.tsx",
+    "**/Dropdown.tsx",
   ],
 };
