@@ -38,7 +38,7 @@ const signup = async (req: any, res: Response) => {
     await SellerModel.create({
       ...userDto,
     });
-    userDto.credit = 300;
+    // userDto.credit = 300;
     return res.status(200).json({
       message: "Account created successfully",
     });

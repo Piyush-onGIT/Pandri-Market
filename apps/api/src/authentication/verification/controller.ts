@@ -19,6 +19,7 @@ const verifyPhoneNo = async (req: any, res: Response) => {
     `http://localhost:5001/api/checkNumberStatus?phone=${req.body.phoneNo}&session=default`
   );
   const phoneNoExist: boolean = result.data.numberExists;
+  console.log(phoneNoExist);
   if (!phoneNoExist) {
     const error = new ApiError(401, "Invalid PhoneNO");
     return errorHandler(res, error);
@@ -45,6 +46,7 @@ const verifyOtp = async (req: any, res: Response) => {
       { phoneNo: phoneNo },
       { isPhoneVerified: true }
     );
+    if (user) user.credit = 300;
     await user?.save();
     res.json({ message: "PhoneNo Verified" });
   } else {

@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-  }, 
+  },
   fullName: {
     type: String,
     required: true,
@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     required: true,
   },
   credit: {
-    default: 300,
+    default: 0,
     type: Number,
   },
   isPhoneVerified: {
