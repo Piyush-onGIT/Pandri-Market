@@ -6,9 +6,14 @@ import { CgProfile } from "react-icons/cg";
 import { CgMenuRight } from "react-icons/cg";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
+import {useRouter} from "next/navigation";
+import useSellerStore from "../store/useSellerStore";
+import Profits from "../assets/images/online-shopping.png";
 
 const NavBar = () => {
   const [menu, setMenu] = useState(false);
+  const {isAuthenticated} = useSellerStore();
+  const router = useRouter();
 
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
@@ -28,13 +33,14 @@ const NavBar = () => {
   return (
     <>
       <div className="flex justify-between items-center ml-0 mr-2 sm:mx-6 p-1.5 border-b-2 border-dashed border-[#6e6a66]">
-        <div className="-translate-x-[21px]">
+        <div className="-translate-x-[21px] cursor-pointer">
           <Image
             className="scale-75 sm:scale-90 md:scale-100"
             src={Logo}
             alt="logo"
             width={100}
             height={100}
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="flex items-center gap-4 sm:gap-6 md:gap-10 font-semibold">
@@ -48,14 +54,15 @@ const NavBar = () => {
           </div>
         </div>
         <div className="hidden sm:flex sm:gap-6 md:gap-10 ">
-          <div>
+          {/* <div>
             <IoSearchSharp size="1.5rem" />
+          </div> */}
+          <div>
+           <Image width={23} alt="plans"
+            height={23} src={Profits} />  {/*<MdOutlineShoppingCart size="1.5rem" /> */}
           </div>
           <div>
-            <MdOutlineShoppingCart size="1.5rem" />
-          </div>
-          <div>
-            <CgProfile size="1.5rem" />
+          <CgProfile className="cursor-pointer" size="1.5rem" onClick={() =>  router.push("/userProfile")} />
           </div>
         </div>
         <div
@@ -72,7 +79,7 @@ const NavBar = () => {
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-2">
+         <div className="flex items-center gap-2">
               <CgProfile size="1.3rem" /> <div>Profile</div>
             </div>
           </div>
