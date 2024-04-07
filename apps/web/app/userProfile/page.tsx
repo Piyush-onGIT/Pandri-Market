@@ -9,7 +9,6 @@ import Image from "next/image";
 const page = () => {
   const { profile, sellerProfile } = useSellerStore();
   const [toggle ,setToggle] = useState(false); 
-  const userAddress = sellerProfile.address.slice();
   useEffect(() => {
     profile(sellerProfile);
     console.log(sellerProfile);
