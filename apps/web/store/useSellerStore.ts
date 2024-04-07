@@ -2,6 +2,7 @@ import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
 import { mountStoreDevtool } from "simple-zustand-devtools";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -25,6 +26,7 @@ type SignupSellerData = {
 };
 
 type AuthStore = {
+  isAuthenticated: boolean;
   sellerProfile: SellerData;
   signupSellerData: SignupSellerData;
   loginSellerData: LoginSellerData;
@@ -32,7 +34,7 @@ type AuthStore = {
   setSignupSellerData: (SellerSignupInfo: SignupSellerData) => void;
   setSellerProfileData: (SellerProfileInfo: SellerData) => void;
   signup: (body: SignupSellerData) => void;
-  login: (body: LoginSellerData) => void;
+  login: (body: LoginSellerData, router: AppRouterInstance) => void;
   profile: (body: SellerData) => void;
 };
 
@@ -47,6 +49,8 @@ const useSellerStore = create<AuthStore>((set: any) => {
       address: "",
       credit: "",
     },
+
+    isAuthenticated: false,
 
     signupSellerData: {
       fullName: "",
@@ -76,13 +80,15 @@ const useSellerStore = create<AuthStore>((set: any) => {
         sellerProfile: SellerInfo,
       }),
 
-    login: async (userData: LoginSellerData) => {
+    login: async (userData: LoginSellerData, router) => {
       const loader = toast.loading("Logging in...");
       try {
         const res = await api.post("/auth/seller/login", userData, {
           withCredentials: true,
         });
         // setItem({ key: "token", data: res.data.token });
+        set({ isAuthenticated: true });
+        router.push("/userProfile");
         toast.remove(loader);
         toast.success(res.data.message);
       } catch (error: any) {
@@ -142,8 +148,6 @@ const useSellerStore = create<AuthStore>((set: any) => {
     profile: async () => {
       try {
         const res = await api.get("/auth/seller/myProfile");
-
-        console.log(res.data.information);
         set({
           sellerProfile: res.data.information,
         });

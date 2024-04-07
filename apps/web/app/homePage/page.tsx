@@ -9,15 +9,17 @@ import Customer from "../../assets/images/customer.jpg";
 import Arrow from "../../assets/images/arrow.png";
 import { CiFacebook } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
+import useSellerStore from "../../store/useSellerStore";
 import { CiTwitter } from "react-icons/ci";
 import "../globals.css";
-import toast from "react-hot-toast";
-import { FloatingNavDemo } from "../../components/NavBar2";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
+  const { isAuthenticated } = useSellerStore();
+  const router = useRouter();
   return (
     <>
-      <FloatingNavDemo />
+      {/* <FloatingNavDemo /> */}
       <div className="bg-[#e0d9d0] text-[#333333] h-[100%] lg:h-[100vh]">
         <div>
           <NavBar />
@@ -74,21 +76,14 @@ const HomePage = () => {
                     <div>Kids</div>
                     <div className="text-[0.8rem] font-semibold">See More</div>
                     <button
-                      onClick={() => {
-                        toast.custom(
-                          <div className="bg-[#f9683c] text-[white] p-4 m-4 rounded-md">
-                            <div className="">Input values please</div>
-                            <input
-                              className="ronded-md ho"
-                              type="text"
-                              placeholder="enter password"
-                            />
-                          </div>
-                        );
-                      }}
                       className="bg-[#f9683c] p-3 text-white rounded-lg w-[40%] sm:w-[55%]"
+                      onClick={() =>
+                        isAuthenticated
+                          ? router.push("/userProfile")
+                          : router.push("/login")
+                      }
                     >
-                      Shop Now &rarr;
+                      Get Started &rarr;
                     </button>
                   </div>
                   <div className="flex gap-4 items-center font-bold">
@@ -174,7 +169,6 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        
       </div>
     </>
   );
