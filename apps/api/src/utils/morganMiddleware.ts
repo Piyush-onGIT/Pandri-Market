@@ -1,4 +1,5 @@
 import morgan, { StreamOptions } from "morgan";
+import { dateAndTime } from "./dateTime";
 import Logger from "./logger";
 
 // Override the stream method by telling
@@ -17,6 +18,10 @@ const skip = () => {
   const env = process.env.NODE_ENV || "development";
   return env !== "development";
 };
+
+morgan.token("date", function () {
+  return dateAndTime();
+});
 
 // Build the morgan middleware
 const morganMiddleware = morgan(

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
-import { Console } from "console";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 type UploadPostsData = {
   description: string;
@@ -44,7 +44,7 @@ const useShopStore = create<ShopStore>((set) => {
       category: [],
       url: "",
     },
-    
+
     shopRegistrationData: {
       shopName: "",
       shopAddress: "",
@@ -132,3 +132,7 @@ const useShopStore = create<ShopStore>((set) => {
 });
 
 export default useShopStore;
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useShopStore", useShopStore);
+}

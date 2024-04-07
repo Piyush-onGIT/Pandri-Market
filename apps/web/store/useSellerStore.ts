@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -35,7 +36,7 @@ type AuthStore = {
   profile: (body: SellerData) => void;
 };
 
-const useSellerStore = create<AuthStore>((set) => {
+const useSellerStore = create<AuthStore>((set: any) => {
   let loader: string | null = null; // Declare loader variable outside
 
   return {
@@ -135,7 +136,7 @@ const useSellerStore = create<AuthStore>((set) => {
         if (loader) {
           toast.remove(loader);
         }
-      } 
+      }
     },
 
     profile: async () => {
@@ -152,3 +153,7 @@ const useSellerStore = create<AuthStore>((set) => {
 });
 
 export default useSellerStore;
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useSellerStore", useSellerStore);
+}
