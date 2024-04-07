@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
@@ -7,13 +7,8 @@ import useSellerStore from "../../store/useSellerStore";
 import Image from "next/image";
 
 const page = () => {
-  const { profile, sellerProfile } = useSellerStore();
+  const { sellerProfile } = useSellerStore();
   const [toggle, setToggle] = useState(false);
-  // const userAddress = sellerProfile.address.slice();
-  useEffect(() => {
-    profile(sellerProfile);
-    console.log(sellerProfile);
-  }, []);
 
   return (
     <>

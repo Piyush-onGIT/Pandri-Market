@@ -26,6 +26,7 @@ type SignupSellerData = {
 };
 
 type AuthStore = {
+  isLoading: boolean;
   isAuthenticated: boolean;
   sellerProfile: SellerData;
   signupSellerData: SignupSellerData;
@@ -35,7 +36,7 @@ type AuthStore = {
   setSellerProfileData: (SellerProfileInfo: SellerData) => void;
   signup: (body: SignupSellerData) => void;
   login: (body: LoginSellerData, router: AppRouterInstance) => void;
-  profile: (body: SellerData) => void;
+  profile: () => void;
 };
 
 const useSellerStore = create<AuthStore>((set: any) => {
@@ -51,6 +52,7 @@ const useSellerStore = create<AuthStore>((set: any) => {
     },
 
     isAuthenticated: false,
+    isLoading: true,
 
     signupSellerData: {
       fullName: "",
@@ -150,8 +152,12 @@ const useSellerStore = create<AuthStore>((set: any) => {
         const res = await api.get("/auth/seller/myProfile");
         set({
           sellerProfile: res.data.information,
+          isAuthenticated: true,
+          isLoading: false,
         });
-      } catch (error: any) {}
+      } catch (error: any) {
+        set({ isLoading: false, isAuthenticated: false });
+      }
     },
   };
 });

@@ -92,6 +92,12 @@ const myProfile = async (req: any, res: Response) => {
   if (!user) {
     throw new ApiError(400, "User not found");
   }
+  // setTimeout(() => {
+  //   res.json({
+  //     message: "UserInformation successfully shared",
+  //     information: user,
+  //   });
+  // }, 3000);
   res.json({
     message: "UserInformation successfully shared",
     information: user,

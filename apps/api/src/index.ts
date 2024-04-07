@@ -49,7 +49,7 @@ app.get("/", (req, res: Response) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: any, req: Request, res: Response, __: NextFunction) => {
-  return errorHandler(res, err, req);
+  return errorHandler(res, err);
 });
 
 const port = 5000;
