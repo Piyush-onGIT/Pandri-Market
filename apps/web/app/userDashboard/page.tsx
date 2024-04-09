@@ -4,7 +4,6 @@ import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import Table from "../../components/Table/table";
 import useSellerStore from "../../store/useSellerStore";
-import { Chip } from "@nextui-org/react";
 
 const UserDashboard = () => {
   const { profile, sellerProfile } = useSellerStore();
