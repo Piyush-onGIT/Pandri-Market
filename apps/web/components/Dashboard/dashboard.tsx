@@ -7,28 +7,34 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { GiClothes } from "react-icons/gi";
 import { CiShop } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
+import {useRouter} from "next/navigation";
 
 const Dashboard = () => {
+  const router = useRouter()
   const [btn, setBtn] = useState([
     {
       icon: <LuLayoutDashboard color="gray" size={20} />,
       isClicked: false,
       name: "My Dashboard",
+      link:"/",
     },
     {
       icon: <CgProfile color="gray" size={20} />,
       isClicked: false,
       name: "Profile",
+      link:"/",
     },
     {
       icon: <CiShop color="gray" size={20} />,
       isClicked: false,
       name: "Shops",
+      link:"/shopRegistration",
     },
     {
       icon: <GiClothes color="gray" size={20} />,
       isClicked: false,
       name: "Products",
+      link:"/uploadPosts",
     },
   ]);
 
@@ -53,7 +59,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-[16rem] h-full sticky top-0 lg:h-screen bg-white hidden sm:block">
+      <div className="w-[16rem] h-screen bg-white hidden sm:block">
         <div className="self-center mb-4 w-full flex justify-center items-center py-2">
           <Image src={Logo} alt="logo" width={100} height={100} />
         </div>
@@ -63,7 +69,11 @@ const Dashboard = () => {
             <div
               className="flex gap-2 items-center justify-left rounded-md text-[#333333] text-sm hover:bg-slate-200"
               key={key}
-              onClick={() => handleButtonClick(key)}
+              onClick={() =>{ 
+                handleButtonClick(key)
+                router.push(val.link);
+              }}  
+              
             >
               <BoxIcon icon={val.icon} isClicked={val.isClicked} />
               <div

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import api from "../utils/axios";
 import toast from "react-hot-toast";
+import { mountStoreDevtool } from "simple-zustand-devtools";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type LoginSellerData = {
   phoneNo: string;
@@ -24,6 +26,8 @@ type SignupSellerData = {
 };
 
 type AuthStore = {
+  isLoading: boolean;
+  isAuthenticated: boolean;
   sellerProfile: SellerData;
   signupSellerData: SignupSellerData;
   loginSellerData: LoginSellerData;
@@ -31,11 +35,11 @@ type AuthStore = {
   setSignupSellerData: (SellerSignupInfo: SignupSellerData) => void;
   setSellerProfileData: (SellerProfileInfo: SellerData) => void;
   signup: (body: SignupSellerData) => void;
-  login: (body: LoginSellerData) => void;
-  profile: (body: SellerData) => void;
+  login: (body: LoginSellerData, router: AppRouterInstance) => void;
+  profile: () => void;
 };
 
-const useSellerStore = create<AuthStore>((set) => {
+const useSellerStore = create<AuthStore>((set: any) => {
   let loader: string | null = null; // Declare loader variable outside
 
   return {
@@ -46,6 +50,9 @@ const useSellerStore = create<AuthStore>((set) => {
       address: "",
       credit: "",
     },
+
+    isAuthenticated: false,
+    isLoading: true,
 
     signupSellerData: {
       fullName: "",
@@ -75,13 +82,15 @@ const useSellerStore = create<AuthStore>((set) => {
         sellerProfile: SellerInfo,
       }),
 
-    login: async (userData: LoginSellerData) => {
+    login: async (userData: LoginSellerData, router) => {
       const loader = toast.loading("Logging in...");
       try {
         const res = await api.post("/auth/seller/login", userData, {
           withCredentials: true,
         });
         // setItem({ key: "token", data: res.data.token });
+        set({ isAuthenticated: true });
+        router.push("/userProfile");
         toast.remove(loader);
         toast.success(res.data.message);
       } catch (error: any) {
@@ -135,20 +144,26 @@ const useSellerStore = create<AuthStore>((set) => {
         if (loader) {
           toast.remove(loader);
         }
-      } 
+      }
     },
 
     profile: async () => {
       try {
         const res = await api.get("/auth/seller/myProfile");
-
-        console.log(res.data.information);
         set({
           sellerProfile: res.data.information,
+          isAuthenticated: true,
+          isLoading: false,
         });
-      } catch (error: any) {}
+      } catch (error: any) {
+        set({ isLoading: false, isAuthenticated: false });
+      }
     },
   };
 });
 
 export default useSellerStore;
+
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("useSellerStore", useSellerStore);
+}

@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Response } from "express";
+import express, { Express, NextFunction, Response, Request } from "express";
 import db from "./db/conn";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
@@ -10,8 +10,9 @@ import buyerAuthRoutes from "./authentication/buyers/routes";
 import buyerRoutes from "./buyers/routes";
 import verifyPhoneNoRoutes from "./authentication/verification/routes";
 import cookieParser from "cookie-parser";
-import morgan from "morgan";
 import cors from "cors";
+import morganMiddleware from "./utils/morganMiddleware";
+import Logger from "./utils/logger";
 
 dotenv.config();
 
@@ -33,7 +34,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
-app.use(morgan("tiny"));
+app.use(morganMiddleware);
 
 app.use("/auth/seller", authRoutes);
 app.use("/auth/buyer", buyerAuthRoutes);
@@ -42,8 +43,12 @@ app.use("/upload", uploadRoutes);
 app.use("/shop", shopRoutes);
 app.use("/buyers", buyerRoutes);
 
+app.get("/", (req, res: Response) => {
+  res.json({ message: "Hello World" });
+});
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: any, _: any, res: Response, __: NextFunction) => {
+app.use((err: any, req: Request, res: Response, __: NextFunction) => {
   return errorHandler(res, err);
 });
 
@@ -58,4 +63,7 @@ db()
       console.log(`Server is running at http://localhost:${port}`);
     });
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+    Logger.error(err);
+  });

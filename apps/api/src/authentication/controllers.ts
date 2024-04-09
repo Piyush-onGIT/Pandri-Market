@@ -42,7 +42,7 @@ const signup = async (req: any, res: Response) => {
     await SellerModel.create({
       ...userDto,
     });
-    userDto.credit = 300;
+    // userDto.credit = 300;
     return res.status(200).json({
       message: "Account created successfully",
     });
@@ -92,6 +92,12 @@ const myProfile = async (req: any, res: Response) => {
   if (!user) {
     throw new ApiError(400, "User not found");
   }
+  // setTimeout(() => {
+  //   res.json({
+  //     message: "UserInformation successfully shared",
+  //     information: user,
+  //   });
+  // }, 3000);
   res.json({
     message: "UserInformation successfully shared",
     information: user,

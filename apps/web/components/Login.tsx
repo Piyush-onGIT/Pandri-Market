@@ -6,15 +6,15 @@ import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 import useSellerStore from "../store/useSellerStore";
 import { fieldCheck } from "../utils/checks";
-
+import { useRouter } from "next/navigation";
 const Login = () => {
   const { login, loginSellerData, setLoginSellerData } = useSellerStore();
-
+  const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log( loginSellerData);
     const checkPass = fieldCheck(loginSellerData);
-    if(checkPass) login(loginSellerData);
+    if(checkPass) login(loginSellerData,router);
   };
 
   return (
