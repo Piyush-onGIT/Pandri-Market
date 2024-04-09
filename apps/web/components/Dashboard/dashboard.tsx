@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-[16rem] h-full sticky top-0 lg:h-screen bg-white hidden sm:block">
+      <div className="w-[16rem] h-screen bg-white hidden sm:block">
         <div className="self-center mb-4 w-full flex justify-center items-center py-2">
           <Image src={Logo} alt="logo" width={100} height={100} />
         </div>
@@ -72,7 +72,7 @@ const Dashboard = () => {
               onClick={() =>{ 
                 handleButtonClick(key)
                 router.push(val.link);
-              }}
+              }}  
               
             >
               <BoxIcon icon={val.icon} isClicked={val.isClicked} />

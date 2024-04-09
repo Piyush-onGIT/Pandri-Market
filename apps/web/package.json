@@ -9,6 +9,8 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.2.10",
+    "@react-stately/data": "^3.11.2",
     "@repo/ui": "*",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",

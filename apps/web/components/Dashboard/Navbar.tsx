@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import UserProfile from "../../assets/images/UserProfile.png";
@@ -7,6 +8,7 @@ import useSellerStore from "../../store/useSellerStore";
 const Navbar = () => {
   const { sellerProfile } = useSellerStore();
   const NameFull = sellerProfile.fullName.trim().split(" ");
+  console.log(NameFull);
 
   return (
     <>

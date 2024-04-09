@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dashboard from "../../components/Dashboard/dashboard";
 import NavBar from "../../components/Dashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
@@ -7,20 +7,24 @@ import useSellerStore from "../../store/useSellerStore";
 import Image from "next/image";
 
 const page = () => {
-  const { sellerProfile } = useSellerStore();
-  const [toggle, setToggle] = useState(false);
+  const { profile, sellerProfile } = useSellerStore();
+  const [toggle ,setToggle] = useState(false); 
+  useEffect(() => {
+    profile();
+    console.log(sellerProfile);
+  }, []);
 
   return (
     <>
       <div className="flex">
-        <div className="h-full ">
+        <div className="flex-none">
           <Dashboard />
         </div>
-        <div className="w-full h-full flex flex-col">
+        <div className="flex-col flex-auto overflow-y-auto">
           <div>
             <NavBar />
           </div>
-          <div className=" mb-4 overflow-auto lg:mb-0 h-full lg:h-[88vh] w-auto sm:w-11/12 gap-8 flex flex-wrap justify-evenly items-center rounded-3xl mx-4 sm:mx-0  px-8 py-8 xl:py-12 bg-slate-200">
+          <div className="mb-4 overflow-auto lg:mb-0 h-full lg:h-[88vh] w-auto sm:w-11/12 lg:gap-8 flex flex-wrap justify-evenly items-center rounded-3xl mx-4 sm:mx-0  px-8 py-8 xl:py-12 bg-slate-200">
             <div className="grid xl:grid-rows-2 items-center grid-cols-1 md:grid-cols-10 xl:grid-cols-1 xl:gap-y-8 w-full 2xl:gap-y-16 xl:h-full xl:w-[40%] bg-white rounded-3xl overflow-hidden ">
               <div className="2xl:mb-4 h-full col-span-4 bg-image">
                 <Image
@@ -38,13 +42,13 @@ const page = () => {
                       <div>+91 {sellerProfile.phoneNo}</div>
                     </div>
                     <div className="relative">
-                      <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
+                      <div className="absolute left-0 w-full h-[1px] bg-[#d3d3d3]"></div>
                     </div>
                   </div>
                   <div>
                     <div className="mb-4">{sellerProfile.email}</div>
                     <div className="relative">
-                      <div className="absolute left-0 w-full h-[1px] bg-[#a3a3a3]"></div>
+                      <div className="absolute left-0 w-full h-[1px] bg-[#d3d3d3]"></div>
                     </div>
                   </div>
                   <div className="flex flex-wrap justify-between items-center">
