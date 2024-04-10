@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,7 +8,7 @@ import {
   TableCell,
   Spinner,
 } from "@nextui-org/react";
-import { columns, users } from "./data"; // Import data from data.ts
+import { columns } from "./data"; // Import data from data.ts
 import useSellerStore from "../../store/useSellerStore";
 
 interface Shop {

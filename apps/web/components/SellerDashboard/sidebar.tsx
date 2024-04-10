@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import BoxIcon from "./boxIcon";
 import Image from "next/image";
 import Logo from "../../assets/images/Logo.png";
@@ -15,7 +15,7 @@ const SideBar = ({
 }: {
   setChild: React.Dispatch<React.SetStateAction<React.ReactNode>> | any;
 }) => {
-  const [btn, setBtn] = useState([
+  const btn = [
     {
       icon: <LuLayoutDashboard color="gray" size={20} />,
       isClicked: false,
@@ -56,7 +56,7 @@ const SideBar = ({
         </div>
       ),
     },
-  ]);
+  ];
 
   // const handleButtonClick = (index: any) => {
   //   const updatedBtn = btn.map((item, i) => {
