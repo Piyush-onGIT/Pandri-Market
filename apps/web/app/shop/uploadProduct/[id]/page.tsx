@@ -1,11 +1,11 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
-import Logo from '../../../assets/images/Logo.png';
-import Avatar from '../../../assets/images/avatar.jpg';
-import { Toaster } from 'react-hot-toast';
-import Dropdown from "../../../components/Dropdown"
-import useShopStore from '../../../store/useShopStore'
+import React from "react";
+import Image from "next/image";
+import Logo from "../../../../assets/images/Logo.png";
+import Avatar from "../../../../assets/images/avatar.jpg";
+import { Toaster } from "react-hot-toast";
+import Dropdown from "../../../../components/Dropdown";
+import useShopStore from "../../../../store/useShopStore";
 //Checks to be added
 
 const UploadPosts = ({ params }: any) => {

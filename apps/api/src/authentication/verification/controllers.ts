@@ -5,7 +5,7 @@ import ApiError from "../../http/ApiError";
 import { Redis } from "ioredis";
 import { SellerModel } from "../schema";
 
-const redis = new Redis();
+const redis = new Redis({ host: "localhost", port: 5002 });
 
 const generateRandomNumber = (): number => {
   let randomNumberStr: string = "";

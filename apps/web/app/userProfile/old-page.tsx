@@ -1,14 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Dashboard from "../../components/Dashboard/dashboard";
-import NavBar from "../../components/Dashboard/Navbar";
+import SideBar from "../../components/SellerDashboard/sidebar";
+import NavBar from "../../components/SellerDashboard/Navbar";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
 import useSellerStore from "../../store/useSellerStore";
 import Image from "next/image";
 
 const page = () => {
   const { profile, sellerProfile } = useSellerStore();
-  const [toggle ,setToggle] = useState(false); 
+  const [toggle, setToggle] = useState(false);
   useEffect(() => {
     profile();
     console.log(sellerProfile);
@@ -18,7 +18,7 @@ const page = () => {
     <>
       <div className="flex">
         <div className="flex-none">
-          <Dashboard />
+          <SideBar setChild={"123"} />
         </div>
         <div className="flex-col flex-auto overflow-y-auto">
           <div>
