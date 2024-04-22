@@ -7,9 +7,9 @@ import {
   TableRow,
   TableCell,
   Spinner,
-  Chip,
 } from "@nextui-org/react";
-import { columns, users } from "./data"; // Import data from data.ts
+import { TiArrowSortedUp } from "react-icons/ti";
+import { columns, users } from "./data"; 
 
 interface User {
   id: number;
@@ -26,14 +26,18 @@ export default function App() {
   const [sortedUsers, setSortedUsers] = useState<User[]>(users);
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortDirections, setSortDirections] = useState<Record<string, "asc" | "desc">>({});
 
   const handleSortChange = (column: string) => {
     setIsLoading(true);
     if (sortKey === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      const direction = sortDirections[column] === "asc" ? "desc" : "asc";
+      setSortDirections({ ...sortDirections, [column]: direction });
+      setSortDirection(direction);
     } else {
       setSortKey(column);
       setSortDirection("asc");
+      setSortDirections({ ...sortDirections, [column]: "asc" });
     }
     setIsLoading(false);
   };
@@ -58,8 +62,9 @@ export default function App() {
     <Table
       aria-label="Example table with client side sorting"
       classNames={{
-        table: "min-h-[400px]",
+        table: "min-h-[400px] overflow-scroll",
         wrapper: "p-12 border-box bg-white rounded-2xl",
+        sortIcon: `hidden`,
       }}
     >
       <TableHeader className="text-left">
@@ -69,10 +74,15 @@ export default function App() {
             allowsSorting={col.sortable}
             onClick={() => handleSortChange(col.uid)}
           >
-            {col.name}
-            {sortKey === col.uid && (
-              <span>{sortDirection === "asc" ? " ▲" : " ▼"}</span>
-            )}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {col.name}
+              {sortKey === col.uid && (
+                <TiArrowSortedUp
+                  className={`ml-1 ${sortDirections[col.uid] === 'desc' ? 'rotate-180' : ''} duration-500`}
+                  size={16}
+                />
+              )}
+            </div>
           </TableColumn>
         ))}
       </TableHeader>
@@ -86,7 +96,7 @@ export default function App() {
             {columns.map((col) => (
               <TableCell key={col.uid}>
                 {col.uid === "actions" ? (
-                  <button onClick={() => handleAddProductClick(item.id)} className="bg-yellow-500 px-2 py-1 rounded-2xl text-white">
+                  <button onClick={() => handleAddProductClick(item.id)} className="bg-slate-500 px-2 py-1 rounded-2xl text-white">
                     {item[col.uid as keyof User]}
                   </button>
                 ) : col.uid === "status" ? (
