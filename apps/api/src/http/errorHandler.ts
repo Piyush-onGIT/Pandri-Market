@@ -8,7 +8,7 @@ const errorHandler = (res: Response, error: ApiError) => {
   copyError.stack = error.stack;
   copyError.data = error.data;
   copyError.success = error.success;
-  copyError.errors = [...error.errors];
+  // copyError.errors = [...error.errors];
 
   Logger.error(error);
   return NotOK(res, copyError.message, copyError, copyError.statusCode ?? 500);

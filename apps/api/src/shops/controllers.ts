@@ -50,7 +50,6 @@ const getMyShops = async (req: Request, res: Response) => {
     if (!shopOwner || shopOwner === "") {
       throw new ApiError(400, "Please login to check your shops");
     }
-    console.log("user id is: ", req.user.id);
 
     const shops = await Shop.aggregate([
       {

@@ -15,6 +15,7 @@ type SellerData = {
   address: string;
   email: string;
   credit: string;
+  shops: any[];
 };
 
 type SignupSellerData = {
@@ -37,9 +38,10 @@ type AuthStore = {
   signup: (body: SignupSellerData) => void;
   login: (body: LoginSellerData, router: AppRouterInstance) => void;
   profile: () => void;
+  getMyShops: () => void;
 };
 
-const useSellerStore = create<AuthStore>((set: any) => {
+const useSellerStore = create<AuthStore>((set) => {
   let loader: string | null = null; // Declare loader variable outside
 
   return {
@@ -49,6 +51,7 @@ const useSellerStore = create<AuthStore>((set: any) => {
       email: "",
       address: "",
       credit: "",
+      shops: [],
     },
 
     isAuthenticated: false,
@@ -90,7 +93,7 @@ const useSellerStore = create<AuthStore>((set: any) => {
         });
         // setItem({ key: "token", data: res.data.token });
         set({ isAuthenticated: true });
-        router.push("/userProfile");
+        router.push("/dashboard");
         toast.remove(loader);
         toast.success(res.data.message);
       } catch (error: any) {
@@ -157,6 +160,17 @@ const useSellerStore = create<AuthStore>((set: any) => {
         });
       } catch (error: any) {
         set({ isLoading: false, isAuthenticated: false });
+      }
+    },
+
+    getMyShops: async () => {
+      try {
+        const res = await api.get("/shop/getMyShops");
+        const tmpSellerProfile = useSellerStore.getState().sellerProfile;
+        tmpSellerProfile.shops = res.data.shops;
+        set({ sellerProfile: tmpSellerProfile });
+      } catch (error: any) {
+        set({ isLoading: false });
       }
     },
   };

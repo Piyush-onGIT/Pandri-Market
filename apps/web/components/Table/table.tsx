@@ -8,22 +8,18 @@ import {
   TableCell,
   Spinner,
 } from "@nextui-org/react";
-import { TiArrowSortedUp } from "react-icons/ti";
-import { columns, users } from "./data"; 
+import { columns } from "./data"; // Import data from data.ts
+import useSellerStore from "../../store/useSellerStore";
 
-interface User {
-  id: number;
+interface Shop {
+  _id: string;
   name: string;
-  age: string;
-  role: string;
-  team: string;
-  email: string;
   status: string;
 }
 
 export default function App() {
+  const { sellerProfile } = useSellerStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [sortedUsers, setSortedUsers] = useState<User[]>(users);
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [sortDirections, setSortDirections] = useState<Record<string, "asc" | "desc">>({});
@@ -42,21 +38,23 @@ export default function App() {
     setIsLoading(false);
   };
 
-  const handleAddProductClick = (id: number) => {
-    console.log("ID:", id);
+  const handleAddProductClick = (id: string) => {
+    window.open(`/shop/uploadProduct/${id}`, "_blank");
   };
 
   // Sort function based on column and direction
-  const sorted = [...sortedUsers].sort((a, b) => {
-    if (!sortKey) return 0; // If no sorting key, do not sort
+  const sorted = sellerProfile.shops
+    ? [...sellerProfile.shops].sort((a, b) => {
+        if (!sortKey) return 0; // If no sorting key, do not sort
 
-    const aValue = String(a[sortKey as keyof User]);
-    const bValue = String(b[sortKey as keyof User]);
+        const aValue = String(a[sortKey]);
+        const bValue = String(b[sortKey]);
 
-    const comparison = aValue.localeCompare(bValue);
+        const comparison = aValue.localeCompare(bValue);
 
-    return sortDirection === "asc" ? comparison : -comparison;
-  });
+        return sortDirection === "asc" ? comparison : -comparison;
+      })
+    : [];
 
   return (
     <Table
@@ -74,15 +72,10 @@ export default function App() {
             allowsSorting={col.sortable}
             onClick={() => handleSortChange(col.uid)}
           >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {col.name}
-              {sortKey === col.uid && (
-                <TiArrowSortedUp
-                  className={`ml-1 ${sortDirections[col.uid] === 'desc' ? 'rotate-180' : ''} duration-500`}
-                  size={16}
-                />
-              )}
-            </div>
+            {col.name}
+            {sortKey === col.uid && (
+              <span>{sortDirection === "asc" ? "▲" : "▼"}</span>
+            )}
           </TableColumn>
         ))}
       </TableHeader>
@@ -91,20 +84,25 @@ export default function App() {
         isLoading={isLoading}
         loadingContent={<Spinner label="Loading..." />}
       >
-        {(item: User) => (
-          <TableRow key={item.id}>
+        {(item: any) => (
+          <TableRow key={item._id}>
             {columns.map((col) => (
               <TableCell key={col.uid}>
                 {col.uid === "actions" ? (
-                  <button onClick={() => handleAddProductClick(item.id)} className="bg-slate-500 px-2 py-1 rounded-2xl text-white">
-                    {item[col.uid as keyof User]}
+                  <button
+                    onClick={() => handleAddProductClick(item._id)}
+                    className="bg-yellow-500 px-2 py-1 rounded-2xl text-white"
+                  >
+                    Upload Your Product
                   </button>
                 ) : col.uid === "status" ? (
-                  <button className={`${item.status == "active" ? "bg-green-500" : "bg-red-500"} px-2 py-1 text-white rounded-2xl`} >
-                    {item[col.uid as keyof User]}
+                  <button
+                    className={`${item.status == "active" ? "bg-green-500" : "bg-red-500"} px-2 py-1 text-white rounded-2xl`}
+                  >
+                    {item[col.uid as keyof Shop]}
                   </button>
-                ): (
-                  item[col.uid as keyof User]
+                ) : (
+                  item.shopName
                 )}
               </TableCell>
             ))}

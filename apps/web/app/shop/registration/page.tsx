@@ -1,17 +1,18 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Logo from "../../assets/images/Logo.png";
-import Avatar from "../../assets/images/AvatarShop.jpg";
+import Logo from "../../../assets/images/Logo.png";
+import Avatar from "../../../assets/images/AvatarShop.jpg";
 // import Avatar from "../../assets/images/AvatarShop2.jpg";
 // import Avatar from "../../assets/images/ShopRegImg.jpg";
 import { Toaster } from "react-hot-toast";
-import useShopStore from "../../store/useShopStore";
-import Multiselect from "../../components/ShopRegistration/Multiselect";
+import useShopStore from "../../../store/useShopStore";
+import Multiselect from "../../../components/ShopRegistration/Multiselect";
 //Checks to be added
 
 const registerShop = () => {
-  const { createShop, shopRegistrationData, setShopRegistrationData } = useShopStore();
+  const { createShop, shopRegistrationData, setShopRegistrationData } =
+    useShopStore();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
@@ -86,10 +87,7 @@ const registerShop = () => {
               <div className="text-center mb-4 text-lg font-bold text-[#333333]">
                 Create Your Shop
               </div>
-              <form
-                action="#"
-                className="mt-8 grid grid-cols-6 gap-6"
-              >
+              <form action="#" className="mt-8 grid grid-cols-6 gap-6">
                 <div className="mb-4 col-span-6 sm:col-span-3">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -177,14 +175,22 @@ const registerShop = () => {
                   <div className="font-semibold text-sm text-[#333333]">
                     👕 Categories
                   </div>
-                  <Multiselect onSelect={(selectedItems) => handleMultiselectSubmit(selectedItems, 'categories')} />
+                  <Multiselect
+                    onSelect={(selectedItems) =>
+                      handleMultiselectSubmit(selectedItems, "categories")
+                    }
+                  />
                 </div>
 
                 <div className="col-span-6 sm:col-span-3 w-full">
                   <div className="font-semibold text-sm text-[#333333]">
                     👖Brands
                   </div>
-                  <Multiselect onSelect={(selectedItems) => handleMultiselectSubmit(selectedItems, 'brands')} />
+                  <Multiselect
+                    onSelect={(selectedItems) =>
+                      handleMultiselectSubmit(selectedItems, "brands")
+                    }
+                  />
                 </div>
 
                 <div className="mb-4 col-span-6 sm:col-span-3">
@@ -202,7 +208,8 @@ const registerShop = () => {
                         onChange={() =>
                           setShopRegistrationData({
                             ...shopRegistrationData,
-                            isPhysicalShop: !shopRegistrationData.isPhysicalShop,
+                            isPhysicalShop:
+                              !shopRegistrationData.isPhysicalShop,
                           })
                         }
                         name="yes"

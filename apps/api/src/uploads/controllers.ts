@@ -19,7 +19,6 @@ const uploadToS3 = async (file: any) => {
   if (!file) {
     throw new ApiError(400, "Please upload image.");
   }
-  console.log(file.buffer);
 
   try {
     const params = {
@@ -32,7 +31,6 @@ const uploadToS3 = async (file: any) => {
 
     return data.Location;
   } catch (error) {
-    console.error(error);
     throw new ApiError(500, "Error uploading file.");
   }
 };
