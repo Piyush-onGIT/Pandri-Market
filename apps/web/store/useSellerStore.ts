@@ -158,6 +158,7 @@ const useSellerStore = create<AuthStore>((set) => {
           isAuthenticated: true,
           isLoading: false,
         });
+        useSellerStore.getState().getMyShops();
       } catch (error: any) {
         set({ isLoading: false, isAuthenticated: false });
       }

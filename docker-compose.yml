@@ -1,17 +1,23 @@
-version: '3.8'
+networks:
+  pm-net:
+    driver: bridge
 
 services:
-  whatsapp: 
+  whatsapp:
     image: devlikeapro/whatsapp-http-api
     ports:
       - "5001:3000"
     container_name: whatsapp
     restart: always
+    networks:
+      - pm-net
 
   redis:
     image: redis
     ports:
       - "5002:6379"
+    networks:
+      - pm-net
 
   mongodb:
     image: mongo
@@ -21,3 +27,26 @@ services:
       - "27018:27017"
     volumes:
       - ./db:/data/db
+    networks:
+      - pm-net
+
+  api-prod:
+#    container_name: api
+    build: ./apps/api
+    restart: always
+    ports:
+    - "5000"
+    command: node dist/index.js
+    env_file:
+    - path: ./apps/api/.env
+    depends_on:
+      - redis
+      - mongodb
+      - whatsapp
+    environment:
+      - NODE_ENV=production
+    networks:
+      - pm-net
+    deploy:
+      mode: replicated
+      replicas: 2
