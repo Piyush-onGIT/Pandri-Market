@@ -52,13 +52,10 @@ const verifyOtp = async (req: any, res: Response) => {
   const phoneNo = req.body.phoneNo;
   const storedOtp = await redis.get(phoneNo);
   if (storedOtp === otp) {
-    const user = await SellerModel.findOne({ phoneNo: phoneNo });
     await SellerModel.updateOne(
       { phoneNo: phoneNo },
-      { isPhoneVerified: true }
+      { isPhoneVerified: true, credit: 300 }
     );
-    if (user) user.credit = 300;
-    await user?.save();
     res.json({ message: "PhoneNo Verified" });
   } else {
     res.json({ message: "OTP invalid" });
