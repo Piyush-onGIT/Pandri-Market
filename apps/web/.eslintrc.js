@@ -13,5 +13,6 @@ module.exports = {
     "useStore",
     "**/Multiselect.tsx",
     "**/Dropdown.tsx",
+    "**/table.tsx",
   ],
 };

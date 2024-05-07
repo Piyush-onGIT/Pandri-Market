@@ -10,9 +10,9 @@ const SellerProfile = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex w-full m-4 md:mx-8">
         <div className="flex-col flex-auto overflow-y-auto">
-          <div className="mb-4 overflow-auto lg:mb-0 h-full lg:h-[88vh] w-auto sm:w-11/12 lg:gap-8 flex flex-wrap justify-evenly items-center rounded-3xl mx-4 sm:mx-0  px-8 py-8 xl:py-12 bg-slate-200">
+          <div className="mb-4 overflow-auto lg:mb-0 h-full lg:h-[82vh] w-full gap-8 lg:gap-8 flex flex-wrap justify-evenly items-center rounded-3xl sm:mx-0 p-6 xl:py-8 bg-slate-200">
             <div className="grid xl:grid-rows-2 items-center grid-cols-1 md:grid-cols-10 xl:grid-cols-1 xl:gap-y-8 w-full 2xl:gap-y-16 xl:h-full xl:w-[40%] bg-white rounded-3xl overflow-hidden ">
               <div className="2xl:mb-4 h-full col-span-4 bg-image">
                 <Image

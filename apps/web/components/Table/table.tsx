@@ -22,14 +22,18 @@ export default function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortDirections, setSortDirections] = useState<Record<string, "asc" | "desc">>({});
 
   const handleSortChange = (column: string) => {
     setIsLoading(true);
     if (sortKey === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      const direction = sortDirections[column] === "asc" ? "desc" : "asc";
+      setSortDirections({ ...sortDirections, [column]: direction });
+      setSortDirection(direction);
     } else {
       setSortKey(column);
       setSortDirection("asc");
+      setSortDirections({ ...sortDirections, [column]: "asc" });
     }
     setIsLoading(false);
   };
@@ -41,7 +45,7 @@ export default function App() {
   // Sort function based on column and direction
   const sorted = sellerProfile.shops
     ? [...sellerProfile.shops].sort((a, b) => {
-        if (!sortKey) return 0; // If no sorting key, do not sort
+        if (!sortKey) return 0; 
 
         const aValue = String(a[sortKey]);
         const bValue = String(b[sortKey]);
@@ -56,8 +60,9 @@ export default function App() {
     <Table
       aria-label="Example table with client side sorting"
       classNames={{
-        table: "min-h-[400px]",
-        wrapper: "p-12 border-box bg-white rounded-2xl",
+        table: "min-h-[400px] overflow-scroll",
+        wrapper: "p-12 border-box bg-white rounded-2xl my-8",
+        sortIcon: `hidden`,
       }}
     >
       <TableHeader className="text-left">
@@ -86,7 +91,7 @@ export default function App() {
                 {col.uid === "actions" ? (
                   <button
                     onClick={() => handleAddProductClick(item._id)}
-                    className="bg-yellow-500 px-2 py-1 rounded-2xl text-white"
+                    className="bg-gray-400 px-2 py-1 rounded-2xl text-white"
                   >
                     Upload Your Product
                   </button>
