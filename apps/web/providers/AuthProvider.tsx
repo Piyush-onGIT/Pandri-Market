@@ -8,11 +8,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { isAuthenticated, profile, isLoading, getMyShops } = useSellerStore();
+  const { isAuthenticated, profile, isLoading } = useSellerStore();
 
   useEffect(() => {
     profile();
-    getMyShops();
   }, [isAuthenticated]);
 
   return isLoading ? <Loader /> : isAuthenticated ? <>{children}</> : <Login />;

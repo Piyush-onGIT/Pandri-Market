@@ -4,8 +4,14 @@ import errorHandler from "../../http/errorHandler";
 import ApiError from "../../http/ApiError";
 import { Redis } from "ioredis";
 import { SellerModel } from "../schema";
+import * as dotenv from "dotenv";
 
-const redis = new Redis({ host: "localhost", port: 5002 });
+dotenv.config();
+
+const redis = new Redis({
+  host: (process.env.REDIS_HOST as string) || "localhost",
+  port: parseInt(process.env.REDIS_PORT as string) || 6379,
+});
 
 const generateRandomNumber = (): number => {
   let randomNumberStr: string = "";
@@ -18,7 +24,7 @@ const generateRandomNumber = (): number => {
 
 const verifyPhoneNo = async (req: any, res: Response) => {
   const result = await axios.get(
-    `http://localhost:5001/api/checkNumberStatus?phone=${req.body.phoneNo}&session=default`
+    `${process.env.WHATSAPP_API}/api/checkNumberStatus?phone=${req.body.phoneNo}&session=default`
   );
   const phoneNoExist: boolean = result.data.numberExists;
   console.log(phoneNoExist);
@@ -32,7 +38,10 @@ const verifyPhoneNo = async (req: any, res: Response) => {
       text: `${otp}`,
       session: "default",
     };
-    await axios.post("http://localhost:5001/api/sendText", requestingBody);
+    await axios.post(
+      `${process.env.WHATSAPP_API}/api/sendText`,
+      requestingBody
+    );
     redis.set(req.body.phoneNo, otp, "EX", 60);
     res.json({ message: "OTP sent" });
   }
@@ -43,13 +52,10 @@ const verifyOtp = async (req: any, res: Response) => {
   const phoneNo = req.body.phoneNo;
   const storedOtp = await redis.get(phoneNo);
   if (storedOtp === otp) {
-    const user = await SellerModel.findOne({ phoneNo: phoneNo });
     await SellerModel.updateOne(
       { phoneNo: phoneNo },
-      { isPhoneVerified: true }
+      { isPhoneVerified: true, credit: 300 }
     );
-    if (user) user.credit = 300;
-    await user?.save();
     res.json({ message: "PhoneNo Verified" });
   } else {
     res.json({ message: "OTP invalid" });

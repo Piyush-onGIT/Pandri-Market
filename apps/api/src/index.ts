@@ -52,7 +52,7 @@ app.use((err: any, req: Request, res: Response, __: NextFunction) => {
   return errorHandler(res, err);
 });
 
-const port = 5000;
+const port = parseInt(process.env.PORT as string) | 5000;
 
 db()
   .then(() => {
