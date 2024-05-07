@@ -45,7 +45,7 @@ export default function App() {
   // Sort function based on column and direction
   const sorted = sellerProfile.shops
     ? [...sellerProfile.shops].sort((a, b) => {
-        if (!sortKey) return 0; // If no sorting key, do not sort
+        if (!sortKey) return 0; 
 
         const aValue = String(a[sortKey]);
         const bValue = String(b[sortKey]);
@@ -61,7 +61,7 @@ export default function App() {
       aria-label="Example table with client side sorting"
       classNames={{
         table: "min-h-[400px] overflow-scroll",
-        wrapper: "p-12 border-box bg-white rounded-2xl",
+        wrapper: "p-12 border-box bg-white rounded-2xl my-8",
         sortIcon: `hidden`,
       }}
     >
@@ -91,7 +91,7 @@ export default function App() {
                 {col.uid === "actions" ? (
                   <button
                     onClick={() => handleAddProductClick(item._id)}
-                    className="bg-yellow-500 px-2 py-1 rounded-2xl text-white"
+                    className="bg-gray-400 px-2 py-1 rounded-2xl text-white"
                   >
                     Upload Your Product
                   </button>

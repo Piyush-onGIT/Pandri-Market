@@ -32,7 +32,7 @@ const SideBar = ({
       isClicked: false,
       name: "Profile",
       link: "/",
-      component: <SellerProfile />,
+      component: (<div className="w-full h-full flex justify-center items-center self-center"><SellerProfile /></div>),
     },
     {
       icon: <CiShop color="gray" size={20} />,
@@ -87,7 +87,7 @@ const SideBar = ({
           <div className="text-[#a3a3a3] text-sm font-semibold">MAIN</div>
           {btn.map((val, key) => (
             <div
-              className="flex gap-2 items-center justify-left rounded-md text-[#333333] text-sm hover:bg-slate-200"
+              className="flex gap-2 items-center justify-left rounded-md font-semibold text-[#333333] text-sm hover:bg-slate-200"
               key={key}
               onClick={() => {
                 if (val.name === "Shops") {
