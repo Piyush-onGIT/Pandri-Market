@@ -37,4 +37,5 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
-        run: aws ecr batch-delete-image --repository-name $ECR_REGISTRY/$ECR_REPOSITORY --image-ids imageTag=-
+        run: |
+          aws ecr batch-delete-image --repository-name $ECR_REGISTRY/$ECR_REPOSITORY --image-ids imageTag=-
