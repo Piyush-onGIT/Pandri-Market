@@ -22,31 +22,22 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      # - name: Build, tag, and push the image to Amazon ECR
-      #   id: build-image
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
-      #     IMAGE_TAG: latest
-      #   run: |
-      #     cd apps/api
-      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      - name: Fetching image IDs
-        id: list-images
-        run: |
-          IMAGES=$(aws ecr list-images --repository-name ${{ secrets.API_REPO_NAME }} --filter tagStatus=TAGGED --query 'imageIds[?imageTag==`-`].[imageDigest]' --output text)
-          echo "::set-output name=images::$IMAGES"
-
       - name: Deleting older images
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
-          IMAGES: ${{ steps.list-images.outputs.images }}
-        # run: |
-        #   aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=latest
         run: |
-          for IMAGE in $IMAGES; do
-            aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageDigest=$IMAGE
-          done
+          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=latest
+
+      - name: Build, tag, and push the image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
+          IMAGE_TAG: latest
+        run: |
+          cd apps/api
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+
